@@ -1,0 +1,24 @@
+﻿<ion-view>
+    <ion-content overflow-scroll="true" id="start-page">
+        <div class="padding">
+            <div id="top-sponsor" class="padding">
+                Præsenteret af:
+                <br />
+                <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
+            </div>
+
+            <div id="main-content" class="padding">
+                <h3 class="title">HVORDAN SPILLER DU</h3>
+
+                <ion-slide-box on-slide-changed="slideHasChanged($index)" style="margin-top:30px;">
+                    <ion-slide>
+                        <img src="images/how-to-play-1.png" alt="Alternate Text" />
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="images/how-to-play-2.png" alt="Alternate Text" />
+                    </ion-slide>
+                </ion-slide-box>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

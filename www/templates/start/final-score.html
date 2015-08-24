@@ -1,0 +1,34 @@
+﻿<ion-view cache-view="false">
+    <ion-content overflow-scroll="true" id="start-page">
+        <div class="padding">
+            <div id="top-sponsor" class="padding">
+                Præsenteret af:
+                <br />
+                <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
+            </div>
+
+            <div id="main-content" class="final-score padding">
+                <div class="final-score-content">
+                    <h3>Din samlede score er</h3>
+
+                    <h2>24</h2>
+
+                    <p ng-if="status == 'registered'">Er du tilfreds med denne score ?</p>
+                    <p ng-if="status == 'non-registered'">For at gemme denne score skal du registrere dig</p>
+                </div>
+                <a href="#" class="button button-block level-button birdie" ng-if="status == 'registered'">
+                    Se dit samlede Golf Regel Handicap
+                </a>
+                <a href="#" class="button button-block level-button birdie" ng-if="status == 'non-registered'" ui-sref="app.login">
+                    Registered
+                </a>
+                <a href="#" class="button button-block level-button eagle" ui-sref="app.start-game">
+                    Spil ny runde
+                </a>
+                <a href="#" class="button button-block level-button albatross" ui-sref="app.invite-friends">
+                    Udfordre dine venner til denne runde
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
