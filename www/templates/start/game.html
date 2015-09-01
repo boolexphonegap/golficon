@@ -9,10 +9,10 @@
                 </div>
             </div>
 
-            <div id="main-content">
+            <div id="main-content" ng-if="!toggleScoreCard">
                 <h3 class="title">SPØRGSMÅL 1</h3>
 
-                <p class="content question">Du slår et fantastisk drive og lander 5 cm fra flaget, da du når hen til bolden vil du lige vise dig lidt frem,med den ene hånd løfter du flaget og med den anden putter du bolden i, hvad er konsekvensen, da I spiller hulspil?</p>
+                <p class="content question">{{ questions[questionIndex].question }}</p>
 
                 <div ng-if="choosen == ''" style="padding-top: 10px;">
                     <h3 class="title">NIVEAU</h3>
@@ -32,61 +32,36 @@
 
                 <h3 class="title" ng-if="answer != ''">SVAR</h3>
 
-                <div class="birdie padding answer-content" ng-if="choosen == 'birdie' && answer == ''">
+                <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''">
                     <img ng-src="images/level/birdie-large.png" alt="Alternate Text" />
-
+					
                     <a href="#" class="button button-block answer-button" style="background-color: #EFECC6;" ng-click="chooseAnswer('correct')">
-                        Answer 1
+                        {{ questions[questionIndex].true_answer }}
                     </a>
+					
                     <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')">
-                        Answer 2
+                        {{ questions[questionIndex].false_answer_1 }}
                     </a>
-                    <a href="#" class="button button-block answer-ads-button" style="background-color: #F3EA7B;">
+					
+                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'eagle' || choosen == 'albatros'">
+                        {{ questions[questionIndex].false_answer_2 }}
+                    </a>
+					
+                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'albatros'">
+                        {{ questions[questionIndex].false_answer_3 }}
+                    </a>
+					
+                    <a href="#" class="button button-block answer-ads-button" style="background-color: #F3EA7B;" ng-if="choosen == 'birdie'">
                         <img ng-src="images/sponsor/ecco-small.png" alt="Alternate Text" class="ecco" />
                     </a>
-                    <a href="#" class="button button-block answer-ads-button" style="background-color: #E6DB47;">
+					
+                    <a href="#" class="button button-block answer-ads-button" style="background-color: #E6DB47;" ng-if="choosen == 'birdie' || choosen == 'eagle'">
                         <img ng-src="images/sponsor/nikegolf-small.png" alt="Alternate Text" class="nikegolf" />
                     </a>
                 </div>
-
-                <div class="eagle padding answer-content" ng-if="choosen == 'eagle' && answer == ''">
-                    <img ng-src="images/level/eagle-large.png" alt="Alternate Text" />
-
-                    <a href="#" class="button button-block answer-button" style="background-color: #EFECC6;" ng-click="chooseAnswer('correct')">
-                        Answer 1
-                    </a>
-                    <a href="#" class="button button-block" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')">
-                        Answer 2
-                    </a>
-                    <a href="#" class="button button-block" style="background-color: #F3EA7B;" ng-click="chooseAnswer('wrong')">
-                        Answer 3
-                    </a>
-                    <a href="#" class="button button-block answer-ads-button" style="background-color: #E6DB47;">
-                        <img ng-src="images/sponsor/nikegolf-small.png" alt="Alternate Text" class="nikegolf" />
-                    </a>
-                </div>
-
-                <div class="albatross padding answer-content" ng-if="choosen == 'albatros' && answer == ''">
-                    <img ng-src="images/level/albatros-large.png" alt="Alternate Text" />
-
-                    <a href="#" class="button button-block answer-button" style="background-color: #EFECC6;" ng-click="chooseAnswer('correct')">
-                        Answer 1
-                    </a>
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')">
-                        Answer 2
-                    </a>
-                    <a href="#" class="button button-block answer-button" style="background-color: #F3EA7B;" ng-click="chooseAnswer('wrong')">
-                        Answer 3
-                    </a>
-                    <a href="#" class="button button-block answer-button" style="background-color: #E6DB47;" ng-click="chooseAnswer('wrong')">
-                        Answer 4
-                    </a>
-                </div>
-
+				
                 <div class="padding correct" ng-if="answer == 'correct'">
-                    <img ng-src="images/level/birdie-large.png" alt="Alternate Text" ng-if="choosen == 'birdie'" />
-                    <img ng-src="images/level/eagle-large.png" alt="Alternate Text" ng-if="choosen == 'eagle'" />
-                    <img ng-src="images/level/albatros-large.png" alt="Alternate Text" ng-if="choosen == 'albatros'" />
+                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
 
                     <br />
 
@@ -98,14 +73,11 @@
                         1 Strafslag<br />Se mere i www.xx.xx<br />§ 8 stk 4
                     </p>
 
-                    <a href="#" class="button button-stable" style="float: right;" ui-sref="app.score-card">Fortsæt</a>
+                    <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>
                 </div>
 
                 <div class="padding wrong" ng-if="answer == 'wrong'">
-                    <img ng-src="images/level/birdie-large.png" alt="Alternate Text" ng-if="choosen == 'birdie'" />
-                    <img ng-src="images/level/eagle-large.png" alt="Alternate Text" ng-if="choosen == 'eagle'" />
-                    <img ng-src="images/level/albatros-large.png" alt="Alternate Text" ng-if="choosen == 'albatros'" />
-
+                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
                     <br />
 
                     <p>Forkert svar</p>
@@ -118,9 +90,34 @@
                         1 Strafslag<br />Se mere i www.xx.xx<br />§ 8 stk 4
                     </p>
 
-                    <a href="#" class="button button-stable" style="float: right;" ui-sref="app.score-card">Fortsæt</a>
+                    <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>
                 </div>
             </div>
+			
+            <div id="main-content" class="score padding" ng-if="toggleScoreCard">
+                <h3 class="title">SCOREKORT</h3>
+                <table style="width: 100%; margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <td style="width:25%;">Spørgsmål</td>
+                            <td style="width:50%;">Level</td>
+                            <td style="width:25%;">Score</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="answer in answers">
+                            <td>{{ $index + 1 }}</td>
+                            <td>
+                                <img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
+                            </td>
+                            <td>{{ answer.points }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="#" class="button button-stable" style="float: right; margin-top: 10px;" ng-click="nextQuestion()">Fortsæt</a>
+            </div>
+			
         </div>
     </ion-content>
 </ion-view>

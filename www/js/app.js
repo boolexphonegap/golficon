@@ -1,4 +1,4 @@
-﻿angular.module('app', ['ionic'])
+﻿angular.module('app', ['ionic', 'ngResource'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -37,7 +37,7 @@
             })
 
             .state('app.final-score', {
-                url: '/final-score',
+                url: '/final-score/:finalScore',
                 controller: 'FinalScoreCtrl',
                 templateUrl: 'templates/start/final-score.html'
             })
@@ -98,11 +98,44 @@
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('app/start-screen');
     })
+	
+	.factory('QuestionResource', ['$resource', function($resource, $http) {
 
-    .controller('GameCtrl', function ($scope) {
-        $scope.choosen = '';
+		'use strict';
+		
+		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
+			questions: {
+				method: 'GET',
+				url: 'http://golficon.boolex.com/public/ajax/questions',
+				isArray: true
+			}
+		});
+
+	}])
+	
+    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $http, QuestionResource) {
+        
+		$scope.choosen = '';
         $scope.answer = '';
-
+        $scope.questionIndex = 0;
+        $scope.toggleScoreCard = false;
+		
+		$scope.questions = new Array();
+		
+		$ionicBackdrop.retain();
+		QuestionResource.questions().$promise
+		.then(
+			function(result){
+				$scope.questions = result;
+				$ionicBackdrop.release();
+			}, 
+			function(error){
+				
+			}
+		);
+		
+		$scope.answers = new Array();
+		
         $scope.chooseLevel = function (level) {
             $scope.choosen = level;
         };
@@ -110,17 +143,72 @@
         $scope.chooseAnswer = function (answer) {
             $scope.answer = answer;
         };
+		
+		$scope.viewScoreChart = function(){
+		
+			var points = 0;
+			if($scope.answer == "correct")
+			{
+				if($scope.choosen == "birdie")
+				{
+					points = 1;
+				}
+				else if($scope.choosen == "eagle")
+				{
+					points = 2;
+				}
+				else if($scope.choosen == "albatros")
+				{
+					points = 3;
+				}
+			}
+		
+			$scope.answers.push({
+				difficulty: $scope.choosen,
+				answer: $scope.answer,
+				points: points,
+				questionIndex: $scope.questionIndex
+			});
+			
+			$scope.toggleScoreCard = true;
+		}
+
+        $scope.nextQuestion = function () {
+			
+			if($scope.questionIndex + 1 <= $scope.questions.length - 1)
+			{
+				$scope.questionIndex++;
+					
+				$scope.choosen = '';
+				$scope.answer = '';
+				
+				$scope.toggleScoreCard = false;
+			}
+			else
+			{
+				var finalScore = 0;
+				for(i in $scope.answers)
+				{
+					finalScore += $scope.answers[i].points;
+				}
+				
+				$state.go('app.final-score', { finalScore: finalScore });
+			}
+        };
     })
 
-    .controller('FinalScoreCtrl', function ($scope) {
+    .controller('FinalScoreCtrl', function ($scope, $stateParams) {
+		
+        $scope.myActiveSlide = 1;
+		$scope.finalScore = $stateParams.finalScore;
+		
         var registration_status = ['registered','non-registered'];
         var random = Math.floor((Math.random() * 2));
         $scope.status = registration_status[random];
+		
     })
 
     .controller('SlideController', function ($scope) {
-
-        $scope.myActiveSlide = 1;
 
     })
 ;
