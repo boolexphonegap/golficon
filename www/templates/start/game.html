@@ -8,7 +8,7 @@
             </div>
 
             <div id="main-content" ng-if="!toggleScoreCard">
-                <h3 class="title">SPØRGSMÅL 1</h3>
+                <h3 class="qustion-number title">SPØRGSMÅL {{ questionIndex + 1 }}</h3>
 
                 <p class="content question">{{ questions[questionIndex].question }}</p>
 

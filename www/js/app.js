@@ -113,7 +113,7 @@
 
 	}])
 	
-    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $http, QuestionResource) {
+    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $ionicPopup, QuestionResource) {
         
 		$scope.choosen = '';
         $scope.answer = '';
@@ -131,6 +131,17 @@
 			}, 
 			function(error){
 				
+				$ionicBackdrop.release();
+				
+				var errorPopup = $ionicPopup.alert({
+					title: 'Error!',
+					template: 'An error occured during retrieving questions! Please try again later...'
+				});
+				
+				errorPopup.then(function(){
+					
+					$state.go('app.start-screen');
+				});
 			}
 		);
 		
