@@ -103,10 +103,10 @@
 
 		'use strict';
 		
-		return $resource('http://localhost/golfApp/public/ajax/questions', {}, {
+		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
 			questions: {
 				method: 'GET',
-				url: 'http://localhost/golfApp/public/ajax/questions',
+				url: 'http://golficon.boolex.com/public/ajax/questions',
 				isArray: true
 			}
 		});
