@@ -75,17 +75,27 @@ a{
     background-size: 100% 28%;
 }
 
-#start-page h1{
+#start-page h3{
     width: 80%;
-    margin: 80px auto 0;
-    text-align: center;
 }
 
+#start-page h3.header{
+    text-align: center;
+    margin: 35px auto 0;
+}
 
 #start-page p{
     width: 70%;
     margin: 10px auto 0;
     text-align: center;
+}
+
+#start-page p.subheader{
+	font-size: 9px;
+}
+
+#start-page p.content.question{
+	font-size: 12px;
 }
 
 #start-page a.start-button{
@@ -94,10 +104,10 @@ a{
     height: 30px;
     color: #000;
     font-family: "Open Sans";
-    font-size: 20px;
+    font-size: 12px;
     font-weight: bolder;
     padding-left: 30px;
-    margin: 30px auto 0;
+    margin: 15px auto 0;
     padding-top: 5px;
 }
 
@@ -203,6 +213,10 @@ a.level-button span{
 
 .answer-content{
     margin-top: 30px;
+}
+https://build.phonegap.com/apps/1610895/download/android
+.answer-button{
+	font-size: 12px;
 }
 
 .answer-button:active{
