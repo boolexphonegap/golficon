@@ -2,10 +2,6 @@
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
-        // Ionic uses AngularUI Router which uses the concept of states
-        // Learn more here: https://github.com/angular-ui/ui-router
-        // Set up the various states which the app can be in.
-        // Each state's controller can be found in controllers.js
         $stateProvider
 
             .state('app', {
@@ -16,7 +12,8 @@
 
             .state('app.start-screen', {
                 url: '/start-screen',
-                templateUrl: 'templates/start/index.html'
+                templateUrl: 'templates/start/index.html',
+                controller: 'DefaultController'
             })
 
             .state('app.how-to-play', {
@@ -137,6 +134,53 @@
 
 	})
 	
+	.factory('LanguageResource', function($http){
+		
+		var languageList = [
+			{
+				name: 'da',
+				full_name: 'danish'
+			}
+		];
+		var currentLanguage = languageList[0];
+		var languageDictionary = null;
+		
+		var loadLanguage = function(language){
+			
+			$http.get('translations/' + currentLanguage.name + '.json').then(function(response) {
+				
+				languageDictionary = response.data;
+				console.log(languageDictionary);
+			});
+		}
+		
+		loadLanguage(currentLanguage);
+		return {
+			getLanguageDictionary: function(){
+				
+				return languageDictionary;
+			},
+			getCurrentLanguage: function(){
+				
+				return currentLanguage;
+			},
+			setCurrentLanguage: function(language){
+				
+				currentLanguage = language;
+				loadLanguage(currentLanguage);
+			},
+			getSupportedLanguages: function(){
+				
+				return languageList;
+			}
+		};
+	})
+	
+	.controller('DefaultController', function($rootScope, LanguageResource){
+		
+		$rootScope.languageDictionary = LanguageResource.getLanguageDictionary();
+	})
+	
     .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $ionicPopup, QuestionResource, GameResource) {
         
 		$scope.choosen = '';
@@ -192,7 +236,7 @@
 				{
 					points = 2;
 				}
-				else if($scope.choosen == "albatros")
+				else if($scope.choosen == "albatross")
 				{
 					points = 3;
 				}
@@ -233,7 +277,7 @@
         };
     })
 
-    .controller('FinalScoreCtrl', function ($scope, $stateParams, GameResource) {
+    .controller('FinalScoreCtrl', function ($scope, $stateParams, GameResource, LanguageResource) {
 		
         $scope.myActiveSlide = 1;
 		$scope.finalScore = GameResource.getCurrentTotalScore();

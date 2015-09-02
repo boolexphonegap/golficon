@@ -25,8 +25,8 @@
                         <img ng-src="images/level/eagle-large.png" alt="Alternate Text" />
                         <span>-2 Point</span>
                     </a>
-                    <a href="#" class="button button-block level-button albatross" ng-click="chooseLevel('albatros')">
-                        <img ng-src="images/level/albatros-large.png" alt="Alternate Text" />
+                    <a href="#" class="button button-block level-button albatross" ng-click="chooseLevel('albatross')">
+                        <img ng-src="images/level/albatross-large.png" alt="Alternate Text" />
                         <span>-3 Point</span>
                     </a>
                 </div>
@@ -44,11 +44,11 @@
                         {{ questions[questionIndex].false_answer_1 }}
                     </a>
 					
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'eagle' || choosen == 'albatros'">
+                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'eagle' || choosen == 'albatross'">
                         {{ questions[questionIndex].false_answer_2 }}
                     </a>
 					
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'albatros'">
+                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'albatross'">
                         {{ questions[questionIndex].false_answer_3 }}
                     </a>
 					
