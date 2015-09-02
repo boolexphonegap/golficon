@@ -65,7 +65,7 @@ a{
 
 #top-sponsor img{
     width: 100%;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 #start-page{
@@ -75,9 +75,7 @@ a{
     background-size: 100% 28%;
 }
 
-#start-page h3{
-    width: 80%;
-}
+
 
 #start-page h1.header{
     text-align: center;
