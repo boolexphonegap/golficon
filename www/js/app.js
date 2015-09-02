@@ -99,7 +99,7 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.factory('QuestionResource', ['$resource', function($resource, $http) {
+	.factory('QuestionResource', ['$resource', function($resource) {
 
 		'use strict';
 		
@@ -113,7 +113,31 @@
 
 	}])
 	
-    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $ionicPopup, QuestionResource) {
+	.factory('GameResource', function() {
+
+		'use strict';
+		
+		var currentTotalScore = 0;
+		
+		
+		return {
+			getCurrentTotalScore: function(){
+				
+				return currentTotalScore;
+			},
+			setCurrentTotalScore: function(totalScore){
+				
+				currentTotalScore = totalScore;
+			},
+			resetScore: function(){
+				
+				currentTotalScore = 0;
+			}
+		};
+
+	})
+	
+    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $ionicPopup, QuestionResource, GameResource) {
         
 		$scope.choosen = '';
         $scope.answer = '';
@@ -202,21 +226,21 @@
 				{
 					finalScore += $scope.answers[i].points;
 				}
+				GameResource.setCurrentTotalScore(finalScore);
 				
-				$state.go('app.final-score', { finalScore: finalScore });
+				$state.go('app.final-score');
 			}
         };
     })
 
-    .controller('FinalScoreCtrl', function ($scope, $stateParams) {
+    .controller('FinalScoreCtrl', function ($scope, $stateParams, GameResource) {
 		
         $scope.myActiveSlide = 1;
-		$scope.finalScore = $stateParams.finalScore;
+		$scope.finalScore = GameResource.getCurrentTotalScore();
 		
-        var registration_status = ['registered','non-registered'];
+        var registration_status = ['registered', 'non-registered'];
         var random = Math.floor((Math.random() * 2));
         $scope.status = registration_status[random];
-		
     })
 
     .controller('SlideController', function ($scope) {

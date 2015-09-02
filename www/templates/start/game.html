@@ -8,6 +8,9 @@
             </div>
 
             <div id="main-content" ng-if="!toggleScoreCard">
+			
+				<span class="hint">H<sup class="hint-count">2</sup></span>
+					
                 <h3 class="qustion-number title">SPØRGSMÅL {{ questionIndex + 1 }}</h3>
 
                 <p class="content question">{{ questions[questionIndex].question }}</p>
@@ -31,7 +34,7 @@
                 <h3 class="title" ng-if="answer != ''">SVAR</h3>
 
                 <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''">
-                    <img ng-src="images/level/birdie-large.png" alt="Alternate Text" />
+                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
 					
                     <a href="#" class="button button-block answer-button" style="background-color: #EFECC6;" ng-click="chooseAnswer('correct')">
                         {{ questions[questionIndex].true_answer }}
@@ -68,14 +71,17 @@
                     <br />
 
                     <p>
-                        1 Strafslag<br />Se mere i www.xx.xx<br />§ 8 stk 4
+                        {{ questions[questionIndex].true_answer }}<br />Se mere i {{ questions[questionIndex].rule }}<br />
                     </p>
 
                     <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>
                 </div>
 
                 <div class="padding wrong" ng-if="answer == 'wrong'">
+					
+					
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
+					
                     <br />
 
                     <p>Forkert svar</p>
@@ -85,7 +91,7 @@
                     <p>Det korrekte svar er :</p>
 
                     <p>
-                        1 Strafslag<br />Se mere i www.xx.xx<br />§ 8 stk 4
+                        {{ questions[questionIndex].true_answer }}<br />Se mere i {{ questions[questionIndex].rule }}<br />
                     </p>
 
                     <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>

@@ -359,3 +359,15 @@ ion-slide img{
     width: 100% !important;
     text-align: left !important;
 }
+
+.hint
+{
+	border: 1px solid white;
+    border-radius: 22px;
+    color: white;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 8px;
+	margin-top: -14px;
+}
