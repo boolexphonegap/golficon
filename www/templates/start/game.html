@@ -9,7 +9,7 @@
 
             <div id="main-content" ng-if="!toggleScoreCard">
 			
-				<span class="hint">H<sup class="hint-count">2</sup></span>
+				<span class="hint" ng-click="useHint()">H<sup class="hint-count">{{ hints }}</sup></span>
 					
                 <h3 class="qustion-number title">SPØRGSMÅL {{ questionIndex + 1 }}</h3>
 
@@ -36,32 +36,15 @@
                 <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''">
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
 					
-                    <a href="#" class="button button-block answer-button" style="background-color: #EFECC6;" ng-click="chooseAnswer('correct')">
-                        {{ questions[questionIndex].true_answer }}
+                    <a href="#" class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="background-color: #EFECC6;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == 0 ? 'correct': 'wrong') : false;">
+						
+						<span ng-if="choice != false">{{ choice }}</span>
+                        <img ng-if="choice == false" ng-src="images/sponsor/ad-{{ $index }}.png" alt="Alternate Text" class="ad-{{ $index }}" />
                     </a>
 					
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')">
-                        {{ questions[questionIndex].false_answer_1 }}
-                    </a>
-					
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'eagle' || choosen == 'albatross'">
-                        {{ questions[questionIndex].false_answer_2 }}
-                    </a>
-					
-                    <a href="#" class="button button-block answer-button" style="background-color: #F1EB9D;" ng-click="chooseAnswer('wrong')" ng-if="choosen == 'albatross'">
-                        {{ questions[questionIndex].false_answer_3 }}
-                    </a>
-					
-                    <a href="#" class="button button-block answer-ads-button" style="background-color: #F3EA7B;" ng-if="choosen == 'birdie'">
-                        <img ng-src="images/sponsor/ecco-small.png" alt="Alternate Text" class="ecco" />
-                    </a>
-					
-                    <a href="#" class="button button-block answer-ads-button" style="background-color: #E6DB47;" ng-if="choosen == 'birdie' || choosen == 'eagle'">
-                        <img ng-src="images/sponsor/nikegolf-small.png" alt="Alternate Text" class="nikegolf" />
-                    </a>
                 </div>
 				
-                <div class="padding correct" ng-if="answer == 'correct'">
+                <div class="padding {{ answer }}" ng-if="answer != ''">
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
 
                     <br />
@@ -70,25 +53,7 @@
 
                     <br />
 
-                    <p>
-                        {{ questions[questionIndex].true_answer }}<br />Se mere i {{ questions[questionIndex].rule }}<br />
-                    </p>
-
-                    <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>
-                </div>
-
-                <div class="padding wrong" ng-if="answer == 'wrong'">
-					
-					
-                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
-					
-                    <br />
-
-                    <p>Forkert svar</p>
-
-                    <br />
-
-                    <p>Det korrekte svar er :</p>
+                    <p ng-if="answer == 'wrong'">Det korrekte svar er :</p>
 
                     <p>
                         {{ questions[questionIndex].true_answer }}<br />Se mere i {{ questions[questionIndex].rule }}<br />

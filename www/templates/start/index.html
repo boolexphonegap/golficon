@@ -9,14 +9,14 @@
 
             <div id="main-content">
 				<!--TODO add to all text needing language-->
-                <h1 class="header"><strong>{{ languageDictionary.TITLE }}</strong></h1>
-                <p class="subheader">{{ languageDictionary.SUBTITLE }}</p>
+                <h1 class="header" ><strong>{{ 'TITLE' | translate }}</strong></h1>
+                <p class="subheader">{{ 'SUBTITLE' | translate}}</p>
 
                 <a href="#" ui-sref="app.start-game" class="start-button">
-                    &nbsp;{{ languageDictionary.NEW_GAME }}
+                    &nbsp;{{ 'NEW_GAME' | translate }}
                 </a>
                 <a href="#" ui-sref="app.how-to-play" class="start-button">
-                    &nbsp;{{ languageDictionary.INSTRUCTIONS }}
+                    &nbsp;{{ 'INSTRUCTIONS' | translate }}
                 </a>
             </div>
         </div>

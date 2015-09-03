@@ -1,4 +1,4 @@
-﻿angular.module('app', ['ionic', 'ngResource'])
+﻿angular.module('app', ['ionic', 'app.controllers', 'app.services', 'app.filters'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -7,18 +7,18 @@
             .state('app', {
                 url: '/app',
                 abstract: true,
-                templateUrl: 'templates/layout.html'
+                templateUrl: 'templates/layout.html',
+				controller: 'DefaultCtrl'
             })
 
             .state('app.start-screen', {
                 url: '/start-screen',
                 templateUrl: 'templates/start/index.html',
-                controller: 'DefaultController'
+				controller : 'StartCtrl'
             })
 
             .state('app.how-to-play', {
                 url: '/how-to-play',
-                controller: 'SlideController',
                 templateUrl: 'templates/start/how-to-play.html'
             })
 
@@ -46,7 +46,8 @@
 
             .state('app.profile', {
                 url: '/profile',
-                templateUrl: 'templates/profile.html'
+                templateUrl: 'templates/profile.html',
+				controller: 'ProfileCtrl'
             })
 
             .state('app.rank-lists', {
@@ -74,6 +75,8 @@
 
             .state('app.credits', {
                 url: '/credits',
+                templateUrl: 'templates/credits.html',
+				controller: 'CreditsCtrl'
             })
 
             .state('app.login', {
@@ -96,198 +99,28 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.factory('QuestionResource', ['$resource', function($resource) {
-
-		'use strict';
+	.run(function(StorageResource, LanguageResource, ProfileResource){
 		
-		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
-			questions: {
-				method: 'GET',
-				url: 'http://golficon.boolex.com/public/ajax/questions',
-				isArray: true
+		ionic.Platform.ready(function(){
+			
+			var savedLanguage = StorageResource.getObject('language', false);
+			if(savedLanguage == false){
+				
+				StorageResource.setObject('language', LanguageResource.getCurrentLanguage())
+			} else {
+				
+				LanguageResource.setCurrentLanguage(savedLanguage);
+			}
+			
+			
+			var profile = StorageResource.getObject('profile', false);
+			if(profile == false){
+				
+				
+			} else {
+				
+				ProfileResource.setProfile(profile);
 			}
 		});
-
-	}])
-	
-	.factory('GameResource', function() {
-
-		'use strict';
-		
-		var currentTotalScore = 0;
-		
-		
-		return {
-			getCurrentTotalScore: function(){
-				
-				return currentTotalScore;
-			},
-			setCurrentTotalScore: function(totalScore){
-				
-				currentTotalScore = totalScore;
-			},
-			resetScore: function(){
-				
-				currentTotalScore = 0;
-			}
-		};
-
 	})
-	
-	.factory('LanguageResource', function($http){
-		
-		var languageList = [
-			{
-				name: 'da',
-				full_name: 'danish'
-			}
-		];
-		var currentLanguage = languageList[0];
-		var languageDictionary = null;
-		
-		var loadLanguage = function(language){
-			
-			$http.get('translations/' + currentLanguage.name + '.json').then(function(response) {
-				
-				languageDictionary = response.data;
-				console.log(languageDictionary);
-			});
-		}
-		
-		loadLanguage(currentLanguage);
-		return {
-			getLanguageDictionary: function(){
-				
-				return languageDictionary;
-			},
-			getCurrentLanguage: function(){
-				
-				return currentLanguage;
-			},
-			setCurrentLanguage: function(language){
-				
-				currentLanguage = language;
-				loadLanguage(currentLanguage);
-			},
-			getSupportedLanguages: function(){
-				
-				return languageList;
-			}
-		};
-	})
-	
-	.controller('DefaultController', function($rootScope, LanguageResource){
-		
-		$rootScope.languageDictionary = LanguageResource.getLanguageDictionary();
-	})
-	
-    .controller('GameCtrl', function ($scope, $state, $ionicBackdrop, $ionicPopup, QuestionResource, GameResource) {
-        
-		$scope.choosen = '';
-        $scope.answer = '';
-        $scope.questionIndex = 0;
-        $scope.toggleScoreCard = false;
-		
-		$scope.questions = new Array();
-		
-		$ionicBackdrop.retain();
-		QuestionResource.questions().$promise
-		.then(
-			function(result){
-				$scope.questions = result;
-				$ionicBackdrop.release();
-			}, 
-			function(error){
-				
-				$ionicBackdrop.release();
-				
-				var errorPopup = $ionicPopup.alert({
-					title: 'Error!',
-					template: 'An error occured during retrieving questions! Please try again later...'
-				});
-				
-				errorPopup.then(function(){
-					
-					$state.go('app.start-screen');
-				});
-			}
-		);
-		
-		$scope.answers = new Array();
-		
-        $scope.chooseLevel = function (level) {
-            $scope.choosen = level;
-        };
-
-        $scope.chooseAnswer = function (answer) {
-            $scope.answer = answer;
-        };
-		
-		$scope.viewScoreChart = function(){
-		
-			var points = 0;
-			if($scope.answer == "correct")
-			{
-				if($scope.choosen == "birdie")
-				{
-					points = 1;
-				}
-				else if($scope.choosen == "eagle")
-				{
-					points = 2;
-				}
-				else if($scope.choosen == "albatross")
-				{
-					points = 3;
-				}
-			}
-		
-			$scope.answers.push({
-				difficulty: $scope.choosen,
-				answer: $scope.answer,
-				points: points,
-				questionIndex: $scope.questionIndex
-			});
-			
-			$scope.toggleScoreCard = true;
-		}
-
-        $scope.nextQuestion = function () {
-			
-			if($scope.questionIndex + 1 <= $scope.questions.length - 1)
-			{
-				$scope.questionIndex++;
-					
-				$scope.choosen = '';
-				$scope.answer = '';
-				
-				$scope.toggleScoreCard = false;
-			}
-			else
-			{
-				var finalScore = 0;
-				for(i in $scope.answers)
-				{
-					finalScore += $scope.answers[i].points;
-				}
-				GameResource.setCurrentTotalScore(finalScore);
-				
-				$state.go('app.final-score');
-			}
-        };
-    })
-
-    .controller('FinalScoreCtrl', function ($scope, $stateParams, GameResource, LanguageResource) {
-		
-        $scope.myActiveSlide = 1;
-		$scope.finalScore = GameResource.getCurrentTotalScore();
-		
-        var registration_status = ['registered', 'non-registered'];
-        var random = Math.floor((Math.random() * 2));
-        $scope.status = registration_status[random];
-    })
-
-    .controller('SlideController', function ($scope) {
-
-    })
 ;

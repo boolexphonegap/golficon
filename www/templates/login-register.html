@@ -6,23 +6,23 @@
             </div>
 
             <div id="main-content" class="padding">
-                <h3 class="title">LOGIN</h3>
+                <h3 class="title">Register</h3>
 
                 <div class="list list-inset" style="background-color: transparent !important;">
                     <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Navn">
+                        <input type="text" placeholder="Navn" ng-model="name" required>
                     </label>
                     <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="E-mail">
+                        <input type="text" placeholder="E-mail" ng-model="email">
+                    </label>
+                    <label class="item item-input {{ email != emailConfirm && emailConfirm != null ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
+                        <input type="text" placeholder="Bekræft E-mail" ng-model="emailConfirm">
                     </label>
                     <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Bekræft E-mail">
+                        <input type="password" placeholder="Adgangskode" ng-model="password">
                     </label>
-                    <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Adgangskode">
-                    </label>
-                    <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Bekræft kode">
+                    <label class="item item-input {{ password != passwordConfirm && passwordConfirm != null ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
+                        <input type="password" placeholder="Bekræft kode" ng-model="passwordConfirm">
                     </label>
                 </div>
 

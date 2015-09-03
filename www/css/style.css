@@ -229,11 +229,15 @@ a.level-button span{
     float: left;
 }
 
-.answer-ads-button img.ecco{
+.answer-ads-button img.ad-1{
+    margin-top: 13px;
+}
+
+.answer-ads-button img.ad-2{
     margin-top: 5px;
 }
 
-.answer-ads-button img.nikegolf{
+.answer-ads-button img.ad-3{
     margin-top: 15px;
 }
 
