@@ -26,5 +26,13 @@
             "APP_ID": "1642193092719323",
             "APP_NAME": "GolfQuis"
         }
+    },
+    "cordova-plugin-screen-orientation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-screen-orientation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

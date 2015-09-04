@@ -1,6 +1,6 @@
 ﻿<ion-view cache-view="false">
     <ion-content overflow-scroll="true" id="start-page" style="background-image: url(../images/start-bottom-image-{{ choosen == '' ? '3' : toggleScoreCard ? '2' : 1 }}.png)">
-        <div class="padding">
+        <div class="padding game">
             <div class="row">
                 <div class="col" id="top-sponsor">
                     <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
@@ -9,11 +9,7 @@
 
             <div id="main-content" ng-if="!toggleScoreCard">
 			
-				<span class="hint" ng-click="useHint()">H<sup class="hint-count">{{ hints }}</sup></span>
-					
-                <h3 class="qustion-number title">SPØRGSMÅL {{ questionIndex + 1 }}</h3>
-
-                <p class="content question">{{ questions[questionIndex].question }}</p>
+                <p class="content question" style="margin-top: 0px;">{{ questions[questionIndex].question }}</p>
 
                 <div ng-if="choosen == ''" style="padding-top: 10px;">
                     <h3 class="title">NIVEAU</h3>
@@ -33,8 +29,11 @@
 
                 <h3 class="title" ng-if="answer != ''">SVAR</h3>
 
-                <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''">
-                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" />
+                <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''" style="padding: 5px;">
+				
+					<span class="hint" ng-click="useHint()">H<sup class="hint-count">{{ hints }}</sup></span>
+					
+                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 25px;" />
 					
                     <a href="#" class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="background-color: #EFECC6;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == 0 ? 'correct': 'wrong') : false;">
 						

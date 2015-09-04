@@ -104,6 +104,8 @@
 		
 		ionic.Platform.ready(function(){
 			
+			//screen.lockOrientation('portrait');
+			
 			var savedLanguage = StorageResource.getObject('language', false);
 			if(savedLanguage == false){
 				

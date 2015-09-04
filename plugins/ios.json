@@ -73,6 +73,10 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"YoikScreenOrientation\"><param name=\"ios-package\" value=\"YoikScreenOrientation\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -108,6 +112,9 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "1642193092719323",
             "APP_NAME": "GolfQuis",
+            "PACKAGE_NAME": "com.boolex.golficonapp"
+        },
+        "cordova-plugin-screen-orientation": {
             "PACKAGE_NAME": "com.boolex.golficonapp"
         }
     },
