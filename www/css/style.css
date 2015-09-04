@@ -38,11 +38,11 @@
 	font-weight:normal;
 	font-style:normal;
 }
-
+/*
 body,ion-nav-view,ion-content{
     background-color: #77DAE6;
 }
-
+*/
 h1,h2,h3,h4,h5,h6{
     font-family: "Open Sans Light";
 }
@@ -71,11 +71,12 @@ a{
     margin: 5px 0;
 }
 
-#start-page{
+.background{
     background-image: url(../images/start-bottom-image-0.png);
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% 28%;
+    background-color: #77DAE6;
 }
 
 #start-page h1.header{
