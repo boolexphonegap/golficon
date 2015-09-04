@@ -4,7 +4,6 @@ angular.module('app.services', ['ngResource'])
 		function($resource) {
 
 		'use strict';
-		/*@TODO: change when live
 		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
 			questions: {
 				method: 'GET',
@@ -12,8 +11,8 @@ angular.module('app.services', ['ngResource'])
 				isArray: true
 			}
 		});
-		*/
 		
+		/*@TODO: change when live
 		return $resource('http://localhost/golfApp/public/ajax/questions', {}, {
 			questions: {
 				method: 'GET',
@@ -21,6 +20,7 @@ angular.module('app.services', ['ngResource'])
 				isArray: true
 			}
 		});
+		*/
 	}])
 	
 	.factory('LanguageResource', ['$http',

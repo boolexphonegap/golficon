@@ -70,7 +70,7 @@
 	</platform>
   
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
-	<gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
+	<gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.9.0">
         <param name="APP_ID" value="1642193092719323" />
         <param name="APP_NAME" value="GolfQuis" />
     </gap:plugin>
