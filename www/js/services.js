@@ -1,10 +1,10 @@
 angular.module('app.services', ['ngResource'])
 
-	.factory('QuestionResource', ['$resource', function($resource) {
+	.factory('QuestionResource', ['$resource', 
+		function($resource) {
 
 		'use strict';
-		//http://golficon.boolex.com/public/ajax/questions
-		//http://localhost/golfApp/public/ajax/questions
+		/*@TODO: change when live
 		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
 			questions: {
 				method: 'GET',
@@ -12,10 +12,19 @@ angular.module('app.services', ['ngResource'])
 				isArray: true
 			}
 		});
-
+		*/
+		
+		return $resource('http://localhost/golfApp/public/ajax/questions', {}, {
+			questions: {
+				method: 'GET',
+				url: 'http://localhost/golfApp/public/ajax/questions',
+				isArray: true
+			}
+		});
 	}])
 	
-	.factory('LanguageResource', function($http){
+	.factory('LanguageResource', ['$http',
+		function($http){
 		
 		var languageList = [
 			{
@@ -66,9 +75,10 @@ angular.module('app.services', ['ngResource'])
 				return languageList;
 			}
 		};
-	})
+	}])
 	
-	.factory('StorageResource', ['$window', function($window) {
+	.factory('StorageResource', ['$window', 
+		function($window) {
 		
 		return {
 			set: function(key, value) {
@@ -90,7 +100,8 @@ angular.module('app.services', ['ngResource'])
 		};
 	}])
 	
-	.factory('GameResource', function() {
+	.factory('GameResource', 
+		function() {
 
 		'use strict';
 		
@@ -113,7 +124,8 @@ angular.module('app.services', ['ngResource'])
 
 	})
 	
-	.factory('ProfileResource', function() {
+	.factory('ProfileResource', 
+		function() {
 
 		'use strict';
 		
@@ -135,7 +147,8 @@ angular.module('app.services', ['ngResource'])
 					email: email,
 					password: password,
 					ranking: 0,
-					rounds: 0
+					rounds: 0,
+					accessToken: false
 				};
 			}
 		};

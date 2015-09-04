@@ -1,7 +1,7 @@
-﻿angular.module('app', ['ionic', 'app.controllers', 'app.services', 'app.filters'])
+﻿angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.services', 'app.filters'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
-
+		
         $stateProvider
 
             .state('app', {
@@ -82,6 +82,7 @@
             .state('app.login', {
                 url: '/login',
                 templateUrl: 'templates/login.html',
+				controller: 'LoginCtrl'
             })
 
             .state('app.login-facebook', {
@@ -99,14 +100,14 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(function(StorageResource, LanguageResource, ProfileResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', function(StorageResource, LanguageResource, ProfileResource){
 		
 		ionic.Platform.ready(function(){
 			
 			var savedLanguage = StorageResource.getObject('language', false);
 			if(savedLanguage == false){
 				
-				StorageResource.setObject('language', LanguageResource.getCurrentLanguage())
+				StorageResource.setObject('language', LanguageResource.getCurrentLanguage());
 			} else {
 				
 				LanguageResource.setCurrentLanguage(savedLanguage);
@@ -122,5 +123,5 @@
 				ProfileResource.setProfile(profile);
 			}
 		});
-	})
+	}])
 ;

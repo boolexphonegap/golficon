@@ -1,6 +1,7 @@
 angular.module('app.controllers', ['ngCordova'])
 
-	.controller('StartCtrl', function($scope, StorageResource, LanguageResource){
+	.controller('StartCtrl', ['$scope', 'StorageResource', 'LanguageResource', 
+		function($scope, StorageResource, LanguageResource){
 		
 		$scope.changeLanguage = function(idx){
 			
@@ -10,9 +11,17 @@ angular.module('app.controllers', ['ngCordova'])
 			LanguageResource.setCurrentLanguage(daLanguages);
 			StorageResource.setObject('language', daLanguages)
 		}
-	})
+	}])
 	
-    .controller('GameCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, QuestionResource, GameResource) {
+	.controller('DefaultCtrl', ['$scope', 'ProfileResource', 
+		function($scope, ProfileResource){
+		
+		$scope.profile = ProfileResource.getProfile();
+		$scope.pusheen = 'the cat';
+	}])
+	
+    .controller('GameCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup', 'QuestionResource', 'GameResource', 
+		function ($scope, $state, $ionicLoading, $ionicPopup, QuestionResource, GameResource) {
         
 		$scope.hints = 2;
 		$scope.choosen = '';
@@ -117,11 +126,21 @@ angular.module('app.controllers', ['ngCordova'])
 					points = 3;
 				}
 			}
+			
+			var outstandingPoints = 0;
+			if($scope.answers.length == 0){
+				outstandingPoints = 54 - points;
+			} else {
+				console.log($scope.answers[$scope.answers.length - 1]);
+				console.log($scope.answers.length);
+				outstandingPoints = $scope.answers[$scope.answers.length - 1].outstandingPoints - points;
+			}
 		
 			$scope.answers.push({
 				difficulty: $scope.choosen,
 				answer: $scope.answer,
 				points: points,
+				outstandingPoints: outstandingPoints,
 				questionIndex: $scope.questionIndex
 			});
 			
@@ -148,19 +167,22 @@ angular.module('app.controllers', ['ngCordova'])
 			}
 			else
 			{
-				var finalScore = 0;
+				/* TODO: remove if unnecessary
+				var finalScore = 54;
 				for(i in $scope.answers)
 				{
-					finalScore += $scope.answers[i].points;
+					finalScore -= $scope.answers[i].points;
 				}
-				GameResource.setCurrentTotalScore(finalScore);
+				*/
+				GameResource.setCurrentTotalScore($scope.answers[$scope.answers.length - 1].outstandingPoints);
 				
 				$state.go('app.final-score');
 			}
         };
-    })
+    }])
 
-    .controller('FinalScoreCtrl', function ($scope, $stateParams, GameResource, LanguageResource, ProfileResource) {
+    .controller('FinalScoreCtrl', ['$scope', '$stateParams', 'GameResource', 'LanguageResource', 'ProfileResource', 
+		function ($scope, $stateParams, GameResource, LanguageResource, ProfileResource) {
 		
 		$scope.profile = ProfileResource.getProfile();
         $scope.myActiveSlide = 1;
@@ -168,9 +190,10 @@ angular.module('app.controllers', ['ngCordova'])
 		
         var random = Math.floor((Math.random() * 2));
         $scope.status = $scope.profile != null ? 'registered' : 'non-registered';
-    })
+    }])
 
-    .controller('ProfileCtrl', function ($scope, $state, StorageResource, ProfileResource) {
+    .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 
+		function ($scope, $state, StorageResource, ProfileResource) {
 		
 		var profile = ProfileResource.getProfile();
 		
@@ -178,22 +201,18 @@ angular.module('app.controllers', ['ngCordova'])
 		$scope.email = profile.name;
 		$scope.ranking = profile.name;
 		$scope.rounds = profile.name;
-    })
+    }])
 	
-	.controller('DefaultCtrl', function($scope, ProfileResource){
-		
-		$scope.profile = ProfileResource.getProfile();
-		$scope.pusheen = 'the cat';
-	})
-	
-	.controller('CreditsCtrl', function($scope, $cordovaInAppBrowser){
+	.controller('CreditsCtrl', ['$scope', '$cordovaInAppBrowser', 
+		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
 			$cordovaInAppBrowser.open(url, '_blank');
 		}
-	})
+	}])
 	
-	.controller('Register', function($scope){
+	.controller('Register', ['$scope',
+		function($scope){
 		
 		$scope.validateInput = function(){
 			
@@ -201,23 +220,100 @@ angular.module('app.controllers', ['ngCordova'])
 			
 			if($scope.name.length == 0){
 				hasErrors = true;
+				$scope.nameError = true;
+			} else {
+				
+				$scope.nameError = false;
 			}
 			if($scope.email.length == 0){
 				hasErrors = true;
+				$scope.emailError = true;
+			} else {
+				
+				$scope.emailError = false;
 			}
 			if($scope.emailConfirm.length == 0){
 				hasErrors = true;
+				$scope.emailConfirmError = true;
+			} else {
+				
+				$scope.emailConfirmError = false;
 			}
 			if($scope.password.length == 0){
-				hasErrors = true;
+				hasErrors = true
+				$scope.passwordError = true;
+			} else {
+				
+				$scope.passwordError = false;
 			}
 			if($scope.passwordConfirm.length == 0){
 				hasErrors = true;
+				$scope.passwordConfirmError = true;
+			} else {
+				
+				$scope.passwordConfirmError = false;
 			}
 			
 			if(hasErrors){
 				
 			}
 		}
-	})
+	}])
+	
+	.controller('LoginCtrl', ['$scope', '$http', '$cordovaFacebook', '$ionicLoading', '$ionicPopup', 'StorageResource', 
+		function($scope, $http, $cordovaFacebook, $ionicLoading, $ionicPopup, StorageResource){
+		
+		$scope.facebookLogin = function() {
+				
+			$ionicLoading.show({
+				template: 'Signing in with facebook...'
+			});
+			$cordovaFacebook.login(["public_profile", "email", "user_friends"])
+			.then(function(result) {
+				
+				var accessToken = result.accessToken;
+				
+				$cordovaFacebook.api('me')
+				.then(function(apiResult) {
+				
+					var facebookProfile = {
+						name: apiResult.name,
+						email: apiResult.email,
+						password: 'facebook',
+						ranking: 0,
+						rounds: 0,
+						accessToken: false
+					};
+					
+					StorageResource.setObject('profile', facebookProfile);
+				}, function (error) {
+					
+					$ionicLoading.hide();
+					
+					var errorPopup = $ionicPopup.alert({
+						title: 'Error!',
+						template: 'An error occured during signing in to facebook! Please try again later...'
+					});
+					
+					errorPopup.then(function(){
+						
+						$state.go('app.start-screen');
+					});
+				});
+			}, function (error) {
+				
+				$ionicLoading.hide();
+				
+				var errorPopup = $ionicPopup.alert({
+					title: 'Error!',
+					template: 'An error occured during signing in to facebook! Please try again later...'
+				});
+				
+				errorPopup.then(function(){
+					
+					$state.go('app.start-screen');
+				});
+			});
+		};
+	}])
 ;

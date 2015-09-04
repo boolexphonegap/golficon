@@ -69,13 +69,11 @@ a{
 }
 
 #start-page{
-    background-image: url(../images/start-bottom-image.png);
+    background-image: url(../images/start-bottom-image-0.png);
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% 28%;
 }
-
-
 
 #start-page h1.header{
     text-align: center;
@@ -283,6 +281,7 @@ a.level-button span{
 
 .final-score a.level-button{
     color: #000;
+	font-size: 14px;
     text-align: left !important;
 }
 

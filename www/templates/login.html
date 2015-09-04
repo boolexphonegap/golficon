@@ -1,5 +1,5 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page">
+    <ion-content overflow-scroll="true" id="start-page" style="background-image: url(../images/start-bottom-image-4.png)">
         <div class="padding">
             <div id="top-sponsor" class="padding">
                 <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
@@ -8,7 +8,7 @@
             <div id="main-content" class="padding">
                 <h3 class="title">LOGIN</h3>
 
-                <a href="#" class="button button-block level-button" style="text-align: left !important; background-color: #4A90E2;" ui-sref="app.login-facebook">
+                <a href="#" class="button button-block level-button" style="text-align: left !important; background-color: #4A90E2;" ng-click="facebookLogin()">
                     Registrer med Facebook
                 </a>
 

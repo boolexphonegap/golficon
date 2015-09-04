@@ -1,5 +1,5 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page">
+    <ion-content overflow-scroll="true" id="start-page" style="background-image: url(../images/start-bottom-image-4.png)">
         <div class="padding">
             <div id="top-sponsor" class="padding">
                 <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
@@ -9,19 +9,19 @@
                 <h3 class="title">Register</h3>
 
                 <div class="list list-inset" style="background-color: transparent !important;">
-                    <label class="item item-input" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Navn" ng-model="name" required>
+                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
+                        <input type="text" placeholder="Navn" ng-model="name">
                     </label>
-                    <label class="item item-input" style="margin-bottom: 10px;">
+                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
                         <input type="text" placeholder="E-mail" ng-model="email">
                     </label>
-                    <label class="item item-input {{ email != emailConfirm && emailConfirm != null ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
+                    <label class="item item-input {{ email != emailConfirm && emailConfirm != null ? 'item-assertive' : '' }}  {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
                         <input type="text" placeholder="Bekræft E-mail" ng-model="emailConfirm">
                     </label>
-                    <label class="item item-input" style="margin-bottom: 10px;">
+                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
                         <input type="password" placeholder="Adgangskode" ng-model="password">
                     </label>
-                    <label class="item item-input {{ password != passwordConfirm && passwordConfirm != null ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
+                    <label class="item item-input {{ password != passwordConfirm && passwordConfirm != null ? 'item-assertive' : '' }}  {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
                         <input type="password" placeholder="Bekræft kode" ng-model="passwordConfirm">
                     </label>
                 </div>

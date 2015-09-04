@@ -1,5 +1,5 @@
 ﻿<ion-view cache-view="false">
-    <ion-content overflow-scroll="true" id="start-page">
+    <ion-content overflow-scroll="true" id="start-page" style="background-image: url(../images/start-bottom-image-{{ choosen == '' ? '3' : toggleScoreCard ? '2' : 1 }}.png)">
         <div class="padding">
             <div class="row">
                 <div class="col" id="top-sponsor">
@@ -79,7 +79,7 @@
                             <td>
                                 <img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
                             </td>
-                            <td>{{ answer.points }}</td>
+                            <td>{{ answer.outstandingPoints }}</td>
                         </tr>
                     </tbody>
                 </table>
