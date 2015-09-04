@@ -103,7 +103,7 @@
 	.run(['StorageResource', 'LanguageResource', 'ProfileResource', function(StorageResource, LanguageResource, ProfileResource){
 		
 		ionic.Platform.ready(function(){
-			
+			
 			screen.lockOrientation('portrait');
 			
 			var savedLanguage = StorageResource.getObject('language', false);

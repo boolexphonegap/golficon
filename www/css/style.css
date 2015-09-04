@@ -71,8 +71,32 @@ a{
     margin: 5px 0;
 }
 
-.background{
-    background-image: url(../images/start-bottom-image-0.png);
+.background1{
+    background-image: url(../images/start-bottom-image-1.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 28%;
+    background-color: #77DAE6;
+}
+
+.background2{
+    background-image: url(../images/start-bottom-image-2.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 28%;
+    background-color: #77DAE6;
+}
+
+.background3{
+    background-image: url(../images/start-bottom-image-3.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 28%;
+    background-color: #77DAE6;
+}
+
+.background4{
+    background-image: url(../images/start-bottom-image-4.png);
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% 28%;
