@@ -12,7 +12,7 @@
                 <p class="content question" style="margin-top: 0px;">{{ questions[questionIndex].question }}</p>
 
                 <div ng-if="choosen == ''" style="padding-top: 10px;">
-                    <h3 class="title">NIVEAU</h3>
+					
                     <a href="#" class="button button-block level-button birdie" ng-click="chooseLevel('birdie')">
                         <img ng-src="images/level/birdie-large.png" alt="Alternate Text" />
                         <span>-1 Point</span>
@@ -64,12 +64,12 @@
 			
             <div id="main-content" class="score padding" ng-if="toggleScoreCard">
                 <h3 class="title">SCOREKORT</h3>
-                <table style="width: 100%; margin-top: 10px;">
+                <table class="scorecard">
                     <thead>
                         <tr>
-                            <td style="width:25%;">Spørgsmål</td>
-                            <td style="width:50%;">Level</td>
-                            <td style="width:25%;">Score</td>
+                            <td class="scorecard-side">Spørgsmål</td>
+                            <td>Level</td>
+                            <td class="scorecard-side">Score</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,6 +79,12 @@
                                 <img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
                             </td>
                             <td>{{ answer.outstandingPoints }}</td>
+                        </tr>
+                        <tr ng-repeat="i in [] | range : 18 - answers.length" class="empty">
+                            <td>{{ $index + answers.length + 1 }}</td>
+                            <td>
+                            </td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>

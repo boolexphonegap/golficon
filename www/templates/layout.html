@@ -21,12 +21,12 @@
         <ion-header-bar class="bar bar-stable bar-header">
             <strong>Menu</strong>
         </ion-header-bar>
-        <ion-content has-header="true">
+        <ion-content has-header="true" ng-controller="DefaultCtrl">
             <ion-list>
-                <ion-item nav-clear menu-close class="item-light" ui-sref="app.profile" ng-if="profile != null">
+                <ion-item nav-clear menu-close class="item-light" ui-sref="app.profile" ng-if="profile() != null">
                     <strong>Personlig profil</strong>
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-light" ui-sref="app.login" ng-if="profile == null">
+                <ion-item nav-clear menu-close class="item-light" ui-sref="app.login" ng-if="profile() == null">
                     <strong>Login</strong>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-stable" ui-sref="app.rank-lists">
@@ -41,7 +41,7 @@
                 <ion-item nav-clear menu-close class="item-light">
                     Sponsorer
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-stable">
+                <ion-item nav-clear menu-close class="item-stable" ng-click="test()">
                     Samarbejde med DBU
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.credits">

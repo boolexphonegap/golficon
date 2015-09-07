@@ -7,8 +7,7 @@
             .state('app', {
                 url: '/app',
                 abstract: true,
-                templateUrl: 'templates/layout.html',
-				controller: 'DefaultCtrl'
+                templateUrl: 'templates/layout.html'
             })
 
             .state('app.start-screen', {
@@ -93,6 +92,7 @@
             .state('app.login-register', {
                 url: '/login-register',
                 templateUrl: 'templates/login-register.html',
+				controller: 'RegisterCtrl'
             })
         ;
 
@@ -104,7 +104,7 @@
 		
 		ionic.Platform.ready(function(){
 			
-			screen.lockOrientation('portrait');
+			//screen.lockOrientation('portrait');
 			
 			var savedLanguage = StorageResource.getObject('language', false);
 			if(savedLanguage == false){
@@ -117,12 +117,8 @@
 			
 			
 			var profile = StorageResource.getObject('profile', false);
-			if(profile == false){
-				
-				
-			} else {
-				
-				ProfileResource.setProfile(profile);
+			if(profile != false){
+				ProfileResource.data.profile = profile;
 			}
 		});
 	}])

@@ -10,4 +10,16 @@ angular.module('app.filters', [])
 		
 		return translateFilter;
 	})
+	
+	.filter('range', function() {
+		
+		return function(array, length) {
+			
+			length = parseInt(length);
+			for (var i = 0; i < length; i++)
+				array.push(i);
+			
+			return array;
+		};
+	})
 ;

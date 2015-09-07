@@ -129,20 +129,23 @@ angular.module('app.services', ['ngResource'])
 
 		'use strict';
 		
-		var profile = null;
+		//var profile = null;
 		
 		return {
+			data: {
+				profile: null
+			},
 			getProfile: function(){
 				
-				return profile;
+				return this.data.profile;
 			},
 			setProfile: function(newProfile){
 				
-				profile = newProfile;
+				this.data.profile = newProfile;
 			},
 			newProfile: function(name, email, password){
 				
-				profile = {
+				this.data.profile = {
 					name: name,
 					email: email,
 					password: password,

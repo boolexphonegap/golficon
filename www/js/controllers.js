@@ -16,8 +16,9 @@ angular.module('app.controllers', ['ngCordova'])
 	.controller('DefaultCtrl', ['$scope', 'ProfileResource', 
 		function($scope, ProfileResource){
 		
-		$scope.profile = ProfileResource.getProfile();
-		$scope.pusheen = 'the cat';
+		$scope.profile = function(){
+			return ProfileResource.data.profile;
+		};
 	}])
 	
     .controller('GameCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup', 'QuestionResource', 'GameResource', 
@@ -31,6 +32,7 @@ angular.module('app.controllers', ['ngCordova'])
 		$scope.questions = new Array();
 		$scope.choices = new Array();
 		$scope.adsPresent = 0;
+		$scope.answers = new Array();
 		
 		var AVAILABLE_CHOICES = 4;
 		
@@ -65,7 +67,10 @@ angular.module('app.controllers', ['ngCordova'])
 			}
 		);
 		
-		$scope.answers = new Array();
+		$scope.getBlankScoreCard = function(){
+			
+			return new Array();
+		}
 		
         $scope.chooseLevel = function (level) {
             $scope.choosen = level;
@@ -184,69 +189,92 @@ angular.module('app.controllers', ['ngCordova'])
     .controller('FinalScoreCtrl', ['$scope', '$stateParams', 'GameResource', 'LanguageResource', 'ProfileResource', 
 		function ($scope, $stateParams, GameResource, LanguageResource, ProfileResource) {
 		
-		$scope.profile = ProfileResource.getProfile();
+		$scope.profile = function(){
+			return ProfileResource.data.profile;
+		};
         $scope.myActiveSlide = 1;
 		$scope.finalScore = GameResource.getCurrentTotalScore();
 		
         var random = Math.floor((Math.random() * 2));
-        $scope.status = $scope.profile != null ? 'registered' : 'non-registered';
+        $scope.status = $scope.profile() != null ? 'registered' : 'non-registered';
     }])
 
     .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 
 		function ($scope, $state, StorageResource, ProfileResource) {
 		
-		var profile = ProfileResource.getProfile();
+		var profile = ProfileResource.data.profile;
 		
-		$scope.name = profile.name;
-		$scope.email = profile.name;
-		$scope.ranking = profile.name;
-		$scope.rounds = profile.name;
+		$scope.name = function(){
+			return ProfileResource.data.profile.name;
+		};
+		
+		$scope.email = function(){
+			return ProfileResource.data.profile.email;
+		};
+		
+		$scope.ranking = function(){
+			return ProfileResource.data.profile.ranking;
+		};
+		
+		$scope.rounds = function(){
+			return ProfileResource.data.profile.rounds;
+		};
     }])
 	
 	.controller('CreditsCtrl', ['$scope', '$cordovaInAppBrowser', 
 		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
-			$cordovaInAppBrowser.open(url, '_blank');
+			$cordovaInAppBrowser.open(url, '_system');
 		}
 	}])
 	
-	.controller('Register', ['$scope',
-		function($scope){
+	.controller('RegisterCtrl', ['$scope', '$ionicLoading', '$ionicPopup',
+		function($scope, $ionicLoading, $ionicPopup){
+
+		var self = this;
+		
+		$scope.registrationForm = {
+			name: '',
+			email: '',
+			emailConfirm: '',
+			password: '',
+			passwordConfirm: '',
+		};
 		
 		$scope.validateInput = function(){
 			
 			var hasErrors = false;
 			
-			if($scope.name.length == 0){
+			if($scope.registrationForm.name.length == 0){
 				hasErrors = true;
 				$scope.nameError = true;
 			} else {
 				
 				$scope.nameError = false;
 			}
-			if($scope.email.length == 0){
+			if($scope.registrationForm.email.length == 0){
 				hasErrors = true;
 				$scope.emailError = true;
 			} else {
 				
 				$scope.emailError = false;
 			}
-			if($scope.emailConfirm.length == 0){
+			if($scope.registrationForm.emailConfirm.length == 0 || $scope.registrationForm.emailConfirm != $scope.registrationForm.email){
 				hasErrors = true;
 				$scope.emailConfirmError = true;
 			} else {
 				
 				$scope.emailConfirmError = false;
 			}
-			if($scope.password.length == 0){
+			if($scope.registrationForm.password.length == 0){
 				hasErrors = true
 				$scope.passwordError = true;
 			} else {
 				
 				$scope.passwordError = false;
 			}
-			if($scope.passwordConfirm.length == 0){
+			if($scope.registrationForm.passwordConfirm.length == 0 || $scope.registrationForm.passwordConfirm != $scope.registrationForm.password){
 				hasErrors = true;
 				$scope.passwordConfirmError = true;
 			} else {
@@ -254,23 +282,35 @@ angular.module('app.controllers', ['ngCordova'])
 				$scope.passwordConfirmError = false;
 			}
 			
-			if(hasErrors){
+			if(!hasErrors){
 				
+				$ionicPopup.alert({
+					title: 'Success!',
+					template: 'You are now registered to GolfQuis'
+				});
 			}
 		}
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$cordovaFacebook', '$ionicLoading', '$ionicPopup', 'StorageResource', 
-		function($scope, $http, $cordovaFacebook, $ionicLoading, $ionicPopup, StorageResource){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaFacebook', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
+		function($scope, $http, $state, $cordovaFacebook, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
+		
+		$scope.profile = function(){
+			return ProfileResource.data.profile;
+		}
 		
 		$scope.facebookLogin = function() {
 				
+			console.log('signing in');
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
 			});
 			$cordovaFacebook.login(["public_profile", "email", "user_friends"])
 			.then(function(result) {
 				
+				$ionicLoading.hide();
+				console.log('success');
+				console.log(result);
 				var accessToken = result.accessToken;
 				
 				$cordovaFacebook.api('me')
@@ -286,6 +326,17 @@ angular.module('app.controllers', ['ngCordova'])
 					};
 					
 					StorageResource.setObject('profile', facebookProfile);
+					ProfileResource.data.profile = facebookProfile;
+					
+					var successPopup = $ionicPopup.alert({
+						title: 'Success!',
+						template: 'Welcome ' + apiResult.name
+					});
+					
+					successPopup.then(function(){
+						
+						$state.go('app.start-screen');
+					});
 				}, function (error) {
 					
 					$ionicLoading.hide();

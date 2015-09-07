@@ -1,31 +1,34 @@
 ﻿<ion-view>
     <ion-content overflow-scroll="true" id="start-page" class="background4">
         <div class="padding">
-            <div id="top-sponsor" class="padding">
-                <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
+		
+            <div class="row">
+                <div class="col" id="top-sponsor">
+                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
+                </div>
             </div>
-
+			
             <div id="main-content" class="padding">
                 <h3 class="title">Register</h3>
 
                 <div class="list list-inset" style="background-color: transparent !important;">
-                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Navn" ng-model="name">
+                    <label class="item item-input" ng-class="nameError ? 'item-assertive' : ''" style="margin-bottom: 10px;">
+                        <input type="text" placeholder="Navn" ng-model="registrationForm.name">
                     </label>
-                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="E-mail" ng-model="email">
+                    <label class="item item-input" ng-class="emailError ? 'item-assertive' : ''" style="margin-bottom: 10px;">
+                        <input type="text" placeholder="E-mail" ng-model="registrationForm.email">
                     </label>
-                    <label class="item item-input {{ email != emailConfirm && emailConfirm != null ? 'item-assertive' : '' }}  {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Bekræft E-mail" ng-model="emailConfirm">
+                    <label class="item item-input" ng-class="{ 'item-assertive': (registrationForm.email != registrationForm.emailConfirm && registrationForm.emailConfirm != null) || emailConfirmError }" style="margin-bottom: 10px;">
+                        <input type="text" placeholder="Bekræft E-mail" ng-model="registrationForm.emailConfirm">
                     </label>
-                    <label class="item item-input {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
-                        <input type="password" placeholder="Adgangskode" ng-model="password">
+                    <label class="item item-input" ng-class="passwordError ? 'item-assertive' : ''" style="margin-bottom: 10px;">
+                        <input type="password" placeholder="Adgangskode" ng-model="registrationForm.password">
                     </label>
-                    <label class="item item-input {{ password != passwordConfirm && passwordConfirm != null ? 'item-assertive' : '' }}  {{ nameError ? 'item-assertive' : '' }}" style="margin-bottom: 10px;">
-                        <input type="password" placeholder="Bekræft kode" ng-model="passwordConfirm">
+                    <label class="item item-input" ng-class="{ 'item-assertive': (registrationForm.password != registrationForm.passwordConfirm && registrationForm.passwordConfirm != null) || passwordConfirmError }" style="margin-bottom: 10px;">
+                        <input type="password" placeholder="Bekræft kode" ng-model="registrationForm.passwordConfirm">
                     </label>
                 </div>
-
+				
                 <button class="button button-block button-positive" ng-click="validateInput()">Submit</button>
             </div>
         </div>

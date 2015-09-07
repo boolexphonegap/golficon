@@ -116,6 +116,9 @@
         },
         "cordova-plugin-screen-orientation": {
             "PACKAGE_NAME": "com.boolex.golficonapp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.boolex.golficonapp"
         }
     },
     "dependent_plugins": {}
