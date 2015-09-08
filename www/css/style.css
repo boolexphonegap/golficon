@@ -61,7 +61,6 @@ a{
     background-color: #F9F7F7;
     height: 65px;
     font-family: "Open Sans Light Italic";
-	margin-top: -10px;
 }
 /*.game #top-sponsor{  }*/
 
@@ -116,7 +115,7 @@ a{
 
 #start-page p.content.question{
 	font-size: 14px;
-	margin: 10px 5px 60px;
+	margin: 0px 5px 60px;
     padding: 0;
 }
 
@@ -145,6 +144,14 @@ a{
     width: 30px;
 	margin-right: 15px;
 	vertical-align: middle;
+}
+
+#start-page .padding{
+	padding: 5px;
+}
+
+#start-page .padding .row{
+	padding: 0;
 }
 
 ion-side-menu > ion-header-bar > strong{
@@ -419,9 +426,9 @@ ion-slide img{
 
 .hint
 {
-	border: 1px solid #444;
+	border: 1px solid black;
     border-radius: 17px;
-    color: #444;
+    color: black;
     float: right;
     font-size: 11px;
     font-weight: bold;

@@ -292,33 +292,36 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaFacebook', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
-		function($scope, $http, $state, $cordovaFacebook, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
 		
 		$scope.profile = function(){
 			return ProfileResource.data.profile;
 		}
 		
 		$scope.facebookLogin = function() {
-				
-			console.log('signing in');
+			
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
 			});
-			$cordovaFacebook.login(["public_profile", "email", "user_friends"])
+			$cordovaOauth.facebook("1642193092719323", ["public_profile", "email", "user_friends"])
 			.then(function(result) {
 				
 				$ionicLoading.hide();
-				console.log('success');
-				console.log(result);
-				var accessToken = result.accessToken;
+				var accessToken = result.access_token;
 				
-				$cordovaFacebook.api('me')
+				$http.get("https://graph.facebook.com/v2.2/me", { 
+					params: { 
+						access_token: accessToken, 
+						fields: "name,email", 
+						format: "json" 
+					}
+				})
 				.then(function(apiResult) {
 				
 					var facebookProfile = {
-						name: apiResult.name,
-						email: apiResult.email,
+						name: apiResult.data.name,
+						email: apiResult.data.email,
 						password: 'facebook',
 						ranking: 0,
 						rounds: 0,
@@ -330,7 +333,7 @@ angular.module('app.controllers', ['ngCordova'])
 					
 					var successPopup = $ionicPopup.alert({
 						title: 'Success!',
-						template: 'Welcome ' + apiResult.name
+						template: 'Welcome ' + apiResult.data.name
 					});
 					
 					successPopup.then(function(){
@@ -354,6 +357,7 @@ angular.module('app.controllers', ['ngCordova'])
 			}, function (error) {
 				
 				$ionicLoading.hide();
+				console.log(error);
 				
 				var errorPopup = $ionicPopup.alert({
 					title: 'Error!',
@@ -377,11 +381,6 @@ angular.module('app.controllers', ['ngCordova'])
 				title: 'Profile Information',
 				template: JSON.stringify(ProfileResource.data.profile)
 			});
-		};
-		
-		$scope.resetProfile = function(){
-			
-			//TODO
 		};
 		
 		$scope.removeProfile = function(){
