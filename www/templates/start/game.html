@@ -59,37 +59,46 @@
                     <a href="#" class="button button-stable" style="float: right;" ng-click="viewScoreChart()">Fortsæt</a>
                 </div>
             </div>
+		
+			<div id="main-content" class="score padding" ng-if="toggleScoreCard">
 			
-            <div id="main-content" class="score padding" ng-if="toggleScoreCard">
-                <h3 class="title">SCOREKORT</h3>
-                <table class="scorecard">
-                    <thead>
-                        <tr>
-                            <td class="scorecard-side">Spørgsmål</td>
-                            <td>Level</td>
-                            <td class="scorecard-side">Score</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="answer in answers">
-                            <td>{{ $index + 1 }}</td>
-                            <td>
-                                <img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
-                            </td>
-                            <td>{{ answer.outstandingPoints }}</td>
-                        </tr>
-                        <tr ng-repeat="i in [] | range : 18 - answers.length" class="empty">
-                            <td>{{ $index + answers.length + 1 }}</td>
-                            <td>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+				<h3 class="title">SCOREKORT</h3>
+				<table class="scorecard">
+					<thead>
+						<tr>
+							<td class="scorecard-side">Spørgsmål</td>
+							<td>Level</td>
+							<td class="scorecard-side">Score</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="answer in answers">
+							<td>{{ $index + 1 }}</td>
+							<td>
+								<img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
+							</td>
+							<td>{{ answer.outstandingPoints }}</td>
+						</tr>
+						<tr ng-repeat="i in [] | range : 18 - answers.length" class="empty">
+							<td>{{ $index + answers.length + 1 }}</td>
+							<td>
+							</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 
-                <a href="#" class="button button-stable" style="float: right; margin-top: 10px;" ng-click="nextQuestion()">Fortsæt</a>
-            </div>
+				<a href="#" class="button button-stable" style="float: right; margin-top: 10px;" ng-click="nextQuestion()">
+					Fortsæt
+				</a>
+				
+			</div>
 			
         </div>
+	
     </ion-content>
+	
+	<img ng-if="toggleScoreCard" ng-src="images/start-bottom-image-1.png" class="foreground-image" />
+	
 </ion-view>
+

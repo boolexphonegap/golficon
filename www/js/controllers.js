@@ -310,7 +310,7 @@ angular.module('app.controllers', ['ngCordova'])
 				$ionicLoading.hide();
 				var accessToken = result.access_token;
 				
-				$http.get("https://graph.facebook.com/v2.2/me", { 
+				$http.get("https://graph.facebook.com/v2.4/me", { 
 					params: { 
 						access_token: accessToken, 
 						fields: "name,email", 
