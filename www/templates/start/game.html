@@ -1,4 +1,5 @@
-﻿<ion-view cache-view="false" class="background{{ choosen == '' ? '3' : toggleScoreCard ? '2' : 1 }}">
+﻿<ion-view cache-view="false" class="background0">
+	<!--background{{ choosen == '' ? '3' : toggleScoreCard ? '2' : 1 }}-->
     <ion-content overflow-scroll="true" id="start-page">
         <div class="padding game">
             <div class="row">
@@ -95,10 +96,12 @@
 			</div>
 			
         </div>
+		
+		<div style="margin-bottom: 110px;">&nbsp;</div>
 	
     </ion-content>
 	
-	<img ng-if="toggleScoreCard" ng-src="images/start-bottom-image-1.png" class="foreground-image" />
+	<img ng-src="images/start-bottom-image-{{ toggleScoreCard ? '1' : '2'  }}.png" class="foreground-image" />
 	
 </ion-view>
 

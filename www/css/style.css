@@ -70,6 +70,10 @@ a{
     margin: 5px 0;
 }
 
+.background0{
+    background-color: #77DAE6;
+}
+
 .background1{
     background-image: url(../images/start-bottom-image-1.png);
     background-repeat: no-repeat;
@@ -328,7 +332,6 @@ a.level-button span{
 .score{
     background-color: #F9F7F7;
     margin-top: 10px;
-    margin-bottom: 110px;
     padding-top: 20px;
     overflow: hidden;
 }
@@ -450,4 +453,5 @@ ion-slide img{
 	bottom: 0;
     right: 0;
     width: 100%;
+	height: 100px;
 }
