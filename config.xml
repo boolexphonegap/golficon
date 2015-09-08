@@ -57,5 +57,6 @@
         <param name="APP_ID" value="1642193092719323" />
         <param name="APP_NAME" value="GolfQuis" />
     </gap:plugin>
+	<gap:plugin name="com.jp.whitelistplugin" version="1.1.2" />
 	
 </widget>

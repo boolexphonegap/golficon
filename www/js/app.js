@@ -94,6 +94,12 @@
                 templateUrl: 'templates/login-register.html',
 				controller: 'RegisterCtrl'
             })
+			
+            .state('app.dev-settings', {
+                url: '/dev-settings',
+                templateUrl: 'templates/dev-settings.html',
+				controller: 'DevSettingsCtrl'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback

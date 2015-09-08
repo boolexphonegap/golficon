@@ -367,4 +367,52 @@ angular.module('app.controllers', ['ngCordova'])
 			});
 		};
 	}])
+	
+	.controller('DevSettingsCtrl', ['$scope', '$ionicPopup', 'StorageResource', 'ProfileResource', 
+		function($scope, $ionicPopup, StorageResource, ProfileResource){
+		
+		$scope.viewProfile = function(){
+			
+			$ionicPopup.alert({
+				title: 'Profile Information',
+				template: JSON.stringify(ProfileResource.data.profile)
+			});
+		};
+		
+		$scope.resetProfile = function(){
+			
+			//TODO
+		};
+		
+		$scope.removeProfile = function(){
+			
+			ProfileResource.data.profile = null;
+			StorageResource.setObject('profile', null);
+			
+			$ionicPopup.alert({
+				title: 'Profile Information',
+				template: 'Profile successfully removed'
+			});
+		};
+		
+		$scope.setDummyProfile = function(){
+			
+			var dummyProfile = {
+				name: 'Pusheen the Cat',
+				email: 'pusheen@thecat.com',
+				password: 'cat',
+				ranking: 0,
+				rounds: 0,
+				accessToken: false
+			};
+			
+			ProfileResource.data.profile = dummyProfile;
+			StorageResource.setObject('profile', dummyProfile);
+			
+			$ionicPopup.alert({
+				title: 'Profile Information',
+				template: 'Profile successfully saved'
+			});
+		}
+	}])
 ;
