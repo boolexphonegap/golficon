@@ -27,13 +27,11 @@
                     </a>
                 </div>
 
-                <h3 class="title" ng-if="answer != ''">SVAR</h3>
-
                 <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''" style="padding: 5px;">
 				
 					<span class="hint" ng-click="useHint()">H<sup class="hint-count">{{ hints }}</sup></span>
 					
-                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 25px;" />
+                    <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 28px;" />
 					
                     <a href="#" class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="background-color: #EFECC6;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == 0 ? 'correct': 'wrong') : false;">
 						
