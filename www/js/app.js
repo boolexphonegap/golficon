@@ -107,7 +107,7 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['$cordovaOauth', 'StorageResource', 'LanguageResource', 'ProfileResource', function($cordovaOauth, StorageResource, LanguageResource, ProfileResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', function(StorageResource, LanguageResource, ProfileResource){
 		
 		ionic.Platform.ready(function(){
 			
@@ -127,75 +127,6 @@
 			if(profile != false){
 				ProfileResource.data.profile = profile;
 			}
-			
-			$cordovaOauth.facebook("1642193092719323", ["public_profile", "email", "user_friends"])
-			.then(function(result) {
-				
-			/*
-				$ionicLoading.hide();
-				var accessToken = result.access_token;
-				
-				$http.get("https://graph.facebook.com/v2.4/me", { 
-					params: { 
-						access_token: accessToken, 
-						fields: "name,email", 
-						format: "json" 
-					}
-				})
-				.then(function(apiResult) {
-				
-					var facebookProfile = {
-						name: apiResult.data.name,
-						email: apiResult.data.email,
-						password: 'facebook',
-						ranking: 0,
-						rounds: 0,
-						accessToken: false
-					};
-					
-					StorageResource.setObject('profile', facebookProfile);
-					ProfileResource.data.profile = facebookProfile;
-					
-					var successPopup = $ionicPopup.alert({
-						title: 'Success!',
-						template: 'Welcome ' + apiResult.data.name
-					});
-					
-					successPopup.then(function(){
-						
-						$state.go('app.start-screen');
-					});
-				}, function (error) {
-					
-					$ionicLoading.hide();
-					
-					var errorPopup = $ionicPopup.alert({
-						title: 'Error!',
-						template: 'An error occured during signing in to facebook! Please try again later...'
-					});
-					
-					errorPopup.then(function(){
-						
-						$state.go('app.start-screen');
-					});
-				});
-				*/
-			}, function (error) {
-				/*
-				$ionicLoading.hide();
-				console.log(error);
-				
-				var errorPopup = $ionicPopup.alert({
-					title: 'Error!',
-					template: 'An error occured during signing in to facebook! Please try again later...'
-				});
-				
-				errorPopup.then(function(){
-					
-					$state.go('app.start-screen');
-				});
-				*/
-			});
 		});
 	}])
 ;

@@ -306,7 +306,7 @@ angular.module('app.controllers', ['ngCordova'])
 				template: 'Signing in with facebook...'
 			});
 			*/
-			$cordovaOauth.facebook("1642193092719323", ["public_profile", "email", "user_friends"])
+			$cordovaOauth.facebook("1642193092719323", ["email"])
 			.then(function(result) {
 				
 			/*
