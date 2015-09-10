@@ -225,7 +225,7 @@ angular.module('app.controllers', ['ngCordova'])
 		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
-			window.open(url, '_system', 'location=yes');
+			$cordovaInAppBrowser.open(url, '_system', 'location=yes');
 		}
 	}])
 	
@@ -300,6 +300,8 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 		
 		$scope.facebookLogin = function() {
+			
+			alert($ionicLoading);
 			
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
