@@ -225,7 +225,7 @@ angular.module('app.controllers', ['ngCordova'])
 		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
-			$cordovaInAppBrowser.open(url, '_system');
+			window.open(url, '_system');
 		}
 	}])
 	
