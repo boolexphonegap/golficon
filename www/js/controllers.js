@@ -301,7 +301,7 @@ angular.module('app.controllers', ['ngCordova'])
 		
 		$scope.facebookLogin = function() {
 			
-			alert($cordovaOauth);
+			alert(JSON.stringify($cordovaOauth));
 			
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
