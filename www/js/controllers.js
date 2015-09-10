@@ -225,7 +225,7 @@ angular.module('app.controllers', ['ngCordova'])
 		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
-			$cordovaInAppBrowser.open(url, '_system', 'location=yes');
+			$cordovaInAppBrowser.open(url, '_system');
 		}
 	}])
 	
@@ -292,8 +292,7 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
-		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
+	.controller('LoginCtrl', function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
 		
 		$scope.profile = function(){
 			return ProfileResource.data.profile;
@@ -375,7 +374,7 @@ angular.module('app.controllers', ['ngCordova'])
 				*/
 			});
 		};
-	}])
+	})
 	
 	.controller('DevSettingsCtrl', ['$scope', '$ionicPopup', 'StorageResource', 'ProfileResource', 
 		function($scope, $ionicPopup, StorageResource, ProfileResource){
