@@ -225,7 +225,7 @@ angular.module('app.controllers', ['ngCordova'])
 		function($scope, $cordovaInAppBrowser){
 		
 		$scope.viewInBrowser = function(url){
-			$cordovaInAppBrowser.open(url, '_system');
+			$cordovaInAppBrowser.open(url, '_system', 'location=yes');
 		}
 	}])
 	
@@ -292,7 +292,8 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('LoginCtrl', function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
 		
 		$scope.profile = function(){
 			return ProfileResource.data.profile;
@@ -303,7 +304,7 @@ angular.module('app.controllers', ['ngCordova'])
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
 			});
-			$cordovaOauth.facebook("1642193092719323", ["email"])
+			$cordovaOauth.facebook("1642193092719323", ["public_profile", "email", "user_friends"], { redirect_uri: "http://localhost/callback" })
 			.then(function(result) {
 				
 				$ionicLoading.hide();
@@ -354,7 +355,6 @@ angular.module('app.controllers', ['ngCordova'])
 					});
 				});
 			}, function (error) {
-				
 				$ionicLoading.hide();
 				console.log(error);
 				
@@ -369,7 +369,7 @@ angular.module('app.controllers', ['ngCordova'])
 				});
 			});
 		};
-	})
+	}])
 	
 	.controller('DevSettingsCtrl', ['$scope', '$ionicPopup', 'StorageResource', 'ProfileResource', 
 		function($scope, $ionicPopup, StorageResource, ProfileResource){
