@@ -7920,7 +7920,8 @@ angular.module("oauth.providers", ["oauth.utils"])
                 var deferred = $q.defer();
                 if(window.cordova) {
                     var cordovaMetadata = cordova.require("cordova/plugin_list").metadata;
-                    if(cordovaMetadata.hasOwnProperty("cordova-plugin-inappbrowser") === true) {
+                    if(cordovaMetadata.hasOwnProperty("cordova-plugin-inappbrowser") === true  
+||  cordovaMetadata.hasOwnProperty("org.apache.cordova.inappbrowser") === true) {
                         var redirect_uri = "http://localhost/callback";
                         if(options !== undefined) {
                             if(options.hasOwnProperty("redirect_uri")) {
