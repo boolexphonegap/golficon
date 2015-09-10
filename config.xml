@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.boolex.golficonapp" version="0.0.10" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget 
+	id="com.boolex.golficonapp" 
+	version="0.0.11" 
+	xmlns="http://www.w3.org/ns/widgets"
+	xmlns:gap="http://phonegap.com/ns/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
     <name>GolfQuis</name>
     <description>
 		An Ionic Framework and Cordova project.
@@ -17,9 +23,15 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="orientation" value="portrait" />
+	
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+	<feature name="InAppBrowser">
+		<param name="ios-package" value="CDVInAppBrowser" />
+		<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+	</feature>
+
     <platform name="ios">
         <icon height="57" src="resources\ios\icon\icon.png" width="57" />
         <icon height="40" src="resources\ios\icon\icon-40.png" width="40" />

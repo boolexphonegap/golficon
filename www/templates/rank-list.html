@@ -8,15 +8,13 @@
             </div>
 
             <div id="main-content">
-                <h3 class="title rank">
-                    RANG LISTE
-                    <select style="float: right;" ng-model="ranking">
-                        <option value="mine-vinner">Mine Venner</option>
-                        <option value="alle">Alle</option>
-                    </select>
-                </h3>
-
-                <table>
+				
+				<select class="rank-list-type" ng-model="ranking">
+					<option value="mine-vinner">Mine Venner</option>
+					<option value="alle">Alle</option>
+				</select>
+				
+                <table class="rank-list">
                     <thead>
                         <tr>
                             <td style="width:15%;">Denne mdr.</td>

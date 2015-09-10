@@ -414,4 +414,16 @@ angular.module('app.controllers', ['ngCordova'])
 			});
 		}
 	}])
+	
+	.controller('RankListCtrl', ['$scope', 
+		function($scope){
+		
+		$scope.friends = [
+			{
+				thisMonth: 2,
+				lastMonth: 0,
+				name: ''
+			}
+		];
+	}])
 ;

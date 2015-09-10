@@ -51,7 +51,8 @@
 
             .state('app.rank-lists', {
                 url: '/rank-lists',
-                templateUrl: 'templates/rank-list.html'
+                templateUrl: 'templates/rank-list.html',
+				controller: 'RankListCtrl'
             })
 
             .state('app.about-app', {
