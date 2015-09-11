@@ -301,14 +301,12 @@ angular.module('app.controllers', ['ngCordova'])
 		
 		$scope.facebookLogin = function() {
 			
-			/*
 			$ionicLoading.show({
 				template: 'Signing in with facebook...'
 			});
-			*/
 			$cordovaOauth.facebook("1642193092719323", ["email"])
 			.then(function(result) {
-				/*
+				
 				$ionicLoading.hide();
 				var accessToken = result.access_token;
 				
@@ -355,10 +353,9 @@ angular.module('app.controllers', ['ngCordova'])
 						
 						$state.go('app.start-screen');
 					});
-				});*/
+				});
 			}, function (error) {
 				
-				/*
 				$ionicLoading.hide();
 				
 				var errorPopup = $ionicPopup.alert({
@@ -370,7 +367,6 @@ angular.module('app.controllers', ['ngCordova'])
 					
 					$state.go('app.start-screen');
 				});
-				*/
 			});
 		};
 	}])
