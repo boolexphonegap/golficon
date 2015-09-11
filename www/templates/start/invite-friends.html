@@ -1,117 +1,61 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page" class="background0">
+    <ion-content overflow-scroll="true" id="start-page" class="background4">
         <div class="padding">
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 
             <div id="main-content" class="padding">
-                <h3 class="title">INVITER</h3>
+                <h3 class="title">Udfordre til match</h3>
 
                 <table class="padding invite" style="width: 100%;">
-                    <thead>
-                        <tr style="border-bottom:0;">
-                            <td style="width: 85%;"></td>
-                            <td style="width: 15%;">Score</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="">
-                                <label class="checkbox">
-                                    <input type="checkbox" checked>
-                                </label>
-                                <span class="name">Franz Beckerlee</span>
-                            </td>
-                            <td><span class="score-area">54</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name">Bjørn Uglebjerg</span>
-                            </td>
-                            <td><span class="score-area">53</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox" checked>
-                                </label>
-                                <span class="name">Wili Jönsson</span>
-                            </td>
-                            <td><span class="score-area">51</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name" checked>Kim Larsen</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name">Franz Beckerlee</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name">Bjørn Uglebjerg</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox" checked>
-                                </label>
-                                <span class="name">Wili Jönsson</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name">Jesper Holme</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                </label>
-                                <span class="name">Torben Lyst</span>
-                            </td>
-                            <td><span class="score-area">48</span></td>
-                        </tr>
-                    </tbody>
+					<tr>
+						<td style="width: 80%; text-align: left;">Venner</td>
+						<td style="width: 20%; text-align: center;">Score</td>
+					</tr>
+					<tr>
+						<td>
+							<!--ion-ios-circle-outline for unchecked-->
+							<a class="button button-icon button-small icon ion-ios-checkmark-outline"></a>
+							<span class="name">Franz Beckerlee</span>
+						</td>
+						<td><span class="score-area">54</span></td>
+					</tr>
                 </table>
-                <a href="#" class="button button-block level-button birdie" style="text-align:left;">
-                    Inviter nye venner - skriv mail her
-                </a>
+				
+				<div class="invite-options big-padding">
+				
+					<a href="#" class="button button-block">
+						Inviter
+					</a>
+					
+					<p>Eller inviter via email</p>
+					
+					<div class="row">
+						<div class="col col-75">
+								
+							<div class="list list-inset">
+								<label class="item item-input">
+									<i class="icon ion-ios-email-outline placeholder-icon"></i>
+									<input type="email" placeholder="email eller brugernavn">
+								</label>
+							</div>
+							
+						</div>
+						<div class="col">
+								
+							<a href="#" class="button button-invite">
+								send
+							</a>
+							
+						</div>
+					</div>
+					
+				</div>
+				
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-4.png" class="foreground-image" />
 	
 </ion-view>
 

@@ -37,7 +37,7 @@ angular.module('app.controllers', ['ngCordova'])
 		var AVAILABLE_CHOICES = 4;
 		
 		$ionicLoading.show({
-			template: 'Loading Questions...'
+			template: 'Indlæser spørgsmål...'
 		});
 		QuestionResource.questions().$promise
 		.then(
@@ -416,6 +416,8 @@ angular.module('app.controllers', ['ngCordova'])
 	
 	.controller('RankListCtrl', ['$scope', 
 		function($scope){
+			
+		$scope.ranking = "mine-venner";
 		
 		$scope.friends = [
 			{

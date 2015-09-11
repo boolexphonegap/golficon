@@ -1,14 +1,11 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" class="background0" id="start-page">
+    <ion-content overflow-scroll="true" class="background1" id="start-page">
         <div class="padding">
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 			
             <div id="main-content" class="padding">
-                <h3 class="title" style="margin-top: 20px; padding: 0;">HANDICAPET BEREGNING</h3>
+                <h3 class="title" style="margin-top: 20px; padding: 0;">Handicap beregning</h3>
 
                 <div class="handicap padding">
                     <p>
@@ -42,10 +39,6 @@
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-1.png" class="foreground-image" style="height: 100px" />
 	
 </ion-view>

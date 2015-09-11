@@ -61,49 +61,42 @@ a{
     background-color: #F9F7F7;
     height: 65px;
     font-family: "Open Sans Light Italic";
+	padding: 0;
+	margin-top: -1px;
 }
-/*.game #top-sponsor{  }*/
 
 
 #top-sponsor img{
     width: 100%;
-    margin: 5px 0;
+    margin: 0;
+}
+
+.background0, .background1, .background2, .background3, .background4{
+    background-color: #77DAE6;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 28%;
+    background-color: #77DAE6;
 }
 
 .background0{
-    background-color: #77DAE6;
+    background-image: url(../images/start-bottom-image-0.png);
 }
 
 .background1{
     background-image: url(../images/start-bottom-image-1.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 28%;
-    background-color: #77DAE6;
 }
 
 .background2{
     background-image: url(../images/start-bottom-image-2.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 28%;
-    background-color: #77DAE6;
 }
 
 .background3{
     background-image: url(../images/start-bottom-image-3.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 28%;
-    background-color: #77DAE6;
 }
 
 .background4{
     background-image: url(../images/start-bottom-image-4.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 28%;
-    background-color: #77DAE6;
 }
 
 #start-page h1.header{
@@ -119,35 +112,8 @@ a{
 
 #start-page p.content.question{
 	font-size: 14px;
-	margin: 5px 5px 60px;
+	margin: 10px 0 60px;
     padding: 0;
-}
-
-#start-page a.start-button{
-    display: block;
-    width: 75%;
-    height: 30px;
-    color: #000;
-    font-family: "Open Sans";
-    font-size: 16px;
-    font-weight: bolder;
-    margin-top: 25px;
-    margin-left: 28px;
-}
-
-#start-page a.start-button{
-    text-align: center;
-}
-
-#start-page a.start-button:first-of-type{
-    margin-top: 45px;
-}
-
-#start-page a.start-button img{
-    height: 30px;
-    width: 30px;
-	margin-right: 15px;
-	vertical-align: middle;
 }
 
 #start-page .padding{
@@ -167,10 +133,11 @@ ion-side-menu > ion-header-bar > strong{
 }
 
 h3.title{
-    color: #FFF;
+    color: black;
     font-style: italic;
-    padding-left: 10px;
+	font-weight: bold;
     font-size: 20px;
+	margin-top: 15px;
     margin-bottom: 0 !important;
 }
 
@@ -241,10 +208,6 @@ table tbody tr td strong{
 	padding-bottom: 4px;
 }
 
-.profile .col{
-    font-family: "Open Sans Light";
-}
-
 p.question{
     font-family: "Open Sans" !important;
 }
@@ -252,6 +215,7 @@ p.question{
 a.level-button{
     border: none !important;
     border-color: none !important;
+	box-shadow: 0px 1px 1px #666;
 }
 
 a.level-button img{
@@ -283,20 +247,20 @@ a.level-button span{
     background-color: #BA1428 !important;
 }
 
+.answer-ads-button{
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+}
+
 .answer-ads-button img{
     float: left;
-}
-
-.answer-ads-button img.ad-1{
-    margin-top: 10px;
-}
-
-.answer-ads-button img.ad-2{
-    margin-top: 2px;
-}
-
-.answer-ads-button img.ad-3{
-    margin-top: 10px;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .score{
@@ -306,7 +270,6 @@ a.level-button span{
     overflow: hidden;
 }
 .score .title{
-    color: #B4ADB3;
     margin-top: 0;
     padding-top: 0;
     padding-left: 0;
@@ -324,31 +287,44 @@ a.level-button span{
 	margin-top: 5px;
 }
 
+.big-padding {
+	padding: 5px 40px;
+}
+
 .final-score a.level-button{
     color: #000;
-	font-size: 14px;
+	font-size: 12px;
     text-align: left !important;
+	min-height: 0;
 }
 
 .final-score-content{
-    padding: 20px;
+    padding: 5px;
+	border-radius: 3px;
     background-color: #F9F7F7;
+	margin-bottom: 30px;
 }
 
-.final-score-content h3{
+.final-score-content h4{
+	font-size: 16px;
     text-align: center;
-    font-family: "Open Sans Light";
 }
 
 .final-score-content h2{
     text-align: center;
+	margin: 10px;
     font-family: "Open Sans Bold";
 }
 
 .final-score-content p{
     text-align: center;
     font-family: "Open Sans Light";
+	font-size: 14px;
     width: 80% !important;
+}
+
+table.invite{
+	margin-top: 25px;
 }
 
 table.invite tbody tr td{
@@ -356,18 +332,23 @@ table.invite tbody tr td{
     overflow: hidden !important;
     padding-bottom: 5px;
     position:relative;
+	font-size: 12px;
+}
+
+table.invite tr:last-child{
+	border-bottom: 0;
 }
 
 table.invite tbody tr td label{
     padding: 0 !important;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
     float:left;
 }
 
-table.invite tbody tr td span.name{
-    margin-top: 5px;
-    float:left;
+table.invite tbody tr td:first-child{
+    vertical-align: middle;
+	text-align: left;
 }
 
 table.invite tbody tr td span.score-area{
@@ -377,15 +358,6 @@ table.invite tbody tr td span.score-area{
     left: 0;
     right: 0;
     top: 10px;
-}
-
-table.invite tbody tr td .checkbox input:before{
-    border-color: transparent !important;
-}
-
-table.invite tbody tr td .checkbox input:checked:before{
-    background-color:#000 !important;
-    border-color: transparent !important;
 }
 
 .slider {
@@ -431,26 +403,6 @@ ion-slide img{
 	height: 145px;
 }
 
-.correct{
-   background-color: #7ED321;
-   margin-top: 0;
-   overflow: hidden;
-}
-
-.wrong{
-   background-color: #D0021B !important;
-   margin-top: 0;
-   overflow: hidden;
-}
-
-.correct p,.wrong p{
-    font-family: "Open Sans Light";
-    font-size: 14px;
-    text-align: left !important;
-    width: 100% !important;
-	margin-left: 33px !important;
-}
-
 .birdie{
     background-color: #B8E986;
 }
@@ -480,11 +432,6 @@ ion-slide img{
 	margin: 15px 0 5px;
 }
 
-.credits{
-	margin-top: 70px;
-	padding-left: 10px;
-}
-
 .credits table tr{
 	border: 0;
 }
@@ -492,7 +439,7 @@ ion-slide img{
 .credits table tr td, .credits table tr th{
 	text-align: left;
 	padding-bottom: 20px;
-	font-size: 20px;
+	font-size: 15px;
 }
 
 .credits table tr td{
@@ -523,4 +470,200 @@ ion-slide img{
 
 .difficulty-shape.correct.albatross{
     background-image: url(../images/albatross-shape.png);
+}
+
+.header .title-appname {
+	font-size: 58px;
+}
+
+.subheader{    
+	margin-top: 5px !important;
+    font-weight: bold;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.credits-container{
+	margin-top: 60px;
+	margin-left: 10px;
+}
+
+.choose-difficulty{
+	padding-top: 10px;
+	background-color: #B8E986;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+.choose-difficulty h4{
+	text-align: center;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.choose-difficulty h4{
+	text-align: center;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.choose-difficulty .level-button.birdie{
+	margin: 5px inherit 7px;
+}
+
+.choose-difficulty .level-button.birdie{
+	background-color: rgb(152,232,72) !important;
+}
+
+.correct-answer h4{
+	font-weight: bold
+}
+
+.correct-answer{
+   margin-top: 0;
+   overflow: hidden;
+}
+
+.correct-answer.wrong{
+   background-color: #D0021B !important;
+}
+
+.correct-answer h4, .correct-answer p{
+    font-family: "Open Sans Light";
+    text-align: left !important;
+    width: 100% !important;
+	margin-left: 33px !important;
+}
+
+.correct-answer p{
+    font-size: 14px;
+}
+
+.continue-button-container{
+	text-align: center;
+	margin-top: 20px;
+}
+
+.continue-button-container a.button{
+	color: white;
+	font-weight: bold;
+	width: 240px;
+	text-align: center;
+	border-radius: 3px;
+	background-color: #7ED321;
+	border: 0;
+	box-shadow: 0px 1px 1px #666;
+	margin-bottom: 10px;
+}
+
+.start-screen-buttons-container{
+	text-align: center;
+}
+
+.start-screen-buttons{
+    margin: 20px auto 0;
+	font-size: 28px;
+}
+
+.start-screen-buttons tr{
+	border: 0;
+	margin-bottom: 20px;
+}
+
+.start-screen-buttons tr td{
+    text-align: center;
+    height: 30px;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 25px 5px 5px;
+}
+
+.start-screen-buttons tr td a{
+	color: black;
+}
+
+.start-screen-buttons tr td img{
+    height: 30px;
+    width: 30px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.log-in-container{
+	margin-top: 30px;
+}
+
+.log-in-container p{
+	margin: 0 !important;
+	text-align: left !important;
+}
+
+.log-in-container a{
+	color: black;
+}
+
+.log-in-container .button{
+	min-height: 0;
+	text-align: center;
+	color: white;
+}
+
+.log-in-container .facebook-login{
+	background-color: #4A90E2;
+}
+
+.log-in-container .email-login{
+	background-color: #7ED321;
+}
+
+.log-in-container .list.list-inset{
+	margin: 5px 0;
+	border-radius: 4px;
+}
+
+.profile{
+	width: 100%;
+	margin-top: 20px;
+}
+
+.profile tr:first-child{
+	border-top: 1px solid black;
+}
+
+.profile tr:last-child{
+	border-bottom: 0;
+}
+
+.profile tr td{
+	text-align: left;
+	padding: 7px 0;
+}
+
+.invite-options a.button{
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 3px;
+	background-color: #7ED321;
+	border: 0;
+	box-shadow: 0px 1px 1px #666;
+	margin-bottom: 10px;
+}
+
+.invite-options p{
+	margin: 0 !important;
+	text-align: left !important;
+}
+
+.invite-options .list-inset {
+	margin: 0;
+}
+
+.invite-options a.button-invite{
+	background-color: rgb(74,144,226);
+}
+
+.item-light a{
+	font-family: "Open Sans";
 }

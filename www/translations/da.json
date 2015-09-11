@@ -1,6 +1,7 @@
 ﻿{
-	"TITLE": "Velkommen til GolfQuis",
+	"APP_NAME": "GolfQuis",
+	"WELCOME": "Velkommen til",
 	"SUBTITLE": "Få dit golf regel handicap",
 	"NEW_GAME": "Nyt spil",
-	"INSTRUCTIONS": "Hvordan spiller du"
+	"INSTRUCTIONS": "Sådan spiller du"
 }

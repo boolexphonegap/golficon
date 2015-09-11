@@ -1,23 +1,22 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page" class="background0">
+    <ion-content overflow-scroll="true" id="start-page" class="background2">
         <div class="padding">
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 
             <div id="main-content">
 				
+                <h3 class="title">Rangliste</h3>
+
 				<select class="rank-list-type" ng-model="ranking">
-					<option value="mine-vinner">Mine Venner</option>
+					<option value="mine-venner">Mine Venner</option>
 					<option value="alle">Alle</option>
 				</select>
 				
                 <table class="rank-list">
                     <thead>
                         <tr>
-                            <td style="width:15%;">Denne mdr.</td>
+                            <td style="width:15%;" colspan="2">Denne mdr.</td>
                             <td style="width:15%;">Sidste mdr.</td>
                             <td style="width:40%;">Navn</td>
                             <td style="width:15%;">Runder</td>
@@ -27,91 +26,34 @@
 
                     <tbody>
                         <tr>
-                            <td><i class="ion ion-arrow-right-b"></i>&nbsp;1</td>
+                            <td><i class="ion ion-chevron-right"></i></td>
+                            <td>1</td>
                             <td>1</td>
                             <td><strong>Linda Gildberg</strong></td>
                             <td>32</td>
                             <td>8</td>
                         </tr>
                         <tr>
-                            <td><i class="ion ion-arrow-up-b balanced"></i>&nbsp;2</td>
+                            <td><i class="ion ion-chevron-up balanced"></i></td>
+                            <td>2</td>
                             <td>4</td>
                             <td><strong>Jepser Holme</strong></td>
                             <td>31</td>
                             <td>12</td>
                         </tr>
                         <tr>
-                            <td><i class="ion ion-arrow-down-b assertive"></i>&nbsp;3</td>
+                            <td><i class="ion ion-chevron-down assertive"></i></td>
+                            <td>3</td>
                             <td>2</td>
                             <td><strong>Ole Hansen</strong></td>
                             <td>31</td>
                             <td>14</td>
-                        </tr>
-                        <tr>
-                            <td><i class="ion ion-arrow-down-b assertive"></i>&nbsp;4</td>
-                            <td>3</td>
-                            <td><strong>Mathias Jensen</strong></td>
-                            <td>28</td>
-                            <td>14,5</td>
-                        </tr>
-                        <tr>
-                            <td><i class="ion ion-arrow-right-b"></i>&nbsp;5</td>
-                            <td>5</td>
-                            <td><strong>Carlos Santana</strong></td>
-                            <td>35</td>
-                            <td>18,3</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-up-b balanced"></i></i>&nbsp;6</td>
-                            <td>7</td>
-                            <td><strong>Ozzy Osbourne</strong></td>
-                            <td>11</td>
-                            <td>20</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-up-b balanced"></i></i>&nbsp;7</td>
-                            <td>9</td>
-                            <td><strong>Lemmy Kilmister</strong></td>
-                            <td>12</td>
-                            <td>21,3</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-right-b"></i></i>&nbsp;8</td>
-                            <td>8</td>
-                            <td><strong>Shane Embury</strong></td>
-                            <td>14</td>
-                            <td>24,2</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-right-b"></i></i>&nbsp;9</td>
-                            <td>9</td>
-                            <td><strong>Barny Greenway</strong></td>
-                            <td>14</td>
-                            <td>26,9</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-right-b"></i></i>&nbsp;10</td>
-                            <td>10</td>
-                            <td><strong>Jes Pløk</strong></td>
-                            <td>14</td>
-                            <td>29</td>
-                        </tr>
-                        <tr ng-if="ranking == 'alle'">
-                            <td><i class="ion ion-arrow-right-b"></i></i>&nbsp;11</td>
-                            <td>11</td>
-                            <td><strong>Janus Waldy</strong></td>
-                            <td>14</td>
-                            <td>29,7</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-2.png" class="foreground-image" />
 	
 </ion-view>

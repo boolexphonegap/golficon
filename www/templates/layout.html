@@ -24,31 +24,37 @@
         <ion-content has-header="true" ng-controller="DefaultCtrl">
             <ion-list>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.profile" ng-if="profile() != null">
-                    <strong>Personlig profil</strong>
+                    Personlig profil
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.login" ng-if="profile() == null">
-                    <strong>Login</strong>
+                    Login
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-stable" ui-sref="app.rank-lists">
-                    <strong>Rang lister</strong>
+                <ion-item nav-clear menu-close class="item-light" ui-sref="app.rank-lists">
+                    Rang lister
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.about-app">
-                    <strong>Om app’en</strong>
+                    Om app’en
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-stable" ui-sref="app.golf-regulation-handicap">
-                    <strong>Golf regel handicap</strong>
+                <ion-item nav-clear menu-close class="item-light" ui-sref="app.golf-regulation-handicap">
+                    Golf regel handicap
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light">
-                    Sponsorer
+                    Bliv annoncør
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-stable" ng-click="test()">
+                <ion-item nav-clear menu-close class="item-light">
                     Samarbejde med DBU
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.credits">
-                    <strong>Credits</strong>
+                    Credits
                 </ion-item>
-                <ion-item nav-clear menu-close class="item-light" ui-sref="app.dev-settings">
-                    <strong>Dev Settings</strong>
+                <ion-item nav-clear menu-close class="item-light">
+                    Kontakt os
+                </ion-item>
+                <ion-item nav-clear menu-close class="item-light">
+                    Feedback
+                </ion-item>
+                <ion-item nav-clear menu-close class="item-stable" ui-sref="app.dev-settings" style="display: none;">
+                    Dev Settings
                 </ion-item>
             </ion-list>
         </ion-content>

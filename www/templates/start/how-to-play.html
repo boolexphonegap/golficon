@@ -1,14 +1,11 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page" class="background0">
+    <ion-content overflow-scroll="true" id="start-page" class="background2">
         <div class="padding">
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 
             <div id="main-content" class="padding">
-                <h3 class="title">HVORDAN SPILLER DU</h3>
+                <h3 class="title">Sådan spiller du</h3>
 
                 <ion-slide-box on-slide-changed="slideHasChanged($index)" style="margin-top:30px;">
                     <ion-slide>
@@ -21,10 +18,6 @@
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-2.png" class="foreground-image" style="height: 50px;" />
 	
 </ion-view>

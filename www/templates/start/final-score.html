@@ -1,15 +1,12 @@
 ﻿<ion-view cache-view="false">
-    <ion-content overflow-scroll="true" id="start-page" class="background0">
+    <ion-content overflow-scroll="true" id="start-page" class="background4">
         <div class="padding">
-            <div class="row">
-				<div id="top-sponsor" class="col">
-					<img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-				</div>
-			</div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 
-            <div id="main-content" class="final-score">
+            <div id="main-content" class="final-score big-padding">
                 <div class="final-score-content">
-                    <h3>Din samlede score er</h3>
+                    <h4>Din samlede score er</h4>
 
                     <h2>{{ finalScore }}</h2>
 
@@ -31,10 +28,6 @@
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-4.png" class="foreground-image" />
 	
 </ion-view>

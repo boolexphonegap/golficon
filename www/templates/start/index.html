@@ -1,33 +1,53 @@
 ﻿<ion-view>
     <ion-content overflow-scroll="true" id="start-page" class="background0">
         <div class="padding">
-		
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
-
+	
+			<div ng-include="'templates/includes/top-ad.html'"></div>
+			
             <div id="main-content">
 				<!--TODO add to all text needing language-->
-                <h1 class="header" ><strong>{{ 'TITLE' | translate }}</strong></h1>
+                <h1 class="header">
+					<strong>
+						{{ 'WELCOME' | translate }} 
+						<span class="title-appname">{{ 'APP_NAME' | translate }}</span>
+					</strong>
+				</h1>
                 <p class="subheader">{{ 'SUBTITLE' | translate}}</p>
 
-                <a href="#" ui-sref="app.start-game" class="start-button">
-					<img ng-src="images/new-game.png" />
-                    {{ 'NEW_GAME' | translate }}
-                </a>
-                <a href="#" ui-sref="app.how-to-play" class="start-button">
-					<img ng-src="images/how-to-play.png" />
-                    {{ 'INSTRUCTIONS' | translate }}
-                </a>
+				<div class="start-screen-buttons-container">
+				
+					<table class="start-screen-buttons">
+						<tr>
+							<td>
+								<a href="#" ui-sref="app.start-game">
+									<img ng-src="images/new-game.png" />
+								</a>
+							</td>
+							<td>
+								<a href="#" ui-sref="app.start-game" style='font-size: 30px; font-weight: bold;'>
+								{{ 'NEW_GAME' | translate }}
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="#" ui-sref="app.how-to-play">
+									<img ng-src="images/how-to-play.png" />
+								</a>
+							</td>
+							<td>
+								<a href="#" ui-sref="app.how-to-play">
+								{{ 'INSTRUCTIONS' | translate }}
+								</a>
+							</td>
+						</tr>
+					</table>
+					
+				</div>
+				
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-0.png" class="foreground-image" />
 	
 </ion-view>

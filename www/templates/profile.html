@@ -1,53 +1,46 @@
 ﻿<ion-view>
-    <ion-content overflow-scroll="true" id="start-page" class="background0">
+    <ion-content overflow-scroll="true" id="start-page" class="background3">
         <div class="padding">
-            <div class="row">
-                <div class="col" id="top-sponsor">
-                    <img ng-src="images/sponsor/sponsor-top-large.png" alt="Alternate Text" />
-                </div>
-            </div>
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
 
             <div id="main-content" class="profile">
-                <h3 class="title">PERSONLIG PROFIL</h3>
+			
+                <h3 class="title">Personlig Profil</h3>
 
-                <div class="row">
-                    <div class="col col-33">Navn:</div>
-                    <div class="col col-67"><strong>{{ name() }}</strong></div>
-                </div>
-
-                <div class="row">
-                    <div class="col col-33">Mail:</div>
-                    <div class="col col-67"><strong>{{ email() }}</strong></div>
-                </div>
-
-                <div class="row">
-                    <div class="col col-33">Ranking:</div>
-                    <div class="col col-67"><strong>{{ ranking() }}</strong></div>
-                </div>
-
-                <div class="row">
-                    <div class="col col-33">Runder:</div>
-                    <div class="col col-67"><strong>{{ rounds() }}</strong></div>
-                </div>
-
-                <div class="row">
-                    <div class="col col-33">Venner:</div>
-                    <div class="col col-67">
-					<strong>
-						Abraham Lee, <br />
-						Bruce Hansen, <br />
-						Gert Hansen, <br />
-						Rasmus Klump
-					</strong>
-					</div>
-                </div>
+				<table class="profile">
+					<tr>
+						<td>Navn:</td>
+						<td>{{ name() }}</td>
+					</tr>
+					<tr>
+						<td>Mail:</td>
+						<td>{{ email() }}</td>
+					</tr>
+					<tr>
+						<td>Ranking:</td>
+						<td>{{ ranking() }}</td>
+					</tr>
+					<tr>
+						<td>Runder:</td>
+						<td>{{ rounds() }}</td>
+					</tr>
+					<tr>
+						<td>Venner:</td>
+						<td>
+							<strong>
+								Abraham Lee, <br />
+								Bruce Hansen, <br />
+								Gert Hansen, <br />
+								Rasmus Klump
+							</strong>
+						</td>
+					</tr>
+				</table>
+			
             </div>
         </div>
 		
-		<div style="margin-bottom: 110px;">&nbsp;</div>
-	
     </ion-content>
-	
-	<img ng-src="images/start-bottom-image-3.png" class="foreground-image" />
 	
 </ion-view>
