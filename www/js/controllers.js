@@ -172,13 +172,6 @@ angular.module('app.controllers', ['ngCordova'])
 			}
 			else
 			{
-				/* TODO: remove if unnecessary
-				var finalScore = 54;
-				for(i in $scope.answers)
-				{
-					finalScore -= $scope.answers[i].points;
-				}
-				*/
 				GameResource.setCurrentTotalScore($scope.answers[$scope.answers.length - 1].outstandingPoints);
 				
 				$state.go('app.final-score');
@@ -332,7 +325,10 @@ angular.module('app.controllers', ['ngCordova'])
 			}
 			else 
 			{
-				
+				var successPopup = $ionicPopup.alert({
+					title: 'Error!',
+					template: 'An error occured during saving your login info! Please try again later...'
+				});
 			}
 		}
 		
@@ -362,7 +358,7 @@ angular.module('app.controllers', ['ngCordova'])
 						password: 'facebook',
 						ranking: 0,
 						rounds: 0,
-						accessToken: false
+						accessToken: accessToken
 					};
 					
 					StorageResource.setObject('profile', facebookProfile);
@@ -466,7 +462,6 @@ angular.module('app.controllers', ['ngCordova'])
 		
 		$scope.changeList = function(){
 			
-			console.log($scope.rankInput.ranking);
 			if($scope.rankInput.ranking == "friends"){
 				$scope.list = $scope.friends;
 			} else if($scope.rankInput.ranking == "all") {
@@ -503,7 +498,8 @@ angular.module('app.controllers', ['ngCordova'])
 			
 			if(invitedFriends.length > 0){
 				
-				alert(JSON.stringify(invitedFriends));
+				//todo: do something
+				//alert(JSON.stringify(invitedFriends));
 			} else {
 				
 				$ionicPopup.alert({
