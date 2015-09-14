@@ -323,13 +323,6 @@ angular.module('app.controllers', ['ngCordova'])
 					$state.go('app.start-screen');
 				});
 			}
-			else 
-			{
-				var successPopup = $ionicPopup.alert({
-					title: 'Error!',
-					template: 'An error occured during saving your login info! Please try again later...'
-				});
-			}
 		}
 		
 		$scope.facebookLogin = function() {
