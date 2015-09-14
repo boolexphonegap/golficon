@@ -15,23 +15,28 @@
 					
 					<p>Log in Med email</p>
 					
-					<div class="list list-inset">
-						<label class="item item-input">
-							<i class="icon ion-ios-email-outline placeholder-icon"></i>
-							<input type="email" placeholder="email eller brugernavn">
-						</label>
-					</div>
-					<div class="list list-inset">
-						<label class="item item-input">
-							<i class="icon ion-locked placeholder-icon"></i>
-							<input type="password" placeholder="Kordeord">
-						</label>
-					</div>
-
-					<a href="#" class="button button-block level-button email-login" ui-sref="app.login-register">
-						Log in Med Email
-					</a>
+					<form name="frmEmailLogin">
 					
+						<div class="list list-inset">
+							<label class="item item-input" ng-class="frmEmailLogin.email.$invalid && frmEmailLogin.email.$dirty ? 'item-assertive' : ''">
+								<i class="icon ion-ios-email-outline placeholder-icon"></i>
+								<input type="email" placeholder="email eller brugernavn" name="email" ng-model="registrationForm.email" required>
+							</label>
+						</div>
+						
+						<div class="list list-inset">
+							<label class="item item-input" ng-class="frmEmailLogin.password.$invalid && frmEmailLogin.password.$dirty ? 'item-assertive' : ''">
+								<i class="icon ion-locked placeholder-icon"></i>	
+								<input type="password" placeholder="Kordeord" name="password" ng-model="registrationForm.password" required>
+							</label>
+						</div>
+						
+						<button type="submit" class="button button-block level-button email-login" ng-click="registerUser(frmEmailLogin)">
+							Log in Med Email
+						</button>
+						
+					</form>
+
 					<a href="#">Glemt brugernavn eller kodeord?</a>
 					
 				</div>

@@ -8,9 +8,9 @@
 				
                 <h3 class="title">Rangliste</h3>
 
-				<select class="rank-list-type" ng-model="ranking">
-					<option value="mine-venner">Mine Venner</option>
-					<option value="alle">Alle</option>
+				<select class="rank-list-type" ng-model="rankInput.ranking" ng-change="changeList()">
+					<option value="friends">Venner</option>
+					<option value="all">Alle</option>
 				</select>
 				
                 <table class="rank-list">
@@ -25,29 +25,17 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td><i class="ion ion-chevron-right"></i></td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td><strong>Linda Gildberg</strong></td>
-                            <td>32</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><i class="ion ion-chevron-up balanced"></i></td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td><strong>Jepser Holme</strong></td>
-                            <td>31</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td><i class="ion ion-chevron-down assertive"></i></td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td><strong>Ole Hansen</strong></td>
-                            <td>31</td>
-                            <td>14</td>
+                        <tr ng-repeat="person in list">
+                            <td>
+								<i class="ion ion-chevron-right" ng-if="person.thisMonth == person.lastMonth"></i>
+								<i class="ion ion-chevron-up balanced" ng-if="person.thisMonth > person.lastMonth"></i>
+								<i class="ion ion-chevron-down assertive" ng-if="person.thisMonth < person.lastMonth"></i>
+							</td>
+                            <td>{{ person.thisMonth }}</td>
+                            <td>{{ person.lastMonth }}</td>
+                            <td><strong>{{ person.name }}</strong></td>
+                            <td>{{ person.rounds }}</td>
+                            <td>{{ person.score }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -40,7 +40,8 @@
 
             .state('app.invite-friends', {
                 url: '/invite-friends',
-                templateUrl: 'templates/start/invite-friends.html'
+                templateUrl: 'templates/start/invite-friends.html',
+				controller: 'InviteFriendsCtrl'
             })
 
             .state('app.profile', {
@@ -121,7 +122,6 @@
 				
 				LanguageResource.setCurrentLanguage(savedLanguage);
 			}
-			
 			
 			var profile = StorageResource.getObject('profile', false);
 			if(profile != false){

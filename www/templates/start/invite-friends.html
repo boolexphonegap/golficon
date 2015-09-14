@@ -12,19 +12,18 @@
 						<td style="width: 80%; text-align: left;">Venner</td>
 						<td style="width: 20%; text-align: center;">Score</td>
 					</tr>
-					<tr>
+					<tr ng-repeat="person in friends track by $index">
 						<td>
-							<!--ion-ios-circle-outline for unchecked-->
-							<a class="button button-icon button-small icon ion-ios-checkmark-outline"></a>
-							<span class="name">Franz Beckerlee</span>
+							<a class="button button-icon button-small icon" ng-class="person.include ? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'" ng-click="toggleCheckbox($index)"></a>
+							<span class="name">{{ person.name }}</span>
 						</td>
-						<td><span class="score-area">54</span></td>
+						<td><span class="score-area">{{ person.score }}</span></td>
 					</tr>
                 </table>
 				
 				<div class="invite-options big-padding">
 				
-					<a href="#" class="button button-block">
+					<a href="#" class="button button-block" ng-click="inviteFriends()">
 						Inviter
 					</a>
 					

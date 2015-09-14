@@ -23,6 +23,41 @@ angular.module('app.services', ['ngResource'])
 		*/
 	}])
 	
+	.factory('FriendsResource', ['$http', 
+		function($http){
+			
+		var friends = [
+			{
+				thisMonth: 2,
+				lastMonth: 2,
+				name: 'Linda Gildberg',
+				rounds: 32,
+				score: 8
+			},
+			{
+				thisMonth: 2,
+				lastMonth: 4,
+				name: 'Jesper Holme',
+				rounds: 31,
+				score: 12
+			},
+			{
+				thisMonth: 3,
+				lastMonth: 2,
+				name: 'Ole Hansen',
+				rounds: 32,
+				score: 14
+			}
+		];
+		
+		return {
+			getFriends: function(){
+				
+				return friends;
+			}
+		};
+	}])
+	
 	.factory('LanguageResource', ['$http',
 		function($http){
 		

@@ -295,8 +295,45 @@ angular.module('app.controllers', ['ngCordova'])
 	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
 		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
 		
-		$scope.profile = function(){
-			return ProfileResource.data.profile;
+		
+		$scope.registrationForm = {
+			email: '',
+			password: ''
+		};
+		
+		$scope.registerUser = function(frmEmailLogin){
+			
+			console.log(frmEmailLogin.email.$valid);
+			console.log(frmEmailLogin.password.$valid);
+			
+			if(frmEmailLogin.email.$valid && frmEmailLogin.password.$valid){
+				
+				var emailProfile = {
+					name: '',
+					email: $scope.registrationForm.email,
+					password: $scope.registrationForm.password,
+					ranking: 0,
+					rounds: 0,
+					accessToken: false
+				};
+				
+				StorageResource.setObject('profile', emailProfile);
+				ProfileResource.data.profile = emailProfile;
+				
+				var successPopup = $ionicPopup.alert({
+					title: 'Success!',
+					template: 'Welcome to GolfQuis'
+				});
+				
+				successPopup.then(function(){
+					
+					$state.go('app.start-screen');
+				});
+			}
+			else 
+			{
+				
+			}
 		}
 		
 		$scope.facebookLogin = function() {
@@ -414,17 +451,66 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('RankListCtrl', ['$scope', 
-		function($scope){
+	.controller('RankListCtrl', ['$scope', 'FriendsResource', 
+		function($scope, FriendsResource){
 			
-		$scope.ranking = "mine-venner";
+		$scope.rankInput = {
+			ranking: "friends"
+		};
 		
-		$scope.friends = [
-			{
-				thisMonth: 2,
-				lastMonth: 0,
-				name: ''
+		$scope.friends = FriendsResource.getFriends();
+		
+		$scope.all = new Array();
+		
+		$scope.list = new Array();
+		
+		$scope.changeList = function(){
+			
+			console.log($scope.rankInput.ranking);
+			if($scope.rankInput.ranking == "friends"){
+				$scope.list = $scope.friends;
+			} else if($scope.rankInput.ranking == "all") {
+				$scope.list = $scope.all;
 			}
-		];
+		};
+		$scope.changeList();
+	}])
+	
+	.controller('InviteFriendsCtrl', ['$scope', '$ionicPopup', 'FriendsResource', 
+		function($scope, $ionicPopup, FriendsResource){
+		
+		$scope.friends = FriendsResource.getFriends();
+		for(i in $scope.friends){
+			
+			$scope.friends[i].include = false;
+		}
+		
+		$scope.toggleCheckbox = function(index){
+			
+			$scope.friends[index].include = !$scope.friends[index].include;
+		}
+		
+		$scope.inviteFriends = function(){
+			
+			var invitedFriends = new Array();
+			for(i in $scope.friends){
+				
+				if($scope.friends[i].include == false)
+					continue;
+				
+				invitedFriends.push($scope.friends[i]);
+			}
+			
+			if(invitedFriends.length > 0){
+				
+				alert(JSON.stringify(invitedFriends));
+			} else {
+				
+				$ionicPopup.alert({
+					title: 'Error!',
+					template: 'Please invite atleast 1 friend!'
+				});
+			}
+		}
 	}])
 ;
