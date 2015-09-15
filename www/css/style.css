@@ -714,10 +714,10 @@ ion-slide img{
   margin-top: 10px;
 }
 .platform-ios8.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-  height: 30px;
+  height: 40px;
 }
 .platform-ios8.platform-cordova:not(.fullscreen) .has-header {
-  top: 30px;
+  top: 40px;
 }
 
 .bar-stable .button.button-clear {
