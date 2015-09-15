@@ -76,7 +76,7 @@ a{
 	left: 0;
 }
 
-.background0, .background1, .background2, .background3, .background4{
+.background0, .background1, .background2, .background3, .background4, .background5{
     background-color: #77DAE6;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -98,10 +98,17 @@ a{
 
 .background3{
     background-image: url(../images/start-bottom-image-3.png);
+	background-size: 100% 90px;
 }
 
 .background4{
     background-image: url(../images/start-bottom-image-4.png);
+	background-size: 100%;
+}
+
+.background5{
+    background-image: url(../images/start-bottom-image-5.png);
+	background-size: 100% 60px;
 }
 
 #start-page h1.header{
@@ -374,8 +381,8 @@ ion-slide img{
 }
 
 .handicap{
-    background-color: #FFF;
-	margin-top: 10px;
+    /*background-color: #FFF;*/
+	margin-top: 20px;
 	border-radius: 3px;
 	padding: 5px 10px !important;
 }
@@ -464,6 +471,7 @@ ion-slide img{
 .difficulty-shape.correct{
 	background-repeat: no-repeat;
     background-position: center;
+	background-size: contain;
 }
 
 .difficulty-shape.correct.birdie{
@@ -479,14 +487,15 @@ ion-slide img{
 }
 
 .header .title-appname {
-	font-size: 58px;
+	font-size: 60px;
 }
 
 .subheader{    
 	margin-top: 5px !important;
-    font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
     font-style: italic;
+	font-weight: bold;
+    font-family: "Open Sans";
 }
 
 .credits-container{
@@ -515,9 +524,6 @@ ion-slide img{
 
 .choose-difficulty .level-button.birdie{
 	margin: 5px inherit 7px;
-}
-
-.choose-difficulty .level-button.birdie{
 	background-color: rgb(152,232,72) !important;
 }
 
@@ -528,6 +534,7 @@ ion-slide img{
 .correct-answer{
    margin-top: 0;
    overflow: hidden;
+   background-color: rgb(184,233,134) !important;
 }
 
 .correct-answer.wrong{
@@ -580,14 +587,14 @@ ion-slide img{
 .start-screen-buttons tr td{
     text-align: center;
     height: 30px;
-    font-family: "Open Sans";
-    font-size: 16px;
     font-weight: bolder;
     padding: 25px 5px 5px;
 }
 
 .start-screen-buttons tr td a{
 	color: black;
+    font-family: "Open Sans";
+    font-size: 16px;
 }
 
 .start-screen-buttons tr td img{
@@ -676,4 +683,23 @@ ion-slide img{
 	padding-top: 10px !important;
 	padding-bottom: 10px !important;
 	font-size: 12px;
+}
+
+.bar-header {
+   height: 30px;
+}
+
+.bar-header .title {
+   line-height: 30px;
+}
+.has-header {
+   top: 30px;
+}
+
+.bar-stable .button.button-clear {
+	font-size: 5px;
+}
+
+.item-content{
+	padding: 16px !important;
 }

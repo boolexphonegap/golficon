@@ -97,6 +97,15 @@
 				controller: 'RegisterCtrl'
             })
 			
+            .state('app.contact', {
+                url: '/contact-us/:type',
+                templateUrl: 'templates/contact-us.html',
+				controller: 'ContactUsCtrl',
+				params: {
+					type: 'contactUs'
+				}
+            })
+			
             .state('app.dev-settings', {
                 url: '/dev-settings',
                 templateUrl: 'templates/dev-settings.html',
@@ -108,11 +117,12 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['StorageResource', 'LanguageResource', 'ProfileResource', function(StorageResource, LanguageResource, ProfileResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'PlayerResource',
+		function(StorageResource, LanguageResource, ProfileResource, PlayerResource){
 		
 		ionic.Platform.ready(function(){
 			
-			//screen.lockOrientation('portrait');
+			screen.lockOrientation('portrait');
 			
 			var savedLanguage = StorageResource.getObject('language', false);
 			if(savedLanguage == false){
@@ -125,7 +135,24 @@
 			
 			var profile = StorageResource.getObject('profile', false);
 			if(profile != false){
-				ProfileResource.data.profile = profile;
+				
+				if(profile.profileSaved == false){
+					
+					console.log("trying to save profile again...")
+					PlayerResource.save(profile).$promise
+					.then(function(result){
+						
+						profile.profileSaved = true;
+						StorageResource.setObject('profile', profile);
+						ProfileResource.data.profile = profile;
+					}, function(error){
+						
+						ProfileResource.data.profile = profile;
+					});
+				} else {
+					
+					ProfileResource.data.profile = profile;
+				}
 			}
 		});
 	}])

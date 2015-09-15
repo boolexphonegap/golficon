@@ -1,0 +1,39 @@
+﻿<ion-view>
+    <ion-content overflow-scroll="true" id="start-page" class="background4">
+        <div class="padding">
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
+
+            <div id="main-content" class="padding ">
+                <h3 class="title">{{ typeDisplayName }}</h3>
+
+				<form name="frmContactUs">
+				
+					<div class="list list-inset">
+					
+						<label class="item item-input" ng-class="frmContactUs.name.$invalid && frmContactUs.name.$dirty ? 'item-assertive' : ''">
+							<input type="text" placeholder="Name" name="name" ng-model="contactForm.name" required>
+						</label>
+						
+						<label class="item item-input" ng-class="frmContactUs.email.$invalid && frmContactUs.email.$dirty ? 'item-assertive' : ''">
+							<input type="email" placeholder="Email" name="email" ng-model="contactForm.email" required>
+						</label>
+						
+						<label class="item item-input" ng-class="frmContactUs.message.$invalid && frmContactUs.message.$dirty ? 'item-assertive' : ''">
+							<textarea placeholder="Message" name="message" ng-model="contactForm.message" style="height: 120px;" required></textarea>
+						</label>
+						
+					</div>
+					
+					<button type="submit" class="button button-block level-button" ng-click="sendMessage(frmContactUs)">
+						Send
+					</button>
+					
+				</form>
+
+            </div>
+        </div>
+		
+    </ion-content>
+	
+</ion-view>

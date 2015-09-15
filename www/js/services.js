@@ -1,26 +1,40 @@
 angular.module('app.services', ['ngResource'])
 
-	.factory('QuestionResource', ['$resource', 
-		function($resource) {
+	.constant('API_SERVER', 'http://golficon.boolex.com/')
+	//.constant('API_SERVER', 'http://localhost/golfApp/')
+	
+	.factory('QuestionResource', ['$resource', 'API_SERVER', 
+		function($resource, API_SERVER) {
 
-		'use strict';
-		return $resource('http://golficon.boolex.com/public/ajax/questions', {}, {
+		return $resource(API_SERVER + 'public/ajax/questions', {}, {
 			questions: {
 				method: 'GET',
-				url: 'http://golficon.boolex.com/public/ajax/questions',
+				url: API_SERVER + 'public/ajax/questions',
 				isArray: true
 			}
 		});
-		
-		/*@TODO: change when live
-		return $resource('http://localhost/golfApp/public/ajax/questions', {}, {
-			questions: {
-				method: 'GET',
-				url: 'http://localhost/golfApp/public/ajax/questions',
-				isArray: true
+	}])
+	
+	.factory('MessageResource', ['$resource', 'API_SERVER', 
+		function($resource, API_SERVER) {
+
+		return $resource(API_SERVER + 'public/ajax/send-message', {}, {
+			send: {
+				method: 'POST',
+				url: API_SERVER + 'public/ajax/send-message'
 			}
 		});
-		*/
+	}])
+	
+	.factory('PlayerResource', ['$resource', 'API_SERVER', 
+		function($resource, API_SERVER) {
+
+		return $resource(API_SERVER + 'public/ajax/save-player', {}, {
+			save: {
+				method: 'POST',
+				url: API_SERVER + 'public/ajax/save-player'
+			}
+		});
 	}])
 	
 	.factory('FriendsResource', ['$http', 
@@ -138,8 +152,6 @@ angular.module('app.services', ['ngResource'])
 	.factory('GameResource', 
 		function() {
 
-		'use strict';
-		
 		var currentTotalScore = 0;
 		
 		return {
@@ -162,8 +174,6 @@ angular.module('app.services', ['ngResource'])
 	.factory('ProfileResource', 
 		function() {
 
-		'use strict';
-		
 		//var profile = null;
 		
 		return {

@@ -285,8 +285,8 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource',
-		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'PlayerResource',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, PlayerResource){
 		
 		
 		$scope.registrationForm = {
@@ -294,34 +294,66 @@ angular.module('app.controllers', ['ngCordova'])
 			password: ''
 		};
 		
-		$scope.registerUser = function(frmEmailLogin){
+		$scope.saveProfile = function(name, email, password, accessToken){
 			
-			console.log(frmEmailLogin.email.$valid);
-			console.log(frmEmailLogin.password.$valid);
+			var newProfile = {
+				id: 0,
+				name: name,
+				email: email,
+				password: password,
+				ranking: 0,
+				rounds: 0,
+				accessToken: accessToken,
+				profileSaved: false
+			};
+			
+			PlayerResource.save(newProfile).$promise
+			.then(function(result){
+				
+				if(result.statusCode == 1)
+				{
+					newProfile.id = result.player.id;
+					newProfile.name = result.player.name;
+					newProfile.email = result.player.email;
+					newProfile.password = result.player.password;
+					newProfile.rounds = result.player.rounds;
+					newProfile.score = result.player.score;
+					newProfile.profileSaved = true;
+
+					$scope.setProfileToPhone(newProfile);
+				}
+				else
+				{
+					newProfile.profileSaved = true;
+					$scope.setProfileToPhone(newProfile);
+				}
+			}, function(error){
+				
+				$scope.setProfileToPhone(newProfile);
+			});
+		}
+		
+		$scope.setProfileToPhone = function(profile){
+			
+			StorageResource.setObject('profile', profile);
+			ProfileResource.data.profile = profile;
+				
+			var successPopup = $ionicPopup.alert({
+				title: 'Success!',
+				template: 'Welcome to GolfQuis'
+			});
+			
+			successPopup.then(function(){
+				
+				$state.go('app.start-screen');
+			});
+		}
+		
+		$scope.registerUser = function(frmEmailLogin){
 			
 			if(frmEmailLogin.email.$valid && frmEmailLogin.password.$valid){
 				
-				var emailProfile = {
-					name: '',
-					email: $scope.registrationForm.email,
-					password: $scope.registrationForm.password,
-					ranking: 0,
-					rounds: 0,
-					accessToken: false
-				};
-				
-				StorageResource.setObject('profile', emailProfile);
-				ProfileResource.data.profile = emailProfile;
-				
-				var successPopup = $ionicPopup.alert({
-					title: 'Success!',
-					template: 'Welcome to GolfQuis'
-				});
-				
-				successPopup.then(function(){
-					
-					$state.go('app.start-screen');
-				});
+				$scope.saveProfile('', $scope.registrationForm.email, $scope.registrationForm.password, false);
 			}
 		}
 		
@@ -345,27 +377,9 @@ angular.module('app.controllers', ['ngCordova'])
 				})
 				.then(function(apiResult) {
 				
-					var facebookProfile = {
-						name: apiResult.data.name,
-						email: apiResult.data.email,
-						password: 'facebook',
-						ranking: 0,
-						rounds: 0,
-						accessToken: accessToken
-					};
 					
-					StorageResource.setObject('profile', facebookProfile);
-					ProfileResource.data.profile = facebookProfile;
+					$scope.saveProfile(apiResult.data.name, apiResult.data.email, 'facebook', accessToken);
 					
-					var successPopup = $ionicPopup.alert({
-						title: 'Success!',
-						template: 'Welcome ' + apiResult.data.name
-					});
-					
-					successPopup.then(function(){
-						
-						$state.go('app.start-screen');
-					});
 				}, function (error) {
 					
 					$ionicLoading.hide();
@@ -498,6 +512,60 @@ angular.module('app.controllers', ['ngCordova'])
 				$ionicPopup.alert({
 					title: 'Error!',
 					template: 'Please invite atleast 1 friend!'
+				});
+			}
+		}
+	}])
+	
+	.controller('ContactUsCtrl', ['$scope', '$stateParams', '$ionicPopup', 'ProfileResource', 'MessageResource',
+		function($scope, $stateParams, $ionicPopup, ProfileResource, MessageResource){
+			
+		var profile = ProfileResource.data.profile;
+			
+		$scope.contactForm = {
+			type: $stateParams.type,
+			name: profile ? profile.name : '',
+			email: profile ? profile.email : '',
+			subject: '',
+			message: ''
+		};
+		
+		$scope.type = $stateParams.type;
+		$scope.typeDisplayName = "";
+			
+		if($stateParams.type == "contactUs"){
+			
+			$scope.typeDisplayName = "Kontakt os";
+			$scope.contactForm.subject = "Kontakt os : " + $scope.contactForm.name;
+		}
+		else if($stateParams.type == "feedback"){
+			
+			$scope.typeDisplayName = "Feedback";
+			$scope.contactForm.subject = "Feedback : " + $scope.contactForm.name;
+		}
+		else if($stateParams.type == "beAdvertiser"){
+			
+			$scope.typeDisplayName = "Bliv annoncør";
+			$scope.contactForm.subject = "Bliv annoncør : " + $scope.contactForm.name;
+		}
+		
+		$scope.sendMessage = function(frmContactUs){
+			
+			if(frmContactUs.name.$valid && frmContactUs.email.$valid && frmContactUs.message.$valid){
+				
+				MessageResource.send($scope.contactForm).$promise
+				.then(function(result){
+					
+					$ionicPopup.alert({
+						title: 'Success!',
+						template: 'Message successfully sent!'
+					});
+				}, function(error){
+					
+					$ionicPopup.alert({
+						title: 'Error!',
+						template: 'An error occured during sending message! Please try again later...'
+					});
 				});
 			}
 		}
