@@ -685,6 +685,10 @@ ion-slide img{
 	font-size: 12px;
 }
 
+.bar-header > * {
+  margin-top: 0px;
+}
+
 .bar-header {
    height: 30px;
 }
@@ -696,6 +700,9 @@ ion-slide img{
    top: 30px;
 }
 
+.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+  margin-top: 0px;
+}
 .platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
   height: 30px;
 }
