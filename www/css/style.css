@@ -696,6 +696,13 @@ ion-slide img{
    top: 30px;
 }
 
+.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
+  height: 30px;
+}
+.platform-ios7.platform-cordova:not(.fullscreen) .has-header {
+  top: 30px;
+}
+
 .bar-stable .button.button-clear {
 	font-size: 5px;
 }
