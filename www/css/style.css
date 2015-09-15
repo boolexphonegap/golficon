@@ -686,14 +686,14 @@ ion-slide img{
 }
 
 .bar-header {
-	height: 30px !important;
+   height: 30px;
 }
 
 .bar-header .title {
-	height: 30px !important;
+   line-height: 30px;
 }
 .has-header {
-	top: 30px;
+   top: 30px;
 }
 
 .bar-stable .button.button-clear {
