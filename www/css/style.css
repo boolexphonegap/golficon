@@ -697,7 +697,7 @@ ion-slide img{
 }
 
 .bar-stable .button.button-clear {
-	height: 30px !important;
+	font-size: 5px;
 }
 
 .item-content{
