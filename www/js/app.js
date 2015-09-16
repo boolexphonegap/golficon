@@ -138,7 +138,6 @@
 				
 				if(profile.profileSaved == false){
 					
-					console.log("trying to save profile again...")
 					PlayerResource.save(profile).$promise
 					.then(function(result){
 						
