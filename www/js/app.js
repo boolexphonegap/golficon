@@ -125,7 +125,7 @@
 			screen.lockOrientation('portrait');
 			
 			var savedLanguage = StorageResource.getObject('language', false);
-			if(savedLanguage == false){
+			if(savedLanguage == false || savedLanguage == false){
 				
 				StorageResource.setObject('language', LanguageResource.getCurrentLanguage());
 			} else {
@@ -134,7 +134,7 @@
 			}
 			
 			var profile = StorageResource.getObject('profile', false);
-			if(profile != false){
+			if(profile != null && profile != false){
 				
 				if(profile.profileSaved == false){
 					

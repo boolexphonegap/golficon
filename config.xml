@@ -18,6 +18,7 @@
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="orientation" value="portrait"/>
   <preference name="stay-in-webview" value="true"/>
+  <preference name="prerendered-icon" value="false"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
