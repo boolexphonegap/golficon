@@ -13,18 +13,22 @@
                     <p ng-if="status == 'registered'">Er du tilfreds med denne score ?</p>
                     <p ng-if="status == 'non-registered'">For at gemme denne score skal du registrere dig</p>
                 </div>
+				<!--
                 <a href="#" class="button button-block level-button birdie" ng-if="status == 'registered'">
                     Se dit samlede Golf Regel Handicap
                 </a>
+				-->
                 <a href="#" class="button button-block level-button birdie" ng-if="status == 'non-registered'" ui-sref="app.login">
                     Register
                 </a>
                 <a href="#" class="button button-block level-button eagle" ui-sref="app.start-game">
                     Spil ny runde
                 </a>
+				<!--
                 <a href="#" class="button button-block level-button albatross" ng-click="inviteFriends()">
                     Udfordre dine venner til denne runde
                 </a>
+				-->
             </div>
         </div>
 		
