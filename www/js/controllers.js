@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['ngCordova'])
+angular.module('app.controllers', ['ngCordova', 'app.filters'])
 
 	.controller('StartCtrl', ['$scope', 'StorageResource', 'LanguageResource', 
 		function($scope, StorageResource, LanguageResource){
@@ -21,8 +21,8 @@ angular.module('app.controllers', ['ngCordova'])
 		};
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup', 'QuestionResource', 'GameResource', 
-		function ($scope, $state, $ionicLoading, $ionicPopup, QuestionResource, GameResource) {
+    .controller('GameCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup', 'APIResource', 'GameResource', 'translateFilter', 
+		function ($scope, $state, $ionicLoading, $ionicPopup, APIResource, GameResource, translateFilter) {
         
 		$scope.hints = 2;
 		$scope.choosen = '';
@@ -37,11 +37,12 @@ angular.module('app.controllers', ['ngCordova'])
 		var AVAILABLE_CHOICES = 4;
 		
 		$ionicLoading.show({
-			template: 'Indlæser spørgsmål...'
+			template: translateFilter('LOADING_QUESTIONS')
 		});
-		QuestionResource.questions().$promise
+		APIResource.getQuestions().$promise
 		.then(
 			function(result){
+				console.log(result);
 				$scope.questions = result;
 				
 				$scope.choices.push($scope.questions[$scope.questionIndex].true_answer);
@@ -57,7 +58,7 @@ angular.module('app.controllers', ['ngCordova'])
 				
 				var errorPopup = $ionicPopup.alert({
 					title: 'Error!',
-					template: 'An error occured during retrieving questions! Please try again later...'
+					template: translateFilter('ERROR_QUESTION_LOADING')
 				});
 				
 				errorPopup.then(function(){
@@ -107,7 +108,7 @@ angular.module('app.controllers', ['ngCordova'])
 				{
 					$ionicPopup.alert({
 						title: 'Error!',
-						template: 'You do not have available hints!'
+						template: translateFilter('ERROR_NO_HINTS')
 					});
 				}
 			}
@@ -136,8 +137,6 @@ angular.module('app.controllers', ['ngCordova'])
 			if($scope.answers.length == 0){
 				outstandingPoints = 54 - points;
 			} else {
-				console.log($scope.answers[$scope.answers.length - 1]);
-				console.log($scope.answers.length);
 				outstandingPoints = $scope.answers[$scope.answers.length - 1].outstandingPoints - points;
 			}
 		
@@ -157,6 +156,15 @@ angular.module('app.controllers', ['ngCordova'])
 			if($scope.questionIndex + 1 <= $scope.questions.length - 1)
 			{
 				$scope.questionIndex++;
+				
+				if(!$scope.questions[$scope.questionIndex])
+				{
+					GameResource.setCurrentTotalScore($scope.answers[$scope.answers.length - 1].outstandingPoints);
+					
+					$state.go('app.final-score');
+					
+					return;
+				}
 					
 				$scope.choosen = '';
 				$scope.answer = '';
@@ -179,21 +187,65 @@ angular.module('app.controllers', ['ngCordova'])
         };
     }])
 
-    .controller('FinalScoreCtrl', ['$scope', '$stateParams', 'GameResource', 'LanguageResource', 'ProfileResource', 
-		function ($scope, $stateParams, GameResource, LanguageResource, ProfileResource) {
+    .controller('FinalScoreCtrl', ['$scope', '$state', '$ionicPopup', 'GameResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'StorageResource', 'translateFilter',
+		function ($scope, $state, $ionicPopup, GameResource, LanguageResource, ProfileResource, APIResource, StorageResource, translateFilter) {
 		
-		$scope.profile = function(){
-			return ProfileResource.data.profile;
-		};
+		var profile = ProfileResource.data.profile;
+		
         $scope.myActiveSlide = 1;
 		$scope.finalScore = GameResource.getCurrentTotalScore();
 		
         var random = Math.floor((Math.random() * 2));
-        $scope.status = $scope.profile() != null ? 'registered' : 'non-registered';
+        $scope.status = profile != null ? 'registered' : 'non-registered';
+		
+		$scope.game = null;
+		if(profile != null)
+		{
+			APIResource.saveGame({
+				id: profile.id,
+				total_score: $scope.finalScore
+			}).$promise
+			.then(function(result){
+				
+				ProfileResource.data.profile.score = result.score;
+				ProfileResource.data.profile.rounds = result.rounds;
+				StorageResource.setObject('profile', ProfileResource.data.profile);
+				$scope.game = result.game;
+			}, function(error){
+				
+				var unsavedGames = StorageResource.getObject('unsavedGames', []);
+				unsavedGames.push($scope.finalScore);
+				StorageResource.setObject('unsavedGames', unsavedGames);
+			});
+		}
+		else
+		{
+			var unsavedGames = StorageResource.getObject('unsavedGames', []);
+			unsavedGames.push($scope.finalScore);
+			StorageResource.setObject('unsavedGames', unsavedGames);
+		}
+		
+		$scope.inviteFriends = function(){
+			
+			if($scope.game != null){
+				
+				$state.go('app.invite-friends', { game: $scope.game });
+			} else {
+				
+				var errorPopup = $ionicPopup.alert({
+					title: 'Error!',
+					template: translateFilter('REQUIRE_SIGN_IN')
+				});
+				errorPopup.then(function(){
+					
+					$state.go('app.login');
+				});
+			}
+		}
     }])
 
-    .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 
-		function ($scope, $state, StorageResource, ProfileResource) {
+    .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 'FriendsResource', 
+		function ($scope, $state, StorageResource, ProfileResource, FriendsResource) {
 		
 		var profile = ProfileResource.data.profile;
 		
@@ -212,6 +264,8 @@ angular.module('app.controllers', ['ngCordova'])
 		$scope.rounds = function(){
 			return ProfileResource.data.profile.rounds;
 		};
+		
+		$scope.friends = FriendsResource.getFriends();
     }])
 	
 	.controller('CreditsCtrl', ['$scope', '$cordovaInAppBrowser', 
@@ -285,8 +339,8 @@ angular.module('app.controllers', ['ngCordova'])
 		}
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'PlayerResource',
-		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, PlayerResource){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'translateFilter',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, translateFilter){
 		
 		
 		$scope.registrationForm = {
@@ -303,27 +357,29 @@ angular.module('app.controllers', ['ngCordova'])
 				password: password,
 				ranking: 0,
 				rounds: 0,
+				score: 54,
 				accessToken: accessToken,
 				profileSaved: false
 			};
 			
-			PlayerResource.save(newProfile).$promise
-			.then(function(result){
+			APIResource.savePlayer(newProfile).$promise
+			.then(function(saveResult){
 				
-				if(result.statusCode == 1)
+				if(saveResult.statusCode == 1)
 				{
-					newProfile.id = result.player.id;
-					newProfile.name = result.player.name;
-					newProfile.email = result.player.email;
-					newProfile.password = result.player.password;
-					newProfile.rounds = result.player.rounds;
-					newProfile.score = result.player.score;
+					newProfile.id = saveResult.player.id;
+					newProfile.name = saveResult.player.name;
+					newProfile.email = saveResult.player.email;
+					newProfile.password = saveResult.player.password;
+					newProfile.rounds = saveResult.player.rounds;
+					newProfile.score = saveResult.player.score;
 					newProfile.profileSaved = true;
 
 					$scope.setProfileToPhone(newProfile);
 				}
 				else
 				{
+					newProfile.id = saveResult.player.id;
 					newProfile.profileSaved = true;
 					$scope.setProfileToPhone(newProfile);
 				}
@@ -331,7 +387,7 @@ angular.module('app.controllers', ['ngCordova'])
 				
 				$scope.setProfileToPhone(newProfile);
 			});
-		}
+		};
 		
 		$scope.setProfileToPhone = function(profile){
 			
@@ -340,27 +396,36 @@ angular.module('app.controllers', ['ngCordova'])
 				
 			var successPopup = $ionicPopup.alert({
 				title: 'Success!',
-				template: 'Welcome to GolfQuis'
+				template: translateFilter('WELCOME') + " " + translateFilter('APP_NAME')
 			});
 			
 			successPopup.then(function(){
 				
 				$state.go('app.start-screen');
 			});
-		}
+		};
 		
 		$scope.registerUser = function(frmEmailLogin){
 			
 			if(frmEmailLogin.email.$valid && frmEmailLogin.password.$valid){
 				
-				$scope.saveProfile('', $scope.registrationForm.email, $scope.registrationForm.password, false);
+				var nameInputPopup = $ionicPopup.prompt({
+					title: 'Enter your desired Name',
+					inputType: 'text',
+					inputPlaceholder: 'Name'
+				});
+				
+				nameInputPopup.then(function(input){
+					
+					$scope.saveProfile(input, $scope.registrationForm.email, $scope.registrationForm.password, false);
+				});
 			}
-		}
+		};
 		
 		$scope.facebookLogin = function() {
 			
 			$ionicLoading.show({
-				template: 'Signing in with facebook...'
+				template: translateFilter('FACEBOOK_SIGN_IN')
 			});
 			$cordovaOauth.facebook("1642193092719323", ["email"])
 			.then(function(result) {
@@ -386,7 +451,7 @@ angular.module('app.controllers', ['ngCordova'])
 					
 					var errorPopup = $ionicPopup.alert({
 						title: 'Error!',
-						template: 'An error occured during signing in to facebook! Please try again later...'
+						template: translateFilter('ERROR_FACEBOOK_SIGN_IN')
 					});
 					
 					errorPopup.then(function(){
@@ -400,7 +465,7 @@ angular.module('app.controllers', ['ngCordova'])
 				
 				var errorPopup = $ionicPopup.alert({
 					title: 'Error!',
-					template: 'An error occured during signing in to facebook! Please try again later...'
+					template: translateFilter('ERROR_FACEBOOK_SIGN_IN')
 				});
 				
 				errorPopup.then(function(){
@@ -411,8 +476,8 @@ angular.module('app.controllers', ['ngCordova'])
 		};
 	}])
 	
-	.controller('DevSettingsCtrl', ['$scope', '$ionicPopup', 'StorageResource', 'ProfileResource', 
-		function($scope, $ionicPopup, StorageResource, ProfileResource){
+	.controller('DevSettingsCtrl', ['$scope', '$ionicPopup', 'StorageResource', 'ProfileResource', 'translateFilter',
+		function($scope, $ionicPopup, StorageResource, ProfileResource, translateFilter){
 		
 		$scope.viewProfile = function(){
 			
@@ -449,7 +514,7 @@ angular.module('app.controllers', ['ngCordova'])
 			
 			$ionicPopup.alert({
 				title: 'Profile Information',
-				template: 'Profile successfully saved'
+				template: translateFilter('PROFILE_SAVED')
 			});
 		}
 	}])
@@ -478,14 +543,20 @@ angular.module('app.controllers', ['ngCordova'])
 		$scope.changeList();
 	}])
 	
-	.controller('InviteFriendsCtrl', ['$scope', '$ionicPopup', 'FriendsResource', 
-		function($scope, $ionicPopup, FriendsResource){
+	.controller('InviteFriendsCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'FriendsResource', 'ProfileResource', 'APIResource', 'translateFilter',
+		function($scope, $state, $stateParams, $ionicPopup, FriendsResource, ProfileResource, APIResource, translateFilter){
+		
+		console.log($stateParams.game);
 		
 		$scope.friends = FriendsResource.getFriends();
 		for(i in $scope.friends){
 			
 			$scope.friends[i].include = false;
 		}
+		
+		$scope.inviteForm = {
+			email: ''
+		};
 		
 		$scope.toggleCheckbox = function(index){
 			
@@ -511,14 +582,56 @@ angular.module('app.controllers', ['ngCordova'])
 				
 				$ionicPopup.alert({
 					title: 'Error!',
-					template: 'Please invite atleast 1 friend!'
+					template: translateFilter('ERROR_INVITE_FRIEND')
 				});
+			}
+		}
+		
+		$scope.inviteViaEmail = function(frmInviteViaEmail){
+			
+			if(frmInviteViaEmail.email.$valid)
+			{
+				var profile = ProfileResource.data.profile;
+				
+				if(profile != null)
+				{
+					APIResource.inviteViaEmail({
+						id: profile.id,
+						friend_email: $scope.inviteForm.email
+					}).$promise
+					.then(function(result){
+						
+						$ionicPopup.alert({
+							title: 'Success!',
+							template: translateFilter('FRIEND_INVITED')
+						});
+					}, function(error){
+						
+						$ionicPopup.alert({
+							title: 'Error!',
+							template: translateFilter('ERROR_FRIEND_INVITE')
+						});
+					});
+				}
+				else
+				{
+					
+					var errorPopup = $ionicPopup.alert({
+						title: 'Error!',
+						template: translateFilter('REQUIRE_SIGN_IN')
+					});
+					errorPopup.then(function(){
+						
+						$state.go('app.login');
+					});
+				}
+				
 			}
 		}
 	}])
 	
-	.controller('ContactUsCtrl', ['$scope', '$stateParams', '$ionicPopup', 'ProfileResource', 'MessageResource',
-		function($scope, $stateParams, $ionicPopup, ProfileResource, MessageResource){
+	.controller('ContactUsCtrl', ['$scope', '$stateParams', '$ionicPopup', 'ProfileResource', 'APIResource', 'translateFilter',
+		function($scope, $stateParams, $ionicPopup, ProfileResource, APIResource, translateFilter){
 			
 		var profile = ProfileResource.data.profile;
 			
@@ -553,18 +666,18 @@ angular.module('app.controllers', ['ngCordova'])
 			
 			if(frmContactUs.name.$valid && frmContactUs.email.$valid && frmContactUs.message.$valid){
 				
-				MessageResource.send($scope.contactForm).$promise
+				APIResource.sendMessage($scope.contactForm).$promise
 				.then(function(result){
 					
 					$ionicPopup.alert({
 						title: 'Success!',
-						template: 'Message successfully sent!'
+						template: translateFilter('MESSAGE_SENT')
 					});
 				}, function(error){
 					
 					$ionicPopup.alert({
 						title: 'Error!',
-						template: 'An error occured during sending message! Please try again later...'
+						template: translateFilter('ERROR_SEND_MESSAGE')
 					});
 				});
 			}

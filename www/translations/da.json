@@ -3,5 +3,17 @@
 	"WELCOME": "Velkommen til",
 	"SUBTITLE": "Få dit golf regel handicap",
 	"NEW_GAME": "Nyt spil",
-	"INSTRUCTIONS": "Sådan spiller du"
+	"INSTRUCTIONS": "Sådan spiller du",
+	"LOADING_QUESTIONS": "Indlæser spørgsmål...",
+	"ERROR_QUESTION_LOADING": "Der opstod en fejl under hentning af spørgsmål! Prøv igen senere...",
+	"ERROR_NO_HINTS": "Du behøver ikke ledige hints!",
+	"FACEBOOK_SIGN_IN": "Logger ind med facebook",
+	"ERROR_FACEBOOK_SIGN_IN": "Der opstod en fejl under logge ind på facebook! Prøv igen senere...",
+	"PROFILE_SAVED": "Profil gemt",
+	"ERROR_INVITE_FRIEND": "Invitere venligst mindst 1 ven",
+	"FRIEND_INVITED": "Ven med succes inviteret",
+	"ERROR_FRIEND_INVITE": "Der opstod en fejl under invitere ven! Prøv igen senere...",
+	"MESSAGE_SENT": "Besked sendt",
+	"ERROR_SEND_MESSAGE": "Der opstod en fejl under afsendelse af besked! Prøv igen senere...",
+	"REQUIRE_SIGN_IN": "Venligst log på for at fortsætte"
 }

@@ -1,68 +1,63 @@
 angular.module('app.services', ['ngResource'])
 
-	.constant('API_SERVER', 'http://golficon.boolex.com/')
-	//.constant('API_SERVER', 'http://localhost/golfApp/')
+	//.constant('API_SERVER', 'http://golficon.boolex.com/public/ajax/')
+	.constant('API_SERVER', 'http://localhost/golfApp/public/ajax/')
 	
-	.factory('QuestionResource', ['$resource', 'API_SERVER', 
+	.factory('APIResource', ['$resource', 'API_SERVER', 
 		function($resource, API_SERVER) {
 
-		return $resource(API_SERVER + 'public/ajax/questions', {}, {
-			questions: {
+		return $resource(API_SERVER, {}, {
+			getQuestions: {
+				url: API_SERVER + 'questions',
 				method: 'GET',
-				url: API_SERVER + 'public/ajax/questions',
 				isArray: true
-			}
-		});
-	}])
-	
-	.factory('MessageResource', ['$resource', 'API_SERVER', 
-		function($resource, API_SERVER) {
-
-		return $resource(API_SERVER + 'public/ajax/send-message', {}, {
-			send: {
+			},
+			getFriends: {
+				url: API_SERVER + 'friends',
+				method: 'GET',
+				isArray: true
+			},
+			sendMessage: {
 				method: 'POST',
-				url: API_SERVER + 'public/ajax/send-message'
-			}
-		});
-	}])
-	
-	.factory('PlayerResource', ['$resource', 'API_SERVER', 
-		function($resource, API_SERVER) {
-
-		return $resource(API_SERVER + 'public/ajax/save-player', {}, {
-			save: {
+				url: API_SERVER + 'send-message'
+			},
+			savePlayer: {
 				method: 'POST',
-				url: API_SERVER + 'public/ajax/save-player'
+				url: API_SERVER + 'save-player'
+			},
+			inviteViaEmail: {
+				method: 'POST',
+				url: API_SERVER + 'invite-via-email'
+			},
+			saveGame: {
+				method: 'POST',
+				url: API_SERVER + 'save-game'
 			}
 		});
 	}])
 	
-	.factory('FriendsResource', ['$http', 
-		function($http){
+	.factory('FriendsResource', ['APIResource', 'ProfileResource', 
+		function(APIResource, ProfileResource){
 			
-		var friends = [
-			{
-				thisMonth: 2,
-				lastMonth: 2,
-				name: 'Linda Gildberg',
-				rounds: 32,
-				score: 8
-			},
-			{
-				thisMonth: 2,
-				lastMonth: 4,
-				name: 'Jesper Holme',
-				rounds: 31,
-				score: 12
-			},
-			{
-				thisMonth: 3,
-				lastMonth: 2,
-				name: 'Ole Hansen',
-				rounds: 32,
-				score: 14
-			}
-		];
+		var friends = new Array();
+		
+		var refresh = function(){
+			
+			APIResource.getFriends({ id: ProfileResource.data.profile.id }).$promise
+			.then(function(result){
+				
+				friends.length = 0;
+				angular.forEach(result, function(item) {
+					
+					friends.push(item.friend);
+				});
+			});
+		}
+		
+		if(ProfileResource.data.profile)
+		{
+			refresh();
+		}
 		
 		return {
 			getFriends: function(){

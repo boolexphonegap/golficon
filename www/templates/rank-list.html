@@ -25,7 +25,7 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="person in list">
+                        <tr ng-repeat="person in list track by $index">
                             <td>
 								<i class="ion ion-chevron-right" ng-if="person.thisMonth == person.lastMonth"></i>
 								<i class="ion ion-chevron-up balanced" ng-if="person.thisMonth > person.lastMonth"></i>

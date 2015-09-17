@@ -29,25 +29,27 @@
 					
 					<p>Eller inviter via email</p>
 					
-					<div class="row">
-						<div class="col col-75">
+					<form name="frmInviteViaEmail">
+						<div class="row">
+							<div class="col col-75">
+									
+								<div class="list list-inset">
+									<label class="item item-input" ng-class="frmInviteViaEmail.email.$invalid && frmInviteViaEmail.email.$dirty ? 'item-assertive' : ''">
+										<i class="icon ion-ios-email-outline placeholder-icon"></i>
+										<input type="email" name="email" placeholder="email eller brugernavn" ng-model="inviteForm.email">
+									</label>
+								</div>
 								
-							<div class="list list-inset">
-								<label class="item item-input">
-									<i class="icon ion-ios-email-outline placeholder-icon"></i>
-									<input type="email" placeholder="email eller brugernavn">
-								</label>
 							</div>
-							
-						</div>
-						<div class="col">
+							<div class="col">
+									
+								<a href="#" class="button button-invite" ng-click="inviteViaEmail(frmInviteViaEmail)">
+									send
+								</a>
 								
-							<a href="#" class="button button-invite">
-								send
-							</a>
-							
+							</div>
 						</div>
-					</div>
+					</form>
 					
 				</div>
 				

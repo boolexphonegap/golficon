@@ -195,6 +195,7 @@ table tbody tr td strong{
 .scorecard{
 	width: 100%; 
 	margin-top: 10px;
+	margin-bottom: 35px;
 }
 
 .scorecard tr td{
@@ -203,12 +204,13 @@ table tbody tr td strong{
 }
 
 .scorecard tr td img{
-	height: 25px;
-	margin: 8px 0px 4px 0px;
+    height: 26px;
+    margin-left: 40px;
+    margin-top: 6px;
 }
 
 .scorecard tr.empty td{
-	height: 37px;
+	height: 40px;
 }
 
 .scorecard tr td{
@@ -381,7 +383,7 @@ ion-slide img{
 }
 
 .handicap{
-    /*background-color: #FFF;*/
+    background-color: #FFF;
 	margin-top: 20px;
 	border-radius: 3px;
 	padding: 5px 10px !important;
@@ -471,7 +473,8 @@ ion-slide img{
 .difficulty-shape.correct{
 	background-repeat: no-repeat;
     background-position: center;
-	background-size: contain;
+	background-size: 30px;
+	height: 40px;
 }
 
 .difficulty-shape.correct.birdie{
@@ -480,6 +483,13 @@ ion-slide img{
 
 .difficulty-shape.correct.eagle{
     background-image: url(../images/eagle-shape.png);
+	vertical-align: middle;
+	background-size: 36px;
+}
+
+.difficulty-shape.correct.eagle span{
+    margin-top: 10px;
+    display: inline-block;
 }
 
 .difficulty-shape.correct.albatross{
@@ -557,7 +567,7 @@ ion-slide img{
 	margin-top: 20px;
 }
 
-.continue-button-container a.button{
+.continue-button-container a.button, .next-question-button{
 	color: white;
 	font-weight: bold;
 	width: 240px;

@@ -39,9 +39,12 @@
             })
 
             .state('app.invite-friends', {
-                url: '/invite-friends',
+                url: '/invite-friends/:game',
                 templateUrl: 'templates/start/invite-friends.html',
-				controller: 'InviteFriendsCtrl'
+				controller: 'InviteFriendsCtrl',
+				params: {
+					game: null
+				}
             })
 
             .state('app.profile', {
@@ -117,15 +120,13 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'PlayerResource',
-		function(StorageResource, LanguageResource, ProfileResource, PlayerResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource',
+		function(StorageResource, LanguageResource, ProfileResource, APIResource){
 		
 		ionic.Platform.ready(function(){
-			
-			screen.lockOrientation('portrait');
 			
 			var savedLanguage = StorageResource.getObject('language', false);
-			if(savedLanguage == false || savedLanguage == false){
+			if(savedLanguage == false || savedLanguage == null){
 				
 				StorageResource.setObject('language', LanguageResource.getCurrentLanguage());
 			} else {
@@ -138,7 +139,7 @@
 				
 				if(profile.profileSaved == false){
 					
-					PlayerResource.save(profile).$promise
+					APIResource.savePlayer(profile).$promise
 					.then(function(result){
 						
 						profile.profileSaved = true;
@@ -153,6 +154,8 @@
 					ProfileResource.data.profile = profile;
 				}
 			}
+			
+			screen.lockOrientation('portrait');
 		});
 	}])
 ;

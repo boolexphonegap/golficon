@@ -75,11 +75,11 @@
 					<tbody>
 						<tr ng-repeat="answer in answers">
 							<td>{{ $index + 1 }}</td>
-							<td>
-								<img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" style="height: 20px;" />
+							<td style="text-align: left;">
+								<img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />
 							</td>
 							<td class="difficulty-shape {{ answer.answer }} {{ answer.difficulty }}">
-								{{ answer.outstandingPoints }}
+								<span>{{ answer.outstandingPoints }}</span>
 							</td>
 						</tr>
 						<tr ng-repeat="i in [] | range : 18 - answers.length" class="empty">
@@ -90,16 +90,20 @@
 						</tr>
 					</tbody>
 				</table>
-
+				<!--
 				<div class="continue-button-container">
 					<a href="#" class="button button-stable" ng-click="nextQuestion()">Fortsæt >>></a>
 				</div>
-				
+				-->
 			</div>
 			
         </div>
 		
     </ion-content>
+	
+	<div class="bar bar-footer" style="background-color: transparent; height: 50px;" ng-if="toggleScoreCard">
+		<a href="#" class="button next-question-button" ng-click="nextQuestion()" style="margin: 5px auto;">Fortsæt >>></a>
+	</div>
 	
 </ion-view>
 
