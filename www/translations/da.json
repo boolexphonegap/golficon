@@ -15,5 +15,6 @@
 	"ERROR_FRIEND_INVITE": "Der opstod en fejl under invitere ven! Prøv igen senere...",
 	"MESSAGE_SENT": "Besked sendt",
 	"ERROR_SEND_MESSAGE": "Der opstod en fejl under afsendelse af besked! Prøv igen senere...",
-	"REQUIRE_SIGN_IN": "Venligst log på for at fortsætte"
+	"REQUIRE_SIGN_IN": "Venligst log på for at fortsætte",
+	"ASK_NAME": "Indtast dit ønskede navn"
 }

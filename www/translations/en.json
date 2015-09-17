@@ -15,5 +15,6 @@
 	"ERROR_FRIEND_INVITE": "An error occured during inviting friend! Please try again later...",
 	"MESSAGE_SENT": "Message sent",
 	"ERROR_SEND_MESSAGE": "An error occured during sending message! Please try again later...",
-	"REQUIRE_SIGN_IN": "Please log in to continue"
+	"REQUIRE_SIGN_IN": "Please log in to continue",
+	"ASK_NAME": "Enter your desired name"
 }

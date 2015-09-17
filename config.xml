@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.boolex.golficonapp" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
   <name>GolfQuis</name>
-  <description>&#xD;&#xD;
-		An Ionic Framework and Cordova project.&#xD;&#xD;
+  <description>
+		With GolfQuis you will learn the rules of golf and a lot about golf
 	</description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;&#xD;
-		Ionic Framework Team&#xD;&#xD;
+  <author email="cris@boolex.com" href="http://boolex.com">
+		Boolex
 	</author>
   <content src="index.html"/>
   <access origin="*"/>

@@ -42,7 +42,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		APIResource.getQuestions().$promise
 		.then(
 			function(result){
-				console.log(result);
 				$scope.questions = result;
 				
 				$scope.choices.push($scope.questions[$scope.questionIndex].true_answer);
@@ -410,7 +409,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			if(frmEmailLogin.email.$valid && frmEmailLogin.password.$valid){
 				
 				var nameInputPopup = $ionicPopup.prompt({
-					title: 'Enter your desired Name',
+					title: translateFilter('ASK_NAME'),
 					inputType: 'text',
 					inputPlaceholder: 'Name'
 				});
@@ -630,8 +629,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('ContactUsCtrl', ['$scope', '$stateParams', '$ionicPopup', 'ProfileResource', 'APIResource', 'translateFilter',
-		function($scope, $stateParams, $ionicPopup, ProfileResource, APIResource, translateFilter){
+	.controller('ContactUsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'ProfileResource', 'APIResource', 'translateFilter',
+		function($scope, $stateParams, $ionicPopup, $ionicLoading, ProfileResource, APIResource, translateFilter){
 			
 		var profile = ProfileResource.data.profile;
 			
@@ -666,15 +665,18 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			
 			if(frmContactUs.name.$valid && frmContactUs.email.$valid && frmContactUs.message.$valid){
 				
+				$ionicLoading.show();
 				APIResource.sendMessage($scope.contactForm).$promise
 				.then(function(result){
 					
+					$ionicLoading.hide();
 					$ionicPopup.alert({
 						title: 'Success!',
 						template: translateFilter('MESSAGE_SENT')
 					});
 				}, function(error){
 					
+					$ionicLoading.hide();
 					$ionicPopup.alert({
 						title: 'Error!',
 						template: translateFilter('ERROR_SEND_MESSAGE')
