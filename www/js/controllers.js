@@ -46,9 +46,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}).$promise
 		.then(
 			function(result){
-				//$scope.questions = result;
-				$scope.questions.push(result[0]);
-				$scope.questions.push(result[1]);
+				
+				$scope.questions = result;
 				
 				$scope.choices.push($scope.questions[$scope.questionIndex].true_answer);
 				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_1);
