@@ -7,7 +7,7 @@
 				</button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-clear" style="margin-right: 6px;">
+                <button class="button button-clear" style="margin-right: 6px;" ui-sref="app.my-challenges">
                     <img ng-src="images/golf-icon.png" alt="Alternate Text" />
                 </button>
                 <button class="button button-clear" ui-sref="app.start-screen">
@@ -33,11 +33,9 @@
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.login" ng-if="profile() == null">
                     Login
                 </ion-item>
-                <!--
 				<ion-item nav-clear menu-close class="item-light" ui-sref="app.rank-lists">
                     Rang lister
                 </ion-item>
-				-->
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.about-app">
                     Om app’en
                 </ion-item>
@@ -61,11 +59,9 @@
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.contact({ type: 'beAdvertiser'})">
                     Bliv annoncør
                 </ion-item>
-                <!--
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.dev-settings">
                     Dev Settings
                 </ion-item>
-				-->
             </ion-list>
         </ion-content>
     </ion-side-menu>

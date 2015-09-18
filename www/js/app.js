@@ -22,9 +22,12 @@
             })
 
             .state('app.start-game', {
-                url: '/start-game',
+                url: '/start-game/:game_id',
                 controller: 'GameCtrl',
-                templateUrl: 'templates/start/game.html'
+                templateUrl: 'templates/start/game.html',
+				params: {
+					game_id: 0
+				}
             })
 
             .state('app.score-card', {
@@ -107,6 +110,12 @@
 				params: {
 					type: 'contactUs'
 				}
+            })
+			
+            .state('app.my-challenges', {
+                url: '/my-challenges',
+                templateUrl: 'templates/my-challenges.html',
+				controller: 'MyChallengesCtrl'
             })
 			
             .state('app.dev-settings', {

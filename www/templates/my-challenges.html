@@ -1,0 +1,30 @@
+﻿<ion-view>
+    <ion-content overflow-scroll="true" id="start-page" class="background4">
+        <div class="padding">
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
+
+            <div id="main-content" class="padding">
+                <h3 class="title">Mine udfordringer</h3>
+
+                <table class="padding invite" style="width: 100%;">
+					<tr>
+						<td style="width: 80%; text-align: left;">Modtag udfordringer</td>
+						<td style="width: 20%; text-align: center;">Score</td>
+					</tr>
+					<tr ng-repeat="challenge in challenges track by $index">
+						<td>
+							<a class="button button-icon button-small icon" ng-class="challenge.status == 'ACCEPTED' ? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'" ng-click="toggleCheckbox($index)"></a>
+							<span class="name">{{ challenge.game.player.name }}</span>
+						</td>
+						<td><span class="score-area">{{ challenge.game.total_score }}</span></td>
+					</tr>
+                </table>
+				
+            </div>
+        </div>
+		
+    </ion-content>
+	
+</ion-view>
+

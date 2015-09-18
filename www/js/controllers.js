@@ -21,9 +21,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		};
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup', 'APIResource', 'GameResource', 'translateFilter', 
-		function ($scope, $state, $ionicLoading, $ionicPopup, APIResource, GameResource, translateFilter) {
+    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', 'APIResource', 'GameResource', 'translateFilter', 
+		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, APIResource, GameResource, translateFilter) {
         
+		$scope.parentGameID = $stateParams.game_id;
 		$scope.hints = 2;
 		$scope.choosen = '';
         $scope.answer = '';
@@ -33,16 +34,21 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.choices = new Array();
 		$scope.adsPresent = 0;
 		$scope.answers = new Array();
+		$scope.questionIDList = new Array();
 		
 		var AVAILABLE_CHOICES = 4;
 		
 		$ionicLoading.show({
 			template: translateFilter('LOADING_QUESTIONS')
 		});
-		APIResource.getQuestions().$promise
+		APIResource.getQuestions({
+			game_id: $scope.parentGameID
+		}).$promise
 		.then(
 			function(result){
-				$scope.questions = result;
+				//$scope.questions = result;
+				$scope.questions.push(result[0]);
+				$scope.questions.push(result[1]);
 				
 				$scope.choices.push($scope.questions[$scope.questionIndex].true_answer);
 				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_1);
@@ -147,6 +153,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				questionIndex: $scope.questionIndex
 			});
 			
+			$scope.questionIDList.push($scope.questions[$scope.questionIndex].id);
+			
 			$scope.toggleScoreCard = true;
 		}
 
@@ -179,6 +187,11 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			}
 			else
 			{
+				var questionIDList = $scope.questionIDList.join();
+				GameResource.setCurrentQuestionIDList(questionIDList);
+				
+				GameResource.setCurrentParentGameID($scope.parentGameID);
+				
 				GameResource.setCurrentTotalScore($scope.answers[$scope.answers.length - 1].outstandingPoints);
 				
 				$state.go('app.final-score');
@@ -193,6 +206,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
         $scope.myActiveSlide = 1;
 		$scope.finalScore = GameResource.getCurrentTotalScore();
+		$scope.questionIDList = GameResource.getCurrentQuestionIDList();
+		$scope.parentGameID = GameResource.getCurrentParentGameID();
 		
         var random = Math.floor((Math.random() * 2));
         $scope.status = profile != null ? 'registered' : 'non-registered';
@@ -202,19 +217,25 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		{
 			APIResource.saveGame({
 				id: profile.id,
-				total_score: $scope.finalScore
+				total_score: $scope.finalScore,
+				question_id_list: $scope.questionIDList,
+				parent_game_id: $scope.parentGameID
 			}).$promise
 			.then(function(result){
 				
 				ProfileResource.data.profile.score = result.score;
 				ProfileResource.data.profile.rounds = result.rounds;
 				StorageResource.setObject('profile', ProfileResource.data.profile);
+				
+				
 				$scope.game = result.game;
+				GameResource.setCurrentGame(result.game);
 			}, function(error){
 				
 				var unsavedGames = StorageResource.getObject('unsavedGames', []);
 				unsavedGames.push($scope.finalScore);
 				StorageResource.setObject('unsavedGames', unsavedGames);
+				GameResource.resetGame();
 			});
 		}
 		else
@@ -228,7 +249,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			
 			if($scope.game != null){
 				
-				$state.go('app.invite-friends', { game: $scope.game });
+				$state.go('app.invite-friends');
 			} else {
 				
 				var errorPopup = $ionicPopup.alert({
@@ -542,10 +563,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.changeList();
 	}])
 	
-	.controller('InviteFriendsCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'FriendsResource', 'ProfileResource', 'APIResource', 'translateFilter',
-		function($scope, $state, $stateParams, $ionicPopup, FriendsResource, ProfileResource, APIResource, translateFilter){
+	.controller('InviteFriendsCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', 'FriendsResource', 'ProfileResource', 'GameResource', 'APIResource', 'translateFilter',
+		function($scope, $state, $stateParams, $ionicPopup, $ionicLoading, FriendsResource, ProfileResource, GameResource, APIResource, translateFilter){
 		
-		console.log($stateParams.game);
+		$scope.game = GameResource.getCurrentGame();
 		
 		$scope.friends = FriendsResource.getFriends();
 		for(i in $scope.friends){
@@ -570,14 +591,32 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				if($scope.friends[i].include == false)
 					continue;
 				
-				invitedFriends.push($scope.friends[i]);
+				invitedFriends.push($scope.friends[i].id);
 			}
 			
-			if(invitedFriends.length > 0){
+			if(invitedFriends.length > 0 && $scope.game != null){
 				
-				//todo: do something
-				//alert(JSON.stringify(invitedFriends));
-			} else {
+				$ionicLoading.show();
+				APIResource.inviteFriends({
+					game_id: $scope.game.id,
+					friends: invitedFriends
+				}).$promise
+				.then(function(result){
+					
+					$ionicLoading.hide();
+					$ionicPopup.alert({
+						title: 'Success!',
+						template: translateFilter('FRIEND_INVITED')
+					});
+				}, function(){
+					
+					$ionicLoading.hide();
+					$ionicPopup.alert({
+						title: 'Error!',
+						template: translateFilter('ERROR_FRIEND_INVITE')
+					});
+				});
+			} else if (invitedFriends.length == 0){
 				
 				$ionicPopup.alert({
 					title: 'Error!',
@@ -592,20 +631,24 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			{
 				var profile = ProfileResource.data.profile;
 				
-				if(profile != null)
+				if(profile != null && $scope.game != null)
 				{
+					$ionicLoading.show();
 					APIResource.inviteViaEmail({
 						id: profile.id,
+						game_id: $scope.game.id,
 						friend_email: $scope.inviteForm.email
 					}).$promise
 					.then(function(result){
 						
+						$ionicLoading.hide();
 						$ionicPopup.alert({
 							title: 'Success!',
 							template: translateFilter('FRIEND_INVITED')
 						});
 					}, function(error){
 						
+						$ionicLoading.hide();
 						$ionicPopup.alert({
 							title: 'Error!',
 							template: translateFilter('ERROR_FRIEND_INVITE')
@@ -682,6 +725,35 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 						template: translateFilter('ERROR_SEND_MESSAGE')
 					});
 				});
+			}
+		}
+	}])
+	
+	.controller('MyChallengesCtrl', ['$scope', '$state', '$ionicPopup', '$ionicLoading', 'ProfileResource', 'APIResource', 'translateFilter',
+		function($scope, $state, $ionicPopup, $ionicLoading, ProfileResource, APIResource, translateFilter){
+		
+		$scope.challenges = new Array();
+		
+		$ionicLoading.show({ template: 'Loading Challenges' });
+		APIResource.getChallenges({
+			id: ProfileResource.data.profile.id
+		}).$promise
+		.then(function(result){
+			
+			$scope.challenges = result;
+			$ionicLoading.hide();
+		}, function(error){
+			
+			$ionicLoading.hide();
+		});
+		
+		$scope.toggleCheckbox = function(index){
+			
+			if($scope.challenges[index].status == 'INVITED'){
+			
+				$scope.challenges[index].status = 'ACCEPTED';
+				
+				$state.go('app.start-game', { game_id: $scope.challenges[index].game_id });
 			}
 		}
 	}])

@@ -32,6 +32,15 @@ angular.module('app.services', ['ngResource'])
 			saveGame: {
 				method: 'POST',
 				url: API_SERVER + 'save-game'
+			},
+			inviteFriends: {
+				method: 'POST',
+				url: API_SERVER + 'invite-friends'
+			},
+			getChallenges: {
+				method: 'GET',
+				url: API_SERVER + 'challenges',
+				isArray: true
 			}
 		});
 	}])
@@ -148,8 +157,27 @@ angular.module('app.services', ['ngResource'])
 		function() {
 
 		var currentTotalScore = 0;
+		var currentParentGameID = 0;
+		var currentGame = null;
+		var currentQuestionIDList = "";
 		
 		return {
+			getCurrentParentGameID: function(){
+				
+				return currentParentGameID;
+			},
+			setCurrentParentGameID: function(parentGameID){
+				
+				currentParentGameID = parentGameID;
+			},
+			getCurrentQuestionIDList: function(){
+				
+				return currentQuestionIDList;
+			},
+			setCurrentQuestionIDList: function(questionIDList){
+				
+				currentQuestionIDList = questionIDList;
+			},
 			getCurrentTotalScore: function(){
 				
 				return currentTotalScore;
@@ -158,9 +186,13 @@ angular.module('app.services', ['ngResource'])
 				
 				currentTotalScore = totalScore;
 			},
-			resetScore: function(){
+			getCurrentGame: function(){
 				
-				currentTotalScore = 0;
+				return currentGame;
+			},
+			setCurrentGame: function(game){
+				
+				currentGame = game;
 			}
 		};
 
