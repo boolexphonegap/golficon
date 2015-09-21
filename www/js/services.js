@@ -41,6 +41,11 @@ angular.module('app.services', ['ngResource'])
 				method: 'GET',
 				url: API_SERVER + 'challenges',
 				isArray: true
+			},
+			getTopPlayers: {
+				method: 'GET',
+				url: API_SERVER + 'top-players',
+				isArray: true
 			}
 		});
 	}])
@@ -72,7 +77,8 @@ angular.module('app.services', ['ngResource'])
 			getFriends: function(){
 				
 				return friends;
-			}
+			},
+			refresh: refresh
 		};
 	}])
 	

@@ -17,7 +17,7 @@
 							<a class="button button-icon button-small icon" ng-class="person.include ? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'" ng-click="toggleCheckbox($index)"></a>
 							<span class="name">{{ person.name }}</span>
 						</td>
-						<td><span class="score-area">{{ person.score }}</span></td>
+						<td><span class="score-area">{{ person.score | number:1 }}</span></td>
 					</tr>
                 </table>
 				

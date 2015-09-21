@@ -32,6 +32,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
         $scope.toggleScoreCard = false;
 		$scope.questions = new Array();
 		$scope.choices = new Array();
+        $scope.correctAnswerIndex = 0;
 		$scope.adsPresent = 0;
 		$scope.answers = new Array();
 		$scope.questionIDList = new Array();
@@ -88,6 +89,36 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				$scope.choices[3] = false;
 				$scope.adsPresent = 1;
 			}
+			
+			var randomOrder = new Array();
+			while(randomOrder.length < 4 - $scope.adsPresent){
+				
+				var randomNumber = Math.ceil(Math.random() * (4 - $scope.adsPresent)) - 1;
+				var found = false;
+				for(i in randomOrder){
+					
+					if(randomOrder[i] == randomNumber){
+						found = true;break
+					}
+				}
+				
+				if(!found)
+					randomOrder[randomOrder.length] = randomNumber;
+			}
+			
+			var tempChoices = new Array();
+			for(i in randomOrder){
+				
+				tempChoices[i] = $scope.choices[randomOrder[i]];
+				
+				if(randomOrder[i] == 0)
+					$scope.correctAnswerIndex = i;
+			}
+			
+			for(i in tempChoices){
+				
+				$scope.choices[i] = tempChoices[i];
+			}
         };
 
         $scope.chooseAnswer = function (answer) {
@@ -102,7 +133,17 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				{
 					$scope.hints--;
 					$scope.adsPresent++;
-					$scope.choices[AVAILABLE_CHOICES - $scope.adsPresent] = false;
+					
+					for(i in $scope.choices)
+					{
+						if($scope.correctAnswerIndex == i)
+							continue;
+						else if($scope.choices[i] != false)
+						{
+							$scope.choices[i] = false
+							break;
+						}
+					}
 				}
 				else if($scope.adsPresent >= 3)
 				{
@@ -295,71 +336,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('RegisterCtrl', ['$scope', '$ionicLoading', '$ionicPopup',
-		function($scope, $ionicLoading, $ionicPopup){
-
-		var self = this;
-		
-		$scope.registrationForm = {
-			name: '',
-			email: '',
-			emailConfirm: '',
-			password: '',
-			passwordConfirm: '',
-		};
-		
-		$scope.validateInput = function(){
-			
-			var hasErrors = false;
-			
-			if($scope.registrationForm.name.length == 0){
-				hasErrors = true;
-				$scope.nameError = true;
-			} else {
-				
-				$scope.nameError = false;
-			}
-			if($scope.registrationForm.email.length == 0){
-				hasErrors = true;
-				$scope.emailError = true;
-			} else {
-				
-				$scope.emailError = false;
-			}
-			if($scope.registrationForm.emailConfirm.length == 0 || $scope.registrationForm.emailConfirm != $scope.registrationForm.email){
-				hasErrors = true;
-				$scope.emailConfirmError = true;
-			} else {
-				
-				$scope.emailConfirmError = false;
-			}
-			if($scope.registrationForm.password.length == 0){
-				hasErrors = true
-				$scope.passwordError = true;
-			} else {
-				
-				$scope.passwordError = false;
-			}
-			if($scope.registrationForm.passwordConfirm.length == 0 || $scope.registrationForm.passwordConfirm != $scope.registrationForm.password){
-				hasErrors = true;
-				$scope.passwordConfirmError = true;
-			} else {
-				
-				$scope.passwordConfirmError = false;
-			}
-			
-			if(!hasErrors){
-				
-				$ionicPopup.alert({
-					title: 'Success!',
-					template: 'You are now registered to GolfQuis'
-				});
-			}
-		}
-	}])
-	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'translateFilter',
-		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, translateFilter){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'FriendsResource', 'translateFilter',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, FriendsResource, translateFilter){
 		
 		
 		$scope.registrationForm = {
@@ -390,6 +368,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					newProfile.name = saveResult.player.name;
 					newProfile.email = saveResult.player.email;
 					newProfile.password = saveResult.player.password;
+					newProfile.ranking = saveResult.player.rank_this_month;
 					newProfile.rounds = saveResult.player.rounds;
 					newProfile.score = saveResult.player.score;
 					newProfile.profileSaved = true;
@@ -412,6 +391,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			
 			StorageResource.setObject('profile', profile);
 			ProfileResource.data.profile = profile;
+			FriendsResource.refresh();
 				
 			var successPopup = $ionicPopup.alert({
 				title: 'Success!',
@@ -538,8 +518,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('RankListCtrl', ['$scope', 'FriendsResource', 
-		function($scope, FriendsResource){
+	.controller('RankListCtrl', ['$scope', 'FriendsResource', 'APIResource', 
+		function($scope, FriendsResource, APIResource){
 			
 		$scope.rankInput = {
 			ranking: "friends"
@@ -548,6 +528,11 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.friends = FriendsResource.getFriends();
 		
 		$scope.all = new Array();
+		APIResource.getTopPlayers().$promise
+		.then(function(result){
+			
+			$scope.all = result;
+		});
 		
 		$scope.list = new Array();
 		
