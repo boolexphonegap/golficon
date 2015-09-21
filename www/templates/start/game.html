@@ -12,15 +12,15 @@
 				
 					<h4>Vælg sværhedsgrad</h4>
 					
-                    <a href="#" class="button button-block level-button birdie" ng-click="chooseLevel('birdie')">
+                    <a class="button button-block level-button birdie" ng-click="chooseLevel('birdie')">
                         <img ng-src="images/level/birdie-large.png" alt="Alternate Text" />
                         <span>-1 Point</span>
                     </a>
-                    <a href="#" class="button button-block level-button eagle" ng-click="chooseLevel('eagle')">
+                    <a class="button button-block level-button eagle" ng-click="chooseLevel('eagle')">
                         <img ng-src="images/level/eagle-large.png" alt="Alternate Text" />
                         <span>-2 Point</span>
                     </a>
-                    <a href="#" class="button button-block level-button albatross" ng-click="chooseLevel('albatross')">
+                    <a class="button button-block level-button albatross" ng-click="chooseLevel('albatross')">
                         <img ng-src="images/level/albatross-large.png" alt="Alternate Text" />
                         <span>-3 Point</span>
                     </a>
@@ -35,7 +35,7 @@
 					
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 28px;" />
 					
-                    <a href="#" class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="border: 0; background-color: #EFECC6; box-shadow: 0px 1px 0px black;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong') : false;">
+                    <a class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="border: 0; background-color: #EFECC6; box-shadow: 0px 1px 0px black;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong') : false;">
 						<span ng-if="choice != false">{{ choice }}</span>
                         <img ng-if="choice == false" ng-src="images/sponsor/ad-{{ $index }}.png" alt="Alternate Text" class="ad-{{ $index }}" />
                     </a>
@@ -55,7 +55,7 @@
 					<p>Se {{ questions[questionIndex].rule }}</p>
 
 					<div class="continue-button-container">
-						<a href="#" class="button button-stable" ng-click="viewScoreChart()">Fortsæt >>></a>
+						<a class="button button-stable" ng-click="viewScoreChart()">Fortsæt >>></a>
 					</div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
 				</table>
 				<!--
 				<div class="continue-button-container">
-					<a href="#" class="button button-stable" ng-click="nextQuestion()">Fortsæt >>></a>
+					<a class="button button-stable" ng-click="nextQuestion()">Fortsæt >>></a>
 				</div>
 				-->
 			</div>
@@ -101,7 +101,7 @@
     </ion-content>
 	
 	<div class="bar bar-footer" style="background-color: transparent; height: 50px;" ng-if="toggleScoreCard">
-		<a href="#" class="button next-question-button" ng-click="nextQuestion()" style="margin: 5px auto;">Fortsæt >>></a>
+		<a class="button next-question-button" ng-click="nextQuestion()" style="margin: 5px auto;">Fortsæt >>></a>
 	</div>
 	
 </ion-view>
