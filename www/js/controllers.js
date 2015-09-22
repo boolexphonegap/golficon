@@ -359,9 +359,11 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				profileSaved: false
 			};
 			
+			$ionicLoading.show();
 			APIResource.savePlayer(newProfile).$promise
 			.then(function(saveResult){
 				
+				$ionicLoading.hide();
 				if(saveResult.statusCode == 1)
 				{
 					newProfile.id = saveResult.player.id;
@@ -383,6 +385,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				}
 			}, function(error){
 				
+				$ionicLoading.hide();
 				$scope.setProfileToPhone(newProfile);
 			});
 		};
@@ -416,20 +419,20 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				
 				nameInputPopup.then(function(input){
 					
-					$scope.saveProfile(input, $scope.registrationForm.email, $scope.registrationForm.password, false);
+					if(input){
+						$scope.saveProfile(input, $scope.registrationForm.email, $scope.registrationForm.password, false);
+					}
 				});
 			}
 		};
 		
 		$scope.facebookLogin = function() {
 			
-			$ionicLoading.show({
-				template: translateFilter('FACEBOOK_SIGN_IN')
-			});
+			$ionicLoading.show({ template: translateFilter('FACEBOOK_SIGN_IN') });
 			$cordovaOauth.facebook("1642193092719323", ["email"])
 			.then(function(result) {
 				
-				$ionicLoading.hide();
+				$ionicLoading.show({ template: translateFilter('FACEBOOK_RETRIEVE_DATA') });
 				var accessToken = result.access_token;
 				
 				$http.get("https://graph.facebook.com/v2.4/me", { 
@@ -441,7 +444,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				})
 				.then(function(apiResult) {
 				
-					
+					$ionicLoading.hide();
 					$scope.saveProfile(apiResult.data.name, apiResult.data.email, 'facebook', accessToken);
 					
 				}, function (error) {
@@ -718,7 +721,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
 		$scope.challenges = new Array();
 		
-		$ionicLoading.show({ template: 'Loading Challenges' });
+		$ionicLoading.show({ template: translateFilter('LOADING_CHALLENGES') });
 		APIResource.getChallenges({
 			id: ProfileResource.data.profile.id
 		}).$promise

@@ -7,14 +7,16 @@
 	"LOADING_QUESTIONS": "Loading questions...",
 	"ERROR_QUESTION_LOADING": "An error occured during loading questions! Please try again later...",
 	"ERROR_NO_HINTS": "You don't have available hints!",
-	"FACEBOOK_SIGN_IN": "Logging in with facebook",
+	"FACEBOOK_SIGN_IN": "Logging in with facebook...",
+	"FACEBOOK_RETRIEVE_DATA": "Retrieving facebook data...",
 	"ERROR_FACEBOOK_SIGN_IN": "An error occured during signing in with facebook! Please try again later...",
-	"PROFILE_SAVED": "Profile Saved",
-	"ERROR_INVITE_FRIEND": "You must invite atleast 1 friend",
-	"FRIEND_INVITED": "Friend successfully invited",
+	"PROFILE_SAVED": "Profile Saved!",
+	"ERROR_INVITE_FRIEND": "You must invite atleast 1 friend!",
+	"FRIEND_INVITED": "Friend successfully invited!",
 	"ERROR_FRIEND_INVITE": "An error occured during inviting friend! Please try again later...",
-	"MESSAGE_SENT": "Message sent",
+	"MESSAGE_SENT": "Message sent!",
 	"ERROR_SEND_MESSAGE": "An error occured during sending message! Please try again later...",
 	"REQUIRE_SIGN_IN": "Please log in to continue",
-	"ASK_NAME": "Enter your desired name"
+	"ASK_NAME": "Enter your desired name",
+	"LOADING_CHALLENGES": "Loading challenges..."
 }

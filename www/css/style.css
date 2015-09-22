@@ -130,6 +130,9 @@ a{
 
 #start-page .padding{
 	padding: 5px;
+	max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #start-page .padding .row{
@@ -380,6 +383,10 @@ table.invite tbody tr td span.score-area{
 ion-slide img{
     width: 100%;
     height: 350px;
+	max-width: 315px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .handicap{
@@ -710,33 +717,13 @@ ion-slide img{
    top: 30px;
 }
 
-.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
   margin-top: 10px;
 }
-.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
   height: 40px;
 }
-.platform-ios7.platform-cordova:not(.fullscreen) .has-header {
-  top: 40px;
-}
-
-.platform-ios8.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
-  margin-top: 10px;
-}
-.platform-ios8.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-  height: 40px;
-}
-.platform-ios8.platform-cordova:not(.fullscreen) .has-header {
-  top: 40px;
-}
-
-.platform-ios9.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
-  margin-top: 10px;
-}
-.platform-ios9.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-  height: 40px;
-}
-.platform-ios9.platform-cordova:not(.fullscreen) .has-header {
+.platform-ios.platform-cordova:not(.fullscreen) .has-header {
   top: 40px;
 }
 
