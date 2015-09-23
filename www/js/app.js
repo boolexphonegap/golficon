@@ -87,9 +87,12 @@
             })
 
             .state('app.login', {
-                url: '/login',
+                url: '/login/:logout',
                 templateUrl: 'templates/login.html',
-				controller: 'LoginCtrl'
+				controller: 'LoginCtrl',
+				params: {
+					logout: false
+				}
             })
 
             .state('app.login-facebook', {

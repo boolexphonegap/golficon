@@ -1,7 +1,7 @@
 angular.module('app.services', ['ngResource'])
 
-	.constant('API_SERVER', 'http://golficon.boolex.com/public/ajax/')
-	//.constant('API_SERVER', 'http://localhost/golfApp/public/ajax/')
+	//.constant('API_SERVER', 'http://golficon.boolex.com/public/ajax/')
+	.constant('API_SERVER', 'http://localhost/golfApp/public/ajax/')
 	
 	.factory('APIResource', ['$resource', 'API_SERVER', 
 		function($resource, API_SERVER) {
@@ -46,6 +46,10 @@ angular.module('app.services', ['ngResource'])
 				method: 'GET',
 				url: API_SERVER + 'top-players',
 				isArray: true
+			},
+			getRank: {
+				method: 'GET',
+				url: API_SERVER + 'rank'
 			}
 		});
 	}])

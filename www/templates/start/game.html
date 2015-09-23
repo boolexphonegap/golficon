@@ -1,5 +1,5 @@
 ﻿<ion-view cache-view="false" class="background{{ choosen == '' ? '3' : toggleScoreCard ? '2' : '5' }}">
-    <ion-content overflow-scroll="true" id="start-page">
+    <ion-content overflow-scroll="true" id="start-page" delegate-handle="game">
         <div class="padding game">
 		
 			<div ng-include="'templates/includes/top-ad.html'"></div>
@@ -72,7 +72,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="answer in answers">
+						<tr ng-repeat="answer in answers" id="{{ answer.questionIndex }}">
 							<td>{{ $index + 1 }}</td>
 							<td style="text-align: left;">
 								<img ng-src="images/level/{{ answer.difficulty }}-large.png" alt="Alternate Text" />

@@ -1,4 +1,4 @@
-﻿<ion-view>
+﻿<ion-view cache-view="false">
     <ion-content overflow-scroll="true" id="start-page" class="background3">
         <div class="padding">
 		
@@ -11,23 +11,27 @@
 				<table class="profile">
 					<tr>
 						<td>Navn:</td>
-						<td>{{ name() }}</td>
+						<td>{{ name }}</td>
 					</tr>
 					<tr>
 						<td>Mail:</td>
-						<td>{{ email() }}</td>
+						<td>{{ email }}</td>
 					</tr>
 					<tr>
 						<td>Ranking:</td>
-						<td>{{ ranking() }}</td>
+						<td>
+							{{ ranking }}
+							<ion-spinner ng-if="ranking == ''"></ion-spinner>
+						</td>
 					</tr>
 					<tr>
 						<td>Runder:</td>
-						<td>{{ rounds() }}</td>
+						<td>{{ rounds }}</td>
 					</tr>
 					<tr>
 						<td>Venner:</td>
 						<td>
+							<ion-spinner ng-if="friends.length == 0"></ion-spinner>
 							<div ng-repeat="friend in friends">{{ friend.name }}</div>
 						</td>
 					</tr>

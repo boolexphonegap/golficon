@@ -13,16 +13,24 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('DefaultCtrl', ['$scope', 'ProfileResource', 
-		function($scope, ProfileResource){
+	.controller('DefaultCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', 'ProfileResource', 'StorageResource',
+		function($scope, $state, $ionicSideMenuDelegate, ProfileResource, StorageResource){
 		
 		$scope.profile = function(){
 			return ProfileResource.data.profile;
 		};
+		
+		$scope.logout = function(){
+			
+			ProfileResource.data.profile = null;
+			StorageResource.setObject('profile', null);
+			$state.go('app.login');
+			$ionicSideMenuDelegate.toggleLeft();
+		}
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', 'APIResource', 'GameResource', 'translateFilter', 
-		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, APIResource, GameResource, translateFilter) {
+    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', 'APIResource', 'GameResource', 'translateFilter', 
+		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, APIResource, GameResource, translateFilter) {
         
 		$scope.parentGameID = $stateParams.game_id;
 		$scope.hints = 2;
@@ -196,6 +204,11 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			$scope.questionIDList.push($scope.questions[$scope.questionIndex].id);
 			
 			$scope.toggleScoreCard = true;
+			
+			if($scope.questionIndex >= 5)
+			{
+				$ionicScrollDelegate.$getByHandle('game').scrollTo(0, 100 + (40 * ($scope.questionIndex - 5)), true);
+			}
 		}
 
         $scope.nextQuestion = function () {
@@ -304,26 +317,21 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
     }])
 
-    .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 'FriendsResource', 
-		function ($scope, $state, StorageResource, ProfileResource, FriendsResource) {
+    .controller('ProfileCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 'FriendsResource', 'APIResource',
+		function ($scope, $state, StorageResource, ProfileResource, FriendsResource, APIResource) {
 		
 		var profile = ProfileResource.data.profile;
 		
-		$scope.name = function(){
-			return ProfileResource.data.profile.name;
-		};
+		$scope.name = profile.name;
+		$scope.email = profile.email;
+		$scope.rounds = profile.rounds;
 		
-		$scope.email = function(){
-			return ProfileResource.data.profile.email;
-		};
-		
-		$scope.ranking = function(){
-			return ProfileResource.data.profile.ranking;
-		};
-		
-		$scope.rounds = function(){
-			return ProfileResource.data.profile.rounds;
-		};
+		$scope.ranking = '';
+		APIResource.getRank({ id: ProfileResource.data.profile.id }).$promise
+		.then(function(result){
+			
+			$scope.ranking = result.rank;
+		});
 		
 		$scope.friends = FriendsResource.getFriends();
     }])
@@ -338,7 +346,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 	
 	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'FriendsResource', 'translateFilter',
 		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, FriendsResource, translateFilter){
-		
 		
 		$scope.registrationForm = {
 			email: '',
