@@ -20,18 +20,18 @@
                             <td style="width:15%;">{{ 'RANK_LIST_LAST_MONTH' | translate }}</td>
                             <td style="width:40%;">{{ 'NAME' | translate }}</td>
                             <td style="width:15%;">{{ 'ROUNDS' | translate }}</td>
-                            <td style="width:15%;">Handicap</td>
+                            <td style="width:15%;">{{ 'HANDICAP' | translate }}</td>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr ng-repeat="person in list track by $index">
                             <td>
-								<i class="ion ion-chevron-right" ng-if="person.rank_this_month == person.rank_last_month"></i>
-								<i class="ion ion-chevron-up balanced" ng-if="person.rank_this_month > person.rank_last_month"></i>
-								<i class="ion ion-chevron-down assertive" ng-if="person.rank_this_month < person.rank_last_month"></i>
+								<i class="ion ion-chevron-right" ng-if="$index + 1 == person.rank_last_month || person.rank_last_month == 0"></i>
+								<i class="ion ion-chevron-up balanced" ng-if="$index + 1 < person.rank_last_month && person.rank_last_month != 0"></i>
+								<i class="ion ion-chevron-down assertive" ng-if="$index + 1 > person.rank_last_month && person.rank_last_month != 0"></i>
 							</td>
-                            <td>{{ person.rank_this_month }}</td>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ person.rank_last_month }}</td>
                             <td><strong>{{ person.name }}</strong></td>
                             <td>{{ person.rounds }}</td>

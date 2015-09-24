@@ -456,11 +456,11 @@ angular.module('app.services', ['ngResource'])
 				{
 					if(numberBelongsToRangeString(handicap, handicapRangeString))
 					{
-						for(totalRangeString in scoreMatrix[handicapRange])
+						for(totalRangeString in scoreMatrix[handicapRangeString])
 						{
 							if(numberBelongsToRangeString(totalScore, totalRangeString))
 							{
-								return scoreMatrix[handicapRange][totalRange];
+								return scoreMatrix[handicapRangeString][totalRangeString];
 							}
 						}
 					}

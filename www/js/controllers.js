@@ -73,7 +73,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				$ionicLoading.hide();
 				
 				var errorPopup = $ionicPopup.alert({
-					title: 'Error!',
+					title: translateFilter('ERROR'),
 					template: translateFilter('ERROR_QUESTION_LOADING')
 				});
 				
@@ -163,7 +163,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				else if($scope.hints == 0)
 				{
 					$ionicPopup.alert({
-						title: 'Error!',
+						title: translateFilter('ERROR'),
 						okText: translateFilter('CONTINUE'),
 						template: translateFilter('ERROR_NO_HINTS')
 					});
@@ -256,13 +256,14 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
         };
     }])
 
-    .controller('FinalScoreCtrl', ['$scope', '$state', '$ionicPopup', 'GameResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'StorageResource', 'translateFilter',
-		function ($scope, $state, $ionicPopup, GameResource, LanguageResource, ProfileResource, APIResource, StorageResource, translateFilter) {
+    .controller('FinalScoreCtrl', ['$scope', '$state', '$ionicPopup', 'GameResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'StorageResource', 'HandicapResource', 'translateFilter',
+		function ($scope, $state, $ionicPopup, GameResource, LanguageResource, ProfileResource, APIResource, StorageResource, HandicapResource, translateFilter) {
 		
 		var profile = ProfileResource.data.profile;
+		var totalScore = GameResource.getCurrentTotalScore();
 		
         $scope.myActiveSlide = 1;
-		$scope.finalScore = GameResource.getCurrentTotalScore();
+		$scope.finalScore = parseFloat(profile.score) + HandicapResource.getScoreIncrement(totalScore, profile.score)
 		$scope.questionIDList = GameResource.getCurrentQuestionIDList();
 		$scope.parentGameID = GameResource.getCurrentParentGameID();
 		
@@ -274,7 +275,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		{
 			APIResource.saveGame({
 				id: profile.id,
-				total_score: $scope.finalScore,
+				total_score: totalScore,
 				question_id_list: $scope.questionIDList,
 				parent_game_id: $scope.parentGameID
 			}).$promise
@@ -310,7 +311,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			} else {
 				
 				var errorPopup = $ionicPopup.alert({
-					title: 'Error!',
+					title: translateFilter('ERROR'),
 					template: translateFilter('REQUIRE_SIGN_IN')
 				});
 				errorPopup.then(function(){
@@ -329,6 +330,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.name = profile.name;
 		$scope.email = profile.email;
 		$scope.rounds = profile.rounds;
+		$scope.score = profile.score;
 		
 		$scope.ranking = '';
 		APIResource.getRank({ id: ProfileResource.data.profile.id }).$promise
@@ -463,7 +465,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					$ionicLoading.hide();
 					
 					var errorPopup = $ionicPopup.alert({
-						title: 'Error!',
+						title: translateFilter('ERROR'),
 						template: translateFilter('ERROR_FACEBOOK_SIGN_IN')
 					});
 					
@@ -477,7 +479,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				$ionicLoading.hide();
 				
 				var errorPopup = $ionicPopup.alert({
-					title: 'Error!',
+					title: translateFilter('ERROR'),
 					template: translateFilter('ERROR_FACEBOOK_SIGN_IN')
 				});
 				
@@ -610,14 +612,14 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					
 					$ionicLoading.hide();
 					$ionicPopup.alert({
-						title: 'Error!',
+						title: translateFilter('ERROR'),
 						template: translateFilter('ERROR_FRIEND_INVITE')
 					});
 				});
 			} else if (invitedFriends.length == 0){
 				
 				$ionicPopup.alert({
-					title: 'Error!',
+					title: translateFilter('ERROR'),
 					template: translateFilter('ERROR_INVITE_FRIEND')
 				});
 			}
@@ -648,7 +650,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 						
 						$ionicLoading.hide();
 						$ionicPopup.alert({
-							title: 'Error!',
+							title: translateFilter('ERROR'),
 							template: translateFilter('ERROR_FRIEND_INVITE')
 						});
 					});
@@ -657,7 +659,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				{
 					
 					var errorPopup = $ionicPopup.alert({
-						title: 'Error!',
+						title: translateFilter('ERROR'),
 						template: translateFilter('REQUIRE_SIGN_IN')
 					});
 					errorPopup.then(function(){
@@ -719,7 +721,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					
 					$ionicLoading.hide();
 					$ionicPopup.alert({
-						title: 'Error!',
+						title: translateFilter('ERROR'),
 						template: translateFilter('ERROR_SEND_MESSAGE')
 					});
 				});
