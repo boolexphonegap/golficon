@@ -19,7 +19,6 @@
   <preference name="orientation" value="portrait"/>
   <preference name="stay-in-webview" value="true"/>
   <preference name="prerendered-icon" value="false"/>
-  <preference name="deployment-target" value="7.0" />
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
