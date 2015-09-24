@@ -1,4 +1,4 @@
-﻿<ion-side-menus enable-menu-with-back-views="true">
+﻿<ion-side-menus enable-menu-with-back-views="true" ng-controller="DefaultCtrl">
     <ion-side-menu-content>
         <ion-nav-bar class="bar-stable">
             <ion-nav-buttons side="left">
@@ -7,7 +7,7 @@
 				</button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-clear" style="margin-right: 6px;" ui-sref="app.my-challenges">
+                <button class="button button-clear" style="margin-right: 6px;" ui-sref="app.my-challenges" ng-if="profile() != null">
                     <img ng-src="images/golf-icon.png" alt="Alternate Text" />
                 </button>
                 <button class="button button-clear" ui-sref="app.start-screen">
@@ -20,7 +20,7 @@
 
     </ion-side-menu-content>
     <ion-side-menu side="left" width="165">
-        <ion-content has-header="true" ng-controller="DefaultCtrl">
+        <ion-content has-header="true">
             <ion-list>
                 <ion-item nav-clear menu-close class="item-light">
                 </ion-item>
@@ -28,19 +28,19 @@
                     <span style="font-style: italic;">Menu</span>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.profile" ng-if="profile() != null">
-                    Personlig profil
+                    {{ 'PERSONAL_PROFILE' | translate }}
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.login" ng-if="profile() == null">
                     Login
                 </ion-item>
 				<ion-item nav-clear menu-close class="item-light" ui-sref="app.rank-lists">
-                    Rang lister
+                    {{ 'MENU_RANK_LIST' | translate }}
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.about-app">
-                    Om app’en
+                    {{ 'MENU_ABOUT' | translate }}
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.golf-regulation-handicap">
-                    Golf regel handicap
+                    {{ 'MENU_GOLF_HANDICAP' | translate }}
                 </ion-item>
                 <!--
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.start-screen">
@@ -51,13 +51,13 @@
                     Credits
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.contact({ type: 'contactUs'})">
-                    Kontakt os
+                    {{ 'MENU_GOLF_CONTACT_US' | translate }}
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.contact({ type: 'feedback'})">
                     Feedback
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ui-sref="app.contact({ type: 'beAdvertiser'})">
-                    Bliv annoncør
+                    {{ 'MENU_GOLF_BE_ADVERTISER' | translate }}
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-light" ng-click="logout()" ng-if="profile() != null" style="padding: 0;">
                     <a class="item-content">Log out</a>

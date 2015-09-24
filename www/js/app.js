@@ -30,11 +30,6 @@
 				}
             })
 
-            .state('app.score-card', {
-                url: '/score-card',
-                templateUrl: 'templates/start/score.html'
-            })
-
             .state('app.final-score', {
                 url: '/final-score/:finalScore',
                 controller: 'FinalScoreCtrl',
@@ -95,17 +90,6 @@
 				}
             })
 
-            .state('app.login-facebook', {
-                url: '/login-facebook',
-                templateUrl: 'templates/login-facebook.html',
-            })
-
-            .state('app.login-register', {
-                url: '/login-register',
-                templateUrl: 'templates/login-register.html',
-				controller: 'RegisterCtrl'
-            })
-			
             .state('app.contact', {
                 url: '/contact-us/:type',
                 templateUrl: 'templates/contact-us.html',
@@ -132,8 +116,8 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource',
-		function(StorageResource, LanguageResource, ProfileResource, APIResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'HandicapResource', 
+		function(StorageResource, LanguageResource, ProfileResource, APIResource, HandicapResource){
 		
 		ionic.Platform.ready(function(){
 			

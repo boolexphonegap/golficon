@@ -5,11 +5,11 @@
 			<div ng-include="'templates/includes/top-ad.html'"></div>
 
             <div id="main-content" class="padding">
-                <h3 class="title">Mine udfordringer</h3>
+                <h3 class="title">{{ 'MY_CHALLENGES_TITLE' | translate }}</h3>
 
                 <table class="padding invite" style="width: 100%;">
 					<tr>
-						<td style="width: 80%; text-align: left;">Modtag udfordringer</td>
+						<td style="width: 80%; text-align: left;">{{ 'MY_CHALLENGES_RECEIVED' | translate }}</td>
 						<td style="width: 20%; text-align: center;">Score</td>
 					</tr>
 					<tr ng-repeat="challenge in challenges track by $index">
@@ -19,6 +19,7 @@
 						</td>
 						<td><span class="score-area">{{ challenge.game.total_score }}</span></td>
 					</tr>
+					
                 </table>
 				
             </div>

@@ -6,11 +6,11 @@
 
             <div id="main-content" class="profile">
 			
-                <h3 class="title">Personlig Profil</h3>
+                <h3 class="title">{{ 'PERSONAL_PROFILE' | translate }}</h3>
 
 				<table class="profile">
 					<tr>
-						<td>Navn:</td>
+						<td>{{ 'NAME' | translate }}:</td>
 						<td>{{ name }}</td>
 					</tr>
 					<tr>
@@ -25,11 +25,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Runder:</td>
+						<td>{{ 'ROUNDS' | translate }}:</td>
 						<td>{{ rounds }}</td>
 					</tr>
 					<tr>
-						<td>Venner:</td>
+						<td>{{ 'FRIENDS' | translate }}:</td>
 						<td>
 							<ion-spinner ng-if="friends.length == 0"></ion-spinner>
 							<div ng-repeat="friend in friends">{{ friend.name }}</div>

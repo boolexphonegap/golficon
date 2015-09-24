@@ -5,42 +5,15 @@
 			<div ng-include="'templates/includes/top-ad.html'"></div>
 			
             <div id="main-content" class="padding">
-                <h3 class="title">Handicap beregning</h3>
+                <h3 class="title">{{ 'GOLF_HANDICAP_TITLE' | translate }}</h3>
 
                 <div class="handicap padding">
-                    <p>
-                        Sådan bliver dit Golf Regel Handicap reguleret, <br /> 
-						skemaet viser hvor meget dit handicap går op eller ned efter hver runde.
-                    </p>
-                    <p>
-                        Vandret er din samlede score i dag.
-                    </p>
-                    <p>
-                        Lodret scoren for den seneste runde, der dermed påvirker handicappet.
-                    </p>
+                    <div ng-bind-html="'GOLF_HANDICAP_PARAGRAPH_1' | translate"></div>
 
                     <img src="images/calculation.png" alt="Alternate Text" style="display: block; width: 100%; margin-top: 5px; max-width: 450px;"/>
 
-                    <p>
-                        Så hvis din samlede score er 9 og din seneste runde er 29, <br />
-						så er din nye samlede score 9,8.
-                    </p>
-                    <p>
-                        Så hvis din samlede score er 26 og din seneste runde er 13, <br />
-						så er din nye samlede score 25.
-                    </p>
-                    <p>
-                        Så hvis din samlede score er 38 og din seneste runde er 25, <br />
-						s å er din nye samlede score 37.
-                    </p>
-                    <p>
-                        Så hvis din samlede score er 51 og din seneste runde er 47, <br />
-						så er din nye samlede score 50,5.
-                    </p>
-                    <p>
-                        Så hvis din samlede score er 51 og din seneste runde er 47, <br />
-						så er din nye samlede score 50,5.
-                    </p>
+                    <div ng-bind-html="'GOLF_HANDICAP_PARAGRAPH_2' | translate"></div>
+                    
                 </div>
             </div>
         </div>

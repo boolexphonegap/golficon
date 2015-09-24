@@ -6,12 +6,12 @@
 
             <div id="main-content" class="final-score big-padding">
                 <div class="final-score-content">
-                    <h4>Din samlede score er</h4>
+                    <h4>{{ 'FINAL_SCORE_TITLE' | translate }}</h4>
 
                     <h2>{{ finalScore }}</h2>
 
-                    <p ng-if="status == 'registered'">Er du tilfreds med denne score ?</p>
-                    <p ng-if="status == 'non-registered'">For at gemme denne score skal du registrere dig</p>
+                    <p ng-if="status == 'registered'">{{ 'FINAL_SCORE_SUBTITLE_REGISTERED' | translate }}</p>
+                    <p ng-if="status == 'non-registered'">{{ 'FINAL_SCORE_SUBTITLE_UNREGISTERED' | translate }}</p>
                 </div>
 				<!--
                 <a class="button button-block level-button birdie" ng-if="status == 'registered'">
@@ -22,10 +22,10 @@
                     Register
                 </a>
                 <a class="button button-block level-button eagle" ui-sref="app.start-game">
-                    Spil ny runde
+                    {{ 'FINAL_SCORE_NEW_GAME' | translate }}
                 </a>
                 <a class="button button-block level-button albatross" ng-click="inviteFriends()">
-                    Udfordre dine venner til denne runde
+                    {{ 'FINAL_SCORE_INVITE' | translate }}
                 </a>
             </div>
         </div>

@@ -9,17 +9,17 @@
                 <h3 class="title">Rangliste</h3>
 
 				<select class="rank-list-type" ng-model="rankInput.ranking" ng-change="changeList()">
-					<option value="friends">Venner</option>
-					<option value="all">Alle</option>
+					<option value="friends">{{ 'FRIENDS' | translate }}</option>
+					<option value="all">{{ 'RANK_LIST_ALL' | translate }}</option>
 				</select>
 				
                 <table class="rank-list">
                     <thead>
                         <tr>
-                            <td style="width:15%;" colspan="2">Denne mdr.</td>
-                            <td style="width:15%;">Sidste mdr.</td>
-                            <td style="width:40%;">Navn</td>
-                            <td style="width:15%;">Runder</td>
+                            <td style="width:15%;" colspan="2">{{ 'RANK_LIST_THIS_MONTH' | translate }}</td>
+                            <td style="width:15%;">{{ 'RANK_LIST_LAST_MONTH' | translate }}</td>
+                            <td style="width:40%;">{{ 'NAME' | translate }}</td>
+                            <td style="width:15%;">{{ 'ROUNDS' | translate }}</td>
                             <td style="width:15%;">Handicap</td>
                         </tr>
                     </thead>

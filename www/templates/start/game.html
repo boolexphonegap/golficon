@@ -10,7 +10,7 @@
 
                 <div ng-if="choosen == ''" class="choose-difficulty">
 				
-					<h4>Vælg sværhedsgrad</h4>
+					<h4>{{ 'GAME_CHOOSE_DIFFICULTY' | translate }}</h4>
 					
                     <a class="button button-block level-button birdie" ng-click="chooseLevel('birdie')">
                         <img ng-src="images/level/birdie-large.png" alt="Alternate Text" />
@@ -47,26 +47,26 @@
 
                     <br />
 
-                    <h4 ng-if="answer == 'correct'">Korrekt svar!</h4>
-                    <h4 ng-if="answer == 'wrong'">Forkert svar!</h4>
+                    <h4 ng-if="answer == 'correct'">{{ 'GAME_CORRECT' | translate }}</h4>
+                    <h4 ng-if="answer == 'wrong'">{{ 'GAME_WRONG' | translate }}</h4>
 					
-                    <p>Det korrekte svar er:<br /> <strong>{{ questions[questionIndex].true_answer }}</strong></p>
+                    <p>{{ 'GAME_DECLARE_CORRECT' | translate }}:<br /> <strong>{{ questions[questionIndex].true_answer }}</strong></p>
 
-					<p>Se {{ questions[questionIndex].rule }}</p>
+					<p>{{ 'GAME_SEE' | translate }} {{ questions[questionIndex].rule }}</p>
 
 					<div class="continue-button-container">
-						<a class="button button-stable" ng-click="viewScoreChart()">Fortsæt >>></a>
+						<a class="button button-stable" ng-click="viewScoreChart()">{{ 'CONTINUE' | translate }} >>></a>
 					</div>
                 </div>
             </div>
 		
 			<div id="main-content" class="score padding" ng-if="toggleScoreCard">
 			
-				<h3 class="title">Scorekort</h3>
+				<h3 class="title">{{ 'GAME_SCORECARD' | translate }}</h3>
 				<table class="scorecard">
 					<thead>
 						<tr>
-							<td class="scorecard-side">Spørgsmål</td>
+							<td class="scorecard-side">{{ 'GAME_QUESTIONS' | translate }}</td>
 							<td>Level</td>
 							<td class="scorecard-side">Score</td>
 						</tr>
@@ -101,7 +101,7 @@
     </ion-content>
 	
 	<div class="bar bar-footer" style="background-color: transparent; height: 50px;" ng-if="toggleScoreCard">
-		<a class="button next-question-button" ng-click="nextQuestion()" style="margin: 5px auto;">Fortsæt >>></a>
+		<a class="button next-question-button" ng-click="nextQuestion()" style="margin: 5px auto;">{{ 'CONTINUE' | translate }} >>></a>
 	</div>
 	
 </ion-view>

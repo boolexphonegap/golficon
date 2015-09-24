@@ -29,8 +29,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', 'APIResource', 'GameResource', 'translateFilter', 
-		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, APIResource, GameResource, translateFilter) {
+    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
+		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, APIResource, GameResource, LanguageResource, translateFilter) {
         
 		$scope.parentGameID = $stateParams.game_id;
 		$scope.hints = 2;
@@ -47,11 +47,14 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
 		var AVAILABLE_CHOICES = 4;
 		
+		var language = LanguageResource.getCurrentLanguage();
+		
 		$ionicLoading.show({
 			template: translateFilter('LOADING_QUESTIONS')
 		});
 		APIResource.getQuestions({
-			game_id: $scope.parentGameID
+			game_id: $scope.parentGameID,
+			language: language.name
 		}).$promise
 		.then(
 			function(result){
@@ -161,6 +164,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				{
 					$ionicPopup.alert({
 						title: 'Error!',
+						okText: translateFilter('CONTINUE'),
 						template: translateFilter('ERROR_NO_HINTS')
 					});
 				}
@@ -684,7 +688,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			
 		if($stateParams.type == "contactUs"){
 			
-			$scope.typeDisplayName = "Kontakt os";
+			$scope.typeDisplayName = translateFilter('MENU_GOLF_CONTACT_US');
 			$scope.contactForm.subject = "Kontakt os : " + $scope.contactForm.name;
 		}
 		else if($stateParams.type == "feedback"){
@@ -694,7 +698,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 		else if($stateParams.type == "beAdvertiser"){
 			
-			$scope.typeDisplayName = "Bliv annoncør";
+			$scope.typeDisplayName = translateFilter('MENU_GOLF_BE_ADVERTISER');
 			$scope.contactForm.subject = "Bliv annoncør : " + $scope.contactForm.name;
 		}
 		

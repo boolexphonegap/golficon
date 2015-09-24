@@ -12,7 +12,7 @@
 					<div class="list list-inset">
 					
 						<label class="item item-input" ng-class="frmContactUs.name.$invalid && frmContactUs.name.$dirty ? 'item-assertive' : ''">
-							<input type="text" placeholder="Name" name="name" ng-model="contactForm.name" required>
+							<input type="text" placeholder="{{ 'CONTACT_FORM_NAME' | translate }}" name="name" ng-model="contactForm.name" required>
 						</label>
 						
 						<label class="item item-input" ng-class="frmContactUs.email.$invalid && frmContactUs.email.$dirty ? 'item-assertive' : ''">
@@ -20,13 +20,13 @@
 						</label>
 						
 						<label class="item item-input" ng-class="frmContactUs.message.$invalid && frmContactUs.message.$dirty ? 'item-assertive' : ''">
-							<textarea placeholder="Message" name="message" ng-model="contactForm.message" style="height: 120px;" required></textarea>
+							<textarea placeholder="{{ 'CONTACT_FORM_MESSAGE' | translate }}" name="message" ng-model="contactForm.message" style="height: 120px;" required></textarea>
 						</label>
 						
 					</div>
 					
 					<button type="submit" class="button button-block button-positive level-button" ng-click="sendMessage(frmContactUs)">
-						Send
+						{{ 'SEND' | translate }}
 					</button>
 					
 				</form>

@@ -10,29 +10,29 @@
 				<div class="log-in-container big-padding">
 					
 					<a class="button button-block level-button facebook-login" ng-click="facebookLogin()">
-						Log in med Facebook
+						{{ 'LOGIN_WITH_FACEBOOK' | translate }}
 					</a>
 					
-					<p>Log in med email</p>
+					<p>{{ 'LOGIN_WITH_EMAIL' | translate }}</p>
 					
 					<form name="frmEmailLogin">
 					
 						<div class="list list-inset">
 							<label class="item item-input" ng-class="frmEmailLogin.email.$invalid && frmEmailLogin.email.$dirty ? 'item-assertive' : ''">
 								<i class="icon ion-ios-email-outline placeholder-icon"></i>
-								<input type="email" placeholder="Email eller brugernavn" name="email" ng-model="registrationForm.email" required>
+								<input type="email" placeholder="Email" name="email" ng-model="registrationForm.email" required>
 							</label>
 						</div>
 						
 						<div class="list list-inset">
 							<label class="item item-input" ng-class="frmEmailLogin.password.$invalid && frmEmailLogin.password.$dirty ? 'item-assertive' : ''">
 								<i class="icon ion-locked placeholder-icon"></i>	
-								<input type="password" placeholder="Kordeord" name="password" ng-model="registrationForm.password" required>
+								<input type="password" placeholder="{{ 'LOGIN_FORM_PASSWORD' | translate }}" name="password" ng-model="registrationForm.password" required>
 							</label>
 						</div>
 						
 						<button type="submit" class="button button-block level-button email-login" ng-click="registerUser(frmEmailLogin)">
-							Log in med Email
+							{{ 'LOGIN_WITH_EMAIL' | translate }}
 						</button>
 						
 					</form>
