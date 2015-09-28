@@ -6,6 +6,7 @@
 
             <div id="main-content" ng-if="!toggleScoreCard">
 			
+				<h3 class="title" style="margin-top: 3px;">{{ 'GAME_QUESTIONS' | translate }}</h3>
                 <p class="content question">{{ questions[questionIndex].question }}</p>
 
                 <div ng-if="choosen == ''" class="choose-difficulty">
