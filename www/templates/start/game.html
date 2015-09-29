@@ -3,7 +3,7 @@
         <div class="padding game">
 		
 			<div ng-include="'templates/includes/top-ad.html'"></div>
-
+			
             <div id="main-content" ng-if="!toggleScoreCard">
 			
 				<h3 class="title" style="margin-top: 3px;">{{ 'GAME_QUESTIONS' | translate }}</h3>
@@ -36,9 +36,9 @@
 					
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 28px;" />
 					
-                    <a class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="border: 0; background-color: #EFECC6; box-shadow: 0px 1px 0px black;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong') : false;">
+                    <a class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="border: 0; background-color: #EFECC6; box-shadow: 0px 1px 0px black;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong') : goToAds('http://golficon.boolex.com/ads/www/delivery/ck.php?n=af137643&amp;cb=' + $index);">
 						<span ng-if="choice != false">{{ choice }}</span>
-                        <img ng-if="choice == false" ng-src="images/sponsor/ad-{{ $index }}.png" alt="Alternate Text" class="ad-{{ $index }}" />
+						<img ng-if="choice == false" src='http://golficon.boolex.com/ads/www/delivery/avw.php?zoneid=2&amp;cb={{ $index }}&amp;n=af137643' border='0' alt='' />
                     </a>
 					
                 </div>

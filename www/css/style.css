@@ -256,7 +256,12 @@ a.level-button span{
 	line-height: 35px;
 }
 
+.answer-ads-button{
+	height: 37px;
+}
+
 .answer-button{
+	min-height: 37px;
 	font-size: 14px;
 }
 

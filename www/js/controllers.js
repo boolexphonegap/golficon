@@ -29,8 +29,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
-		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, APIResource, GameResource, LanguageResource, translateFilter) {
+    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', '$cordovaInAppBrowser', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
+		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, $cordovaInAppBrowser, APIResource, GameResource, LanguageResource, translateFilter) {
         
 		$scope.parentGameID = $stateParams.game_id;
 		$scope.hints = 2;
@@ -254,6 +254,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				$state.go('app.final-score');
 			}
         };
+		
+		$scope.goToAds = function(url){
+			$cordovaInAppBrowser.open(url, '_system');
+		};
     }])
 
     .controller('FinalScoreCtrl', ['$scope', '$state', '$ionicPopup', 'GameResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'StorageResource', 'HandicapResource', 'translateFilter',
@@ -348,6 +352,14 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.viewInBrowser = function(url){
 			$cordovaInAppBrowser.open(url, '_system');
 		}
+	}])
+	
+	.controller('AdsCtrl', ['$scope', '$cordovaInAppBrowser',
+		function($scope, $cordovaInAppBrowser){
+			
+		$scope.goToAds = function(url){
+			$cordovaInAppBrowser.open(url, '_system');
+		};
 	}])
 	
 	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'FriendsResource', 'translateFilter',
