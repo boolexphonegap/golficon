@@ -6,9 +6,9 @@
 
             <div id="main-content" class="final-score big-padding">
                 <div class="final-score-content">
-                    <h4>{{ 'FINAL_SCORE_TITLE' | translate | number }}</h4>
+                    <h4>{{ 'FINAL_SCORE_TITLE' | translate }}</h4>
 
-                    <h2>{{ finalScore }}</h2>
+                    <h2>{{ finalScore | number }}</h2>
 
                     <p ng-if="status == 'registered'">{{ 'FINAL_SCORE_SUBTITLE_REGISTERED' | translate }}</p>
                     <p ng-if="status == 'non-registered'">{{ 'FINAL_SCORE_SUBTITLE_UNREGISTERED' | translate }}</p>
