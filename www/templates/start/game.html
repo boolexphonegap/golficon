@@ -40,7 +40,7 @@
 						<span ng-if="choice != false">{{ choice }}</span>
                     </div>
 					
-					<div ng-if="choice == false" class="answer-ads-button"  ng-repeat="choice in choices track by $index" ng-click="showAd($event)" ng-bind-html="questionBanners()[$index]"></div>
+					<div ng-if="choice == false" class="answer-ads-button"  ng-repeat="choice in choices track by $index"   ng-bind-html="questionBanners()[$index]"></div>
 					
                 </div>
 				
