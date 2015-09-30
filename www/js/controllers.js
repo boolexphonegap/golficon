@@ -354,11 +354,27 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('AdsCtrl', ['$scope', '$cordovaInAppBrowser',
-		function($scope, $cordovaInAppBrowser){
+	.controller('AdsCtrl', ['$scope', 'AdsResource',
+		function($scope, AdsResource){
+		
+		$scope.topBanner = function(){
 			
-		$scope.goToAds = function(url){
-			$cordovaInAppBrowser.open(url, '_system');
+			return AdsResource.getTopBanner();
+		};
+		$scope.questionBanners = function(){
+			return AdsResource.getQuestionBanners();
+		};
+
+		$scope.showAd = function(){
+			
+			AdsResource.showAd();
+		};
+		
+		$scope.closeAd = function(){
+			
+			console.log('closing');
+			AdsResource.closeAd();
+			console.log('closed...');
 		};
 	}])
 	

@@ -254,10 +254,27 @@ a.level-button span{
 .answer-button, .answer-ads-button{
 	min-height: 37px;
 	line-height: 35px;
+	border: 0; 
+	background-color: #EFECC6; 
+	box-shadow: 0px 1px 0px black;
 }
 
 .answer-ads-button{
 	height: 37px;
+	margin: 10px 0;
+    display: block;
+    clear: both;
+    color: #444;
+    position: relative;
+	padding: 0;
+    min-width: 52px;
+    border-radius: 2px;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    cursor: pointer;
+	overflow: hidden;
 }
 
 .answer-button{
@@ -267,12 +284,6 @@ a.level-button span{
 
 .answer-button:active{
     background-color: #B8E986 !important;
-}
-
-.answer-ads-button{
-	padding: 0;
-	overflow: hidden;
-	position: relative;
 }
 
 .answer-ads-button img{

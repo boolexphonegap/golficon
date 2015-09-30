@@ -470,4 +470,79 @@ angular.module('app.services', ['ngResource'])
 			}
 		};
 	})
+	
+	.factory('AdsResource', ['$http', '$sce', '$rootScope', '$ionicModal', '$window', 'API_SERVER', 
+		function($http, $sce, $rootScope, $ionicModal, $window, API_SERVER) {
+		
+		var BANNER_ID_TOP = 1;
+		var BANNER_ID_QUESTION = 2;
+		
+		var topBanner = '';
+		var questionBanners = new Array();
+		
+		var getBanners = function(bannerID, attachFunction){
+			
+			$http.get(API_SERVER + 'ads/' + bannerID)
+			.then(function(result) {
+				
+				attachFunction(result.data);
+			});
+		};
+		
+		var refresh = function(){
+			
+			getBanners(BANNER_ID_TOP, function(html){
+				
+				topBanner = $sce.trustAsHtml(html);
+			});
+			
+			for(i = 0; i < 4; i++){
+				
+				getBanners(BANNER_ID_QUESTION, function(html){
+					
+					questionBanners.push($sce.trustAsHtml(html));
+				});
+			}
+		};
+		refresh();
+		
+		var $scope = $rootScope.$new();
+		var adsModal = null;
+		$ionicModal.fromTemplateUrl('view-ad.html', {
+			scope: $scope
+		})
+		.then(function(modal) {
+			
+			adsModal = modal;
+		});
+
+		var showAd = function(){
+			
+			adsModal.show();
+			angular.element(document.getElementsByName('view-ad-frame')).css({
+				'width' :$window.innerWidth,
+				'height' :$window.innerHeight,
+			});
+		};
+		
+		var closeAd = function(){
+			
+			adsModal.hide();
+		};
+		$scope.closeAd = closeAd;
+		
+		return {
+			getTopBanner: function(){
+				
+				return topBanner;
+			},
+			getQuestionBanners: function(){
+				
+				return questionBanners;
+			},
+			refresh: refresh,
+			showAd: showAd,
+			closeAd: closeAd
+		};
+	}])
 ;

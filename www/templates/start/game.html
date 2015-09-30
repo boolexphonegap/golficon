@@ -30,16 +30,17 @@
 					
                 </div>
 
-                <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''" style="padding: 5px;">
+                <div class="{{ choosen }} padding answer-content" ng-if="choosen != '' && answer == ''" style="padding: 5px;" ng-controller="AdsCtrl">
 				
 					<span class="hint" ng-click="useHint()">H<sup class="hint-count">{{ hints }}</sup></span>
 					
                     <img ng-src="images/level/{{ choosen }}-large.png" alt="Alternate Text" style="height: 28px;" />
 					
-                    <a class="button button-block {{ choice != false ? 'answer-button' : 'answer-ads-button' }}" style="border: 0; background-color: #EFECC6; box-shadow: 0px 1px 0px black;" ng-repeat="choice in choices track by $index" ng-click="choice != false ? chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong') : goToAds('http://golficon.boolex.com/ads/www/delivery/ck.php?n=af137643&amp;cb=' + $index);">
+                    <div ng-if="choice != false" class="button button-block answer-button" ng-repeat="choice in choices track by $index" ng-click="chooseAnswer($index == correctAnswerIndex ? 'correct' : 'wrong')">
 						<span ng-if="choice != false">{{ choice }}</span>
-						<img ng-if="choice == false" src='http://golficon.boolex.com/ads/www/delivery/avw.php?zoneid=2&amp;cb={{ $index }}&amp;n=af137643' border='0' alt='' />
-                    </a>
+                    </div>
+					
+					<div ng-if="choice == false" class="answer-ads-button"  ng-repeat="choice in choices track by $index" ng-click="showAd($event)" ng-bind-html="questionBanners()[$index]"></div>
 					
                 </div>
 				

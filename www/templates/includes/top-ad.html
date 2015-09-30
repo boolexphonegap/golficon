@@ -1,9 +1,7 @@
 <div class="row">
 	<div class="col" id="top-sponsor" ng-controller="AdsCtrl">
-	
-		<a ng-click="goToAds('http://golficon.boolex.com/ads/www/delivery/ck.php?n=ad6c84be&amp;cb=INSERT_RANDOM_NUMBER_HERE' )">
-			<img src='http://golficon.boolex.com/ads/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ad6c84be' border='0' alt='' />
-		</a>
+
+		<div ng-bind-html="topBanner()" id="topBanner" ng-click="showAd()"></div>
 		
 	</div>
 </div>
