@@ -277,7 +277,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
         $scope.status = profile != null ? 'registered' : 'non-registered';
 		
 		$scope.game = null;
-		if(profile != null)
+		console.log(profile);
+		if(profile)
 		{
 			APIResource.saveGame({
 				id: profile.id,
