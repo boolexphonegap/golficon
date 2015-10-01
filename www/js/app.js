@@ -116,8 +116,8 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'HandicapResource', 
-		function(StorageResource, LanguageResource, ProfileResource, APIResource, HandicapResource){
+	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource', 
+		function(StorageResource, LanguageResource, ProfileResource, APIResource){
 		
 		ionic.Platform.ready(function(){
 			

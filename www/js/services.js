@@ -506,6 +506,7 @@ angular.module('app.services', ['ngResource'])
 		};
 		refresh();
 		
+		/*
 		var $scope = $rootScope.$new();
 		var adsModal = null;
 		$ionicModal.fromTemplateUrl('view-ad.html', {
@@ -530,6 +531,7 @@ angular.module('app.services', ['ngResource'])
 			adsModal.hide();
 		};
 		$scope.closeAd = closeAd;
+		*/
 		
 		return {
 			getTopBanner: function(){
@@ -540,9 +542,9 @@ angular.module('app.services', ['ngResource'])
 				
 				return questionBanners;
 			},
-			refresh: refresh,
-			showAd: showAd,
-			closeAd: closeAd
+			refresh: refresh
+			//showAd: showAd,
+			//closeAd: closeAd
 		};
 	}])
 ;
