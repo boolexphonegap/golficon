@@ -241,6 +241,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_3);
 				
 				$scope.toggleScoreCard = false;
+                
+				$ionicScrollDelegate.$getByHandle('game').scrollTop(false);
 			}
 			else
 			{
