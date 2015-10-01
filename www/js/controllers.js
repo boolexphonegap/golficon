@@ -269,7 +269,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		var totalScore = GameResource.getCurrentTotalScore();
 		
         $scope.myActiveSlide = 1;
-		$scope.finalScore = parseFloat(profile.score) + HandicapResource.getScoreIncrement(totalScore, profile.score)
+		$scope.finalScore = parseFloat(54) + HandicapResource.getScoreIncrement(totalScore, 54);
 		$scope.questionIDList = GameResource.getCurrentQuestionIDList();
 		$scope.parentGameID = GameResource.getCurrentParentGameID();
 		
@@ -277,9 +277,9 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
         $scope.status = profile != null ? 'registered' : 'non-registered';
 		
 		$scope.game = null;
-		console.log(profile);
 		if(profile)
 		{
+			$scope.finalScore = parseFloat(profile.score) + HandicapResource.getScoreIncrement(totalScore, profile.score);
 			APIResource.saveGame({
 				id: profile.id,
 				total_score: totalScore,
@@ -291,7 +291,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				ProfileResource.data.profile.score = result.score;
 				ProfileResource.data.profile.rounds = result.rounds;
 				StorageResource.setObject('profile', ProfileResource.data.profile);
-				
 				
 				$scope.game = result.game;
 				GameResource.setCurrentGame(result.game);
