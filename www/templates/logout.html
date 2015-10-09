@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-content overflow-scroll="true" id="start-page" class="background4">
+        <div class="padding">
+		
+			<div ng-include="'templates/includes/top-ad.html'"></div>
+
+            <div id="main-content" class="padding ">
+                <h3 class="title">Log out</h3>
+
+				<div class="big-padding">
+					
+					<p>{{ 'LOGOUT_CONFIRM' | translate }}</p>
+					
+					<button class="button button-block level-button button-assertive" ng-click="logout()">
+						{{ 'LOGOUT_YES' | translate }}
+					</button>
+
+					<button class="button button-block level-button button-balanced" ng-click="cancelLogout()">
+						{{ 'LOGOUT_NO' | translate }}
+					</button>
+
+				</div>
+				
+            </div>
+        </div>
+		
+    </ion-content>
+	
+</ion-view>

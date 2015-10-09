@@ -105,6 +105,12 @@
 				controller: 'MyChallengesCtrl'
             })
 			
+            .state('app.logout', {
+                url: '/logout',
+                templateUrl: 'templates/logout.html',
+				controller: 'LogoutCtrl'
+            })
+			
             .state('app.dev-settings', {
                 url: '/dev-settings',
                 templateUrl: 'templates/dev-settings.html',
@@ -128,6 +134,19 @@
 			} else {
 				
 				LanguageResource.setCurrentLanguage(savedLanguage);
+			}
+			
+			if(typeof LANGUAGE !== 'undefined'){
+				
+				var languages = LanguageResource.getSupportedLanguages();
+				
+				if(languages.length > LANGUAGE){
+					
+					var newLanguage = languages[LANGUAGE];
+					
+					LanguageResource.setCurrentLanguage(newLanguage);
+					StorageResource.setObject('language', newLanguage)
+				}
 			}
 			
 			var profile = StorageResource.getObject('profile', false);

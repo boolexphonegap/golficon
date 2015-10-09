@@ -29,6 +29,22 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
+	.controller('LogoutCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 
+		function($scope, $state, StorageResource, ProfileResource){
+			
+		$scope.cancelLogout = function(){
+			
+			$state.go('app.start-screen');
+		};
+		
+		$scope.logout = function(){
+			
+			ProfileResource.data.profile = null;
+			StorageResource.setObject('profile', null);
+			$state.go('app.login');
+		};
+	}])
+	
     .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', '$cordovaInAppBrowser', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
 		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, $cordovaInAppBrowser, APIResource, GameResource, LanguageResource, translateFilter) {
         
@@ -440,8 +456,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			FriendsResource.refresh();
 				
 			var successPopup = $ionicPopup.alert({
-				title: 'Success!',
-				template: translateFilter('WELCOME') + " " + translateFilter('APP_NAME')
+				template: translateFilter('LOGIN_SUCCESS')
 			});
 			
 			successPopup.then(function(){
@@ -635,7 +650,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					
 					$ionicLoading.hide();
 					$ionicPopup.alert({
-						title: 'Success!',
+						title: translateFilter('FRIEND_GOOD_LUCK'),
 						template: translateFilter('FRIEND_INVITED')
 					});
 				}, function(){
@@ -673,7 +688,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 						
 						$ionicLoading.hide();
 						$ionicPopup.alert({
-							title: 'Success!',
 							template: translateFilter('FRIEND_INVITED')
 						});
 					}, function(error){
@@ -744,7 +758,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 					
 					$ionicLoading.hide();
 					$ionicPopup.alert({
-						title: 'Success!',
 						template: translateFilter('MESSAGE_SENT')
 					});
 				}, function(error){
