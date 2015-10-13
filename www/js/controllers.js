@@ -13,20 +13,18 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('DefaultCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', 'ProfileResource', 'StorageResource',
-		function($scope, $state, $ionicSideMenuDelegate, ProfileResource, StorageResource){
+	.controller('DefaultCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', 'ProfileResource', 'ChallengesResource',
+		function($scope, $state, $ionicSideMenuDelegate, ProfileResource, ChallengesResource){
+		
+		$scope.hasChallenges = function(){
+			
+			console.log('checking challenges');
+			return ChallengesResource.getChallenges().length > 0;
+		};
 		
 		$scope.profile = function(){
 			return ProfileResource.data.profile;
 		};
-		
-		$scope.logout = function(){
-			
-			ProfileResource.data.profile = null;
-			StorageResource.setObject('profile', null);
-			$state.go('app.login');
-			$ionicSideMenuDelegate.toggleLeft();
-		}
 	}])
 	
 	.controller('LogoutCtrl', ['$scope', '$state', 'StorageResource', 'ProfileResource', 
@@ -396,8 +394,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		};
 	}])
 	
-	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'FriendsResource', 'translateFilter',
-		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, FriendsResource, translateFilter){
+	.controller('LoginCtrl', ['$scope', '$http', '$state', '$cordovaOauth', '$ionicLoading', '$ionicPopup', 'StorageResource', 'ProfileResource', 'APIResource', 'FriendsResource', 'ChallengesResource', 'translateFilter',
+		function($scope, $http, $state, $cordovaOauth, $ionicLoading, $ionicPopup, StorageResource, ProfileResource, APIResource, FriendsResource, ChallengesResource, translateFilter){
 		
 		$scope.registrationForm = {
 			email: '',
@@ -454,6 +452,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			StorageResource.setObject('profile', profile);
 			ProfileResource.data.profile = profile;
 			FriendsResource.refresh();
+			ChallengesResource.refresh();
 				
 			var successPopup = $ionicPopup.alert({
 				template: translateFilter('LOGIN_SUCCESS')
@@ -772,23 +771,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		}
 	}])
 	
-	.controller('MyChallengesCtrl', ['$scope', '$state', '$ionicPopup', '$ionicLoading', 'ProfileResource', 'APIResource', 'translateFilter',
-		function($scope, $state, $ionicPopup, $ionicLoading, ProfileResource, APIResource, translateFilter){
+	.controller('MyChallengesCtrl', ['$scope', '$state', '$ionicPopup', '$ionicLoading', 'ChallengesResource', 'translateFilter',
+		function($scope, $state, $ionicPopup, $ionicLoading, ChallengesResource, translateFilter){
 		
-		$scope.challenges = new Array();
-		
-		$ionicLoading.show({ template: translateFilter('LOADING_CHALLENGES') });
-		APIResource.getChallenges({
-			id: ProfileResource.data.profile.id
-		}).$promise
-		.then(function(result){
-			
-			$scope.challenges = result;
-			$ionicLoading.hide();
-		}, function(error){
-			
-			$ionicLoading.hide();
-		});
+		$scope.challenges = ChallengesResource.getChallenges();
 		
 		$scope.toggleCheckbox = function(index){
 			

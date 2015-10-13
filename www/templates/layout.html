@@ -8,7 +8,7 @@
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
                 <button class="button button-clear" style="margin-right: 20px;" ui-sref="app.my-challenges" ng-if="profile() != null">
-                    <img ng-src="images/golf-icon.png" alt="Alternate Text" />
+                    <img ng-src="{{ hasChallenges() ? 'images/golf-icon.png' : 'images/golf-icon-empty.png' }}" alt="Alternate Text" />
                 </button>
                 <button class="button button-clear" ui-sref="app.start-screen">
                     <img ng-src="images/home.png" alt="Alternate Text" />

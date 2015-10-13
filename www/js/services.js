@@ -1,6 +1,6 @@
 angular.module('app.services', ['ngResource'])
 
-	.constant('API_SERVER', 'http://golficon.boolex.com/public/ajax/')
+	.constant('API_SERVER', 'http://www.golfquis.com/golfadmin/public/ajax/')
 	//.constant('API_SERVER', 'http://localhost/golfApp/public/ajax/')
 	
 	.factory('APIResource', ['$resource', 'API_SERVER', 
@@ -81,6 +81,40 @@ angular.module('app.services', ['ngResource'])
 			getFriends: function(){
 				
 				return friends;
+			},
+			refresh: refresh
+		};
+	}])
+	
+	.factory('ChallengesResource', ['APIResource', 'ProfileResource', 
+		function(APIResource, ProfileResource){
+			
+		var challenges = new Array();
+		
+		var refresh = function(){
+			
+			APIResource.getChallenges({
+				id: ProfileResource.data.profile.id
+			}).$promise
+			.then(function(result){
+				
+				challenges.length = 0;
+				angular.forEach(result, function(item) {
+					
+					challenges.push(item);
+				});
+			});
+		}
+		
+		if(ProfileResource.data.profile)
+		{
+			refresh();
+		}
+		
+		return {
+			getChallenges: function(){
+				
+				return challenges;
 			},
 			refresh: refresh
 		};
