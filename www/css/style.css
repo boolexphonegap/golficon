@@ -331,9 +331,10 @@ a.level-button span{
 }
 
 .final-score-content{
-    padding: 5px;
+    padding: 8px;
 	border-radius: 3px;
     background-color: #F9F7F7;
+	margin-top: 48px;
 	margin-bottom: 30px;
 }
 
@@ -349,10 +350,11 @@ a.level-button span{
 }
 
 .final-score-content p{
+    margin: 0px !important;
     text-align: center;
     font-family: "Open Sans Light";
-	font-size: 14px;
-    width: 80% !important;
+    font-size: 12px;
+    width: 100% !important;
 }
 
 table.invite{

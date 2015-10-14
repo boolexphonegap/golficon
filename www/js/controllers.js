@@ -18,7 +18,6 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
 		$scope.hasChallenges = function(){
 			
-			console.log('checking challenges');
 			return ChallengesResource.getChallenges().length > 0;
 		};
 		
@@ -283,7 +282,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		var totalScore = GameResource.getCurrentTotalScore();
 		
         $scope.myActiveSlide = 1;
-		$scope.finalScore = parseFloat(54) + HandicapResource.getScoreIncrement(totalScore, 54);
+		$scope.totalScore = totalScore;
+		$scope.finalScore = parseFloat(54) + HandicapResource.getScoreIncrement($scope.totalScore, 54);
 		$scope.questionIDList = GameResource.getCurrentQuestionIDList();
 		$scope.parentGameID = GameResource.getCurrentParentGameID();
 		
@@ -293,10 +293,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		$scope.game = null;
 		if(profile)
 		{
-			$scope.finalScore = parseFloat(profile.score) + HandicapResource.getScoreIncrement(totalScore, profile.score);
+			$scope.finalScore = parseFloat(profile.score) + HandicapResource.getScoreIncrement($scope.totalScore, profile.score);
 			APIResource.saveGame({
 				id: profile.id,
-				total_score: totalScore,
+				total_score: $scope.totalScore,
 				question_id_list: $scope.questionIDList,
 				parent_game_id: $scope.parentGameID
 			}).$promise
@@ -388,9 +388,7 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
 		$scope.closeAd = function(){
 			
-			console.log('closing');
 			AdsResource.closeAd();
-			console.log('closed...');
 		};
 	}])
 	
