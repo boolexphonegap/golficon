@@ -122,10 +122,14 @@
         $urlRouterProvider.otherwise('app/start-screen');
     })
 	
-	.run(['StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource', 
-		function(StorageResource, LanguageResource, ProfileResource, APIResource){
+	.run(['$interval', 'StorageResource', 'LanguageResource', 'ProfileResource', 'APIResource', 'AdsResource', 
+		function($interval, StorageResource, LanguageResource, ProfileResource, APIResource, AdsResource){
 		
 		ionic.Platform.ready(function(){
+			
+			$interval(function(){
+				AdsResource.refresh();
+			}, 60000);
 			
 			var savedLanguage = StorageResource.getObject('language', false);
 			if(savedLanguage == false || savedLanguage == null){
