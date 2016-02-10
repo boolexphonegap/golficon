@@ -2,6 +2,7 @@ angular.module('app.services', ['ngResource'])
 
 	.constant('API_SERVER', 'http://www.golfquis.com/golfadmin/public/ajax/')
 	//.constant('API_SERVER', 'http://golficon.boolex.com/public/ajax/')
+	//.constant('API_SERVER', 'http://golfquis.dev/ajax/')
 	
 	.factory('APIResource', ['$resource', 'API_SERVER', 
 		function($resource, API_SERVER) {

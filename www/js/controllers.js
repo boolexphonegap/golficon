@@ -42,8 +42,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		};
 	}])
 	
-    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', '$cordovaInAppBrowser', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
-		function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, $cordovaInAppBrowser, APIResource, GameResource, LanguageResource, translateFilter) {
+    .controller('GameCtrl', ['$scope', '$sce', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPosition', '$ionicScrollDelegate', '$cordovaInAppBrowser', 'APIResource', 'GameResource', 'LanguageResource', 'translateFilter', 
+		function ($scope, $sce, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicPosition, $ionicScrollDelegate, $cordovaInAppBrowser, APIResource, GameResource, LanguageResource, translateFilter) {
         
 		$scope.parentGameID = $stateParams.game_id;
 		$scope.hints = 2;
@@ -76,8 +76,8 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 				
 				$scope.choices.push($scope.questions[$scope.questionIndex].true_answer);
 				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_1);
-				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_2);
-				$scope.choices.push($scope.questions[$scope.questionIndex].false_answer_3);
+				$scope.choices.push('');
+				$scope.choices.push('');
 				
 				$ionicLoading.hide();
 			}, 
@@ -112,6 +112,21 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 			} else if(level == 'eagle'){
 				$scope.choices[3] = false;
 				$scope.adsPresent = 1;
+				if($scope.choices[2].length = 0){
+					$scope.choices[2] = false;
+					$scope.adsPresent = 2;
+				}
+			} else if(level == 'albatross'){
+				
+				$scope.adsPresent = 0;
+				if($scope.choices[2].length == 0){
+					$scope.choices[2] = false;
+					$scope.adsPresent = $scope.adsPresent + 1;
+				}
+				if($scope.choices[3].length == 0){
+					$scope.choices[3] = false;
+					$scope.adsPresent = $scope.adsPresent + 1;
+				}
 			}
 			
 			var randomOrder = new Array();
@@ -272,6 +287,10 @@ angular.module('app.controllers', ['ngCordova', 'app.filters'])
 		
 		$scope.goToAds = function(url){
 			$cordovaInAppBrowser.open(url, '_system');
+		};
+		
+		$scope.trustSrc  = function(src){
+			return $sce.trustAsResourceUrl(src);
 		};
     }])
 
